@@ -1,0 +1,15 @@
+[project]
+name = "hydrogel-transport-oscillation"
+version = "0.1.0"
+description = "Early-stage research repository for LCST hydrogel transport-induced relaxation oscillation."
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pyyaml",
+    "pytest"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

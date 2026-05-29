@@ -1,0 +1,20 @@
+project:
+  stage: exploratory
+  model_status: not_validated
+
+numerics:
+  dimensionality: null
+  grid: null
+  timestep: null
+
+model:
+  variables:
+    reactant_concentration: TODO
+    temperature: TODO
+    collapse_variable: TODO
+  couplings:
+    reaction_rate: TODO
+    heat_release: TODO
+    lcst_collapse: TODO
+    transport_degradation: TODO
+    reaction_accessibility: TODO
