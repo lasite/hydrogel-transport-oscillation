@@ -2,15 +2,19 @@
 
 ## Current Stage
 
-Stage: G0 — Idea Brief
+Stage: G0 -- Idea Brief
 
-Substage: Idea framing and workflow-protocol stabilization
+Legacy scaffold label: Stage: Idea / Early Exploration
+
+Substage: Workflow-protocol stabilization before model-gate work
 
 Model status: candidate notes exist only; no model-review task is currently recommended
 
 Numerics status: no production PDE solver; no verified simulation
 
 Manuscript status: idea/project-brief level only; no validated results for writing
+
+Workflow protocol status: G0 hardening in progress; ChatGPT defines and reviews tasks, Codex implements only within TASK scope, and CODEX reports are required for handoff.
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -25,31 +29,29 @@ Stage details are tracked in docs/stages/stage_index.md.
 * EXP-001 report created.
 * Derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
+* Project state control document created.
+* Stage details are tracked in `docs/stages/stage_index.md`.
 * No model or claim has been promoted to `docs/validated/`.
 
 ## Active Blockers
 
-* G0 idea-brief exit criteria are not yet hardened into a machine-checkable gate.
-* TASK handoff and CODEX-REPORT templates need stricter required fields.
-* Verification environment is not yet fully reproducible from a single command.
-* Repository visibility should be intentionally confirmed before unpublished manuscript work accumulates.
+* `EXP-002-sanity-check-candidate-model` not completed.
+* G0 protocol hardening needs ChatGPT review before model-gate work resumes.
 * Literature map not populated.
 * No claim-evidence item validated.
-* No verified numerical simulation.
-* Current local quickcheck is blocked at the pytest step unless `pytest` is installed in the active Python environment.
+* Fresh checkouts need dependency setup before `make quickcheck`; use `make install` or an equivalent project environment setup.
 
 ## Next Recommended Tasks
 
-1. Harden the G0 idea-brief gate and workflow protocol before model review.
-2. Add explicit TASK and CODEX-REPORT templates with allowed files, forbidden actions, failure conditions, command exit codes, environment, and artifact records.
-3. Add an environment check or install target so `make quickcheck` is reproducible from a fresh checkout.
-4. Confirm repository visibility is intentional for unpublished research material.
-5. Keep Model A and derivation material labeled as exploratory background until G0 exits and a later model gate is explicitly opened.
+1. Complete `TASK-G0-001` and record the CODEX report.
+2. Ask ChatGPT to review the hardened G0 task/report protocol.
+3. Exit G0 only after its gate criteria are satisfied and recorded.
+4. Run `EXP-002-sanity-check-candidate-model` only after G0 exits or the user explicitly opens G2 model work.
 
 ## Non-Bypassable Gates
 
 * Do not move candidate material into `docs/validated/` before sanity checks and evidence are recorded.
-* Do not start model-review or production solver work while G0 idea-brief protocol hardening is the active stage.
+* Do not run model review while G0 protocol stabilization is active unless the user explicitly opens G2.
 * Do not write a production PDE solver before the model is sanity-checked.
 * Do not treat numerical oscillation as evidence without grid/timestep checks and control cases.
 * Do not draft strong manuscript claims before literature matrix and claim-evidence matrix are populated.
@@ -78,6 +80,8 @@ Promotion gates:
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`
 * `docs/derivations/initial_model_derivation.tex`
 * `docs/reports/exploration/CODEX-REPORT-EXP-001.md`
+* `docs/tasks/TASK-TEMPLATE.md`
+* `docs/reports/CODEX-REPORT-TEMPLATE.md`
 * `docs/validated/model_spec.md`
 * `docs/validated/claim_evidence.md`
 

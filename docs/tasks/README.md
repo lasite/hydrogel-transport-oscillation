@@ -6,4 +6,28 @@ Tasks are grouped by project stage and purpose:
 * `verification`: tasks that test candidate conclusions.
 * `production`: tasks that produce paper materials.
 
-Each task should define objective, inputs, allowed files to modify, deliverables, verification commands, acceptance criteria, and failure conditions.
+The Git repository is the source of truth for task state. ChatGPT defines and reviews tasks. Codex implements only within the assigned task scope and must leave a CODEX report for handoff back to ChatGPT.
+
+Current active stage: `G0 -- Idea Brief`. Model review is paused until G0 exits or the user explicitly opens G2 model work.
+
+Each task must define:
+
+* Task ID;
+* Stage;
+* Objective;
+* Scientific or workflow context;
+* Inputs;
+* Allowed files to read;
+* Allowed files to modify;
+* Forbidden actions;
+* Deliverables;
+* Verification commands;
+* Acceptance criteria;
+* Failure conditions;
+* Required CODEX-REPORT path;
+* Whether user approval is required before merge;
+* Whether ChatGPT review is required before merge.
+
+Missing acceptance criteria or missing failure conditions make a task invalid.
+
+Use `docs/tasks/TASK-TEMPLATE.md` for new tasks.

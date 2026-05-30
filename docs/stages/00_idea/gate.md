@@ -8,25 +8,26 @@ active
 
 Ensure the project idea is explicit, bounded, recoverable, and governed by a reliable GPT/Codex/Git handoff protocol before deeper modeling or verification work proceeds.
 
+At the current G0 protocol-hardening step, the ChatGPT -> Codex -> Git -> verification -> ChatGPT review loop must also be explicit and auditable.
+
 ## Required outputs
 
 * Central hypothesis recorded.
 * Physical mechanism chain recorded.
 * Distinction from known oscillator classes recorded as candidate framing.
 * Open uncertainty list recorded.
-* TASK handoff template hardened for ChatGPT-to-Codex transfer.
-* CODEX-REPORT template hardened for Codex-to-ChatGPT review.
-* Scaffold verification command reproducible from a fresh checkout.
-* Repository visibility intentionally confirmed before unpublished manuscript material accumulates.
+* TASK template requires scope, forbidden actions, acceptance criteria, failure conditions, report path, and review requirements.
+* CODEX report template records commits, branch, commands with exit codes, environment, artifacts, limitations, and forbidden-action compliance.
+* Fresh-checkout verification path is documented.
 
 ## Acceptance criteria
 
 * The idea is stated without claiming validation.
 * The central mechanism is distinguishable from BZ gels, external photothermal feedback, and pre-patterned catalytic switching at the hypothesis level.
 * Current uncertainty is visible in repository files.
-* TASK files explicitly specify objective, context, inputs, allowed files, forbidden actions, deliverables, verification commands, acceptance criteria, failure conditions, and report requirements.
-* CODEX-REPORT files explicitly record base commit, final commit, files changed, commands run with exit codes, environment, artifacts, checks passed, checks failed, known limitations, and recommended next task.
-* `make quickcheck` or an equivalent documented command can be run after following the repository setup instructions.
+* New tasks can be audited against `docs/tasks/TASK-TEMPLATE.md`.
+* Completed Codex work can be audited against `docs/reports/CODEX-REPORT-TEMPLATE.md`.
+* Model review remains paused unless G0 exits or the user explicitly opens G2 model work.
 
 ## Evidence
 
@@ -34,10 +35,10 @@ Ensure the project idea is explicit, bounded, recoverable, and governed by a rel
 * `docs/01_project_brief.md`
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
-* `docs/tasks/README.md`
-* `docs/reports/README.md`
-* `Makefile`
-* `pyproject.toml`
+* `docs/tasks/TASK-TEMPLATE.md`
+* `docs/reports/CODEX-REPORT-TEMPLATE.md`
+* `README.md`
+* `AGENTS.md`
 
 ## Blockers
 
@@ -45,13 +46,13 @@ Ensure the project idea is explicit, bounded, recoverable, and governed by a rel
 * Fresh-checkout verification is not yet fully documented.
 * Repository visibility needs intentional confirmation for unpublished research material.
 * Literature map is not populated.
+* ChatGPT review of the hardened G0 protocol is pending.
 
 ## Next tasks
 
-* Harden the TASK and CODEX-REPORT protocol templates.
-* Add or document an environment setup path for `make quickcheck`.
-* Confirm and document whether the repository should be private or public during pre-submission work.
-* Do not run `EXP-002-sanity-check-candidate-model` until G0 exits and the model gate is explicitly opened.
+* Keep `docs/project_state.md` current.
+* Ask ChatGPT to review the hardened G0 protocol.
+* Do not run `EXP-002-sanity-check-candidate-model` until G0 exits or the user explicitly opens G2.
 
 ## Promotion rule
 

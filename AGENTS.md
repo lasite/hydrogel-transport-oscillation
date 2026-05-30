@@ -10,6 +10,12 @@ The repository is the source of truth. Prior chat history is not the source of t
 
 The project is in the exploratory stage.
 
+Current active gate: `G0 -- Idea Brief`.
+
+The Git repository is the source of truth. ChatGPT defines and reviews tasks. Codex implements only within the assigned TASK scope and must produce a CODEX report for handoff back to ChatGPT.
+
+Model review is paused until G0 exits or the user explicitly opens G2 model work.
+
 Do not assume:
 
 * the model is finalized;
@@ -85,13 +91,23 @@ If code is added later:
 
 Every task should have:
 
+* Task ID;
+* Stage;
 * objective;
+* scientific or workflow context;
 * inputs;
+* allowed files to read;
 * allowed files to modify;
+* forbidden actions;
 * deliverables;
 * verification commands;
 * acceptance criteria;
-* failure conditions.
+* failure conditions;
+* required CODEX-REPORT path;
+* whether user approval is required before merge;
+* whether ChatGPT review is required before merge.
+
+Missing acceptance criteria or missing failure conditions make a task invalid.
 
 Every completed task should produce a report under `docs/reports/`.
 
