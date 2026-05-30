@@ -10,7 +10,7 @@ TASK-G0-001: Harden G0 Idea Brief Workflow Protocol
 
 ## Final commit
 
-Pending until this report is committed; final handoff should record the resulting commit SHA.
+The commit containing this report. The exact SHA is recorded in the final Codex handoff because a Git commit cannot contain its own content-addressed hash.
 
 ## Branch or worktree name
 
@@ -94,7 +94,7 @@ Dependency setup command used: existing uv-created `.venv` from the repository e
 ## Known limitations
 
 * `docs/stages/stage_index.md` was read but not modified because it was not in the allowed file list for this task.
-* The report cannot contain the hash of the commit that will contain this report before Git creates that commit. The final handoff should record the resulting commit SHA.
+* The report identifies the final commit as the commit containing this report; the final handoff records the exact SHA.
 
 ## Deviations from task instructions
 
