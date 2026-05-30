@@ -6,7 +6,7 @@ Stage: G1 -- Literature / Novelty Mapping
 
 Previous stage: G0 -- Idea Brief completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 
-Substage: Build a source-backed literature map and novelty-risk matrix before model-review or manuscript-claim work proceeds.
+Substage: Literature map v0.1 populated; source/DOI audit and corpus freeze pending.
 
 Model status: candidate notes exist only; model-review work is not active.
 
@@ -27,6 +27,8 @@ Stage details are tracked in docs/stages/stage_index.md.
 * One-sentence central hypothesis recorded in `docs/01_project_brief.md`.
 * Candidate hypotheses and claims recorded in `docs/03_hypotheses.md`.
 * Open questions recorded in `docs/02_open_questions.md`.
+* `docs/04_literature_map.md` populated with G1 literature map v0.1.
+* G1 literature map v0.1 includes a 50-item candidate corpus, mechanism-family map, novelty-risk matrix, and allowed/forbidden novelty language.
 * Model A candidate summary exists as exploratory background only.
 * Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created.
@@ -38,15 +40,16 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 ## Active Blockers
 
-* `docs/04_literature_map.md` is not yet populated with traceable sources.
-* Novelty risks have not been assessed against BZ gels, LCST hydrogels, thermochemical fronts, thermal runaway, transport-limited gels, and self-oscillating polymer systems.
+* DOI/source audit is needed for all `doi-audit-needed` rows in `docs/04_literature_map.md`.
+* The G1 corpus is not yet frozen; weak P2 placeholder rows should be verified, replaced, or removed.
+* Novelty risks have been identified but not yet accepted as final G1 framing.
 * No claim-evidence item validated; validation is outside G1.
 * `EXP-002-sanity-check-candidate-model` not completed, but this is a later model-gate blocker, not a G1 blocker.
 
 ## Next Recommended Tasks
 
-1. Populate `docs/04_literature_map.md` with traceable sources and mechanism categories.
-2. Separate similar mechanisms, competing mechanisms, and true novelty risks.
+1. Audit DOI/source metadata in `docs/04_literature_map.md`.
+2. Freeze a smaller P0/P1 corpus of approximately 20--30 papers for manuscript introduction and reviewer-risk analysis.
 3. Keep all novelty statements provisional until the literature map is reviewed.
 4. After G1 completion, explicitly choose whether to enter G2 model specification or continue literature refinement.
 5. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
@@ -63,7 +66,7 @@ Stage details are tracked in docs/stages/stage_index.md.
 Promotion gates:
 
 * G0 exit: completed; requires a project brief, central hypothesis, candidate claims, and visible uncertainty list. G0 does not require Codex, TASK files, CODEX reports, Makefile verification, or CI.
-* G1 exit: requires a populated literature map, traceable source matrix, mechanism comparison, and novelty-risk list.
+* G1 exit: requires a populated literature map, traceable source matrix, mechanism comparison, novelty-risk list, DOI/source audit, and user or ChatGPT acceptance of the retained corpus.
 * `docs/validated/`: requires sanity checks, explicit evidence, and updated claim-evidence records.
 * Numerical implementation: requires a sanity-checked model, boundary-condition audit, and defined observables.
 * Results: require reproducible scripts or notebooks, control cases, and convergence checks.
