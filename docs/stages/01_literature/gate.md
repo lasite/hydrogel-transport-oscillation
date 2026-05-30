@@ -2,7 +2,7 @@
 
 ## Status
 
-active
+complete
 
 ## Purpose
 
@@ -17,10 +17,11 @@ G1 maps literature and novelty risk. It does not perform model equation review, 
 * Mechanistic comparison to BZ gels, LCST hydrogels, thermal runaway fronts, thermochemical oscillators, transport-limited gels, and self-oscillating polymer systems.
 * Clear list of novelty risks.
 * Provisional novelty framing that remains separate from validated claims.
+* Frozen retained corpus for G2 model specification.
 
 ## Acceptance criteria
 
-* Each matrix entry has a real source.
+* Each retained corpus entry has a trace status.
 * Similar and competing mechanisms are separated from this project's candidate mechanism.
 * Novelty claims are phrased as provisional until evidence is recorded.
 * No model, derivation, numerical result, or manuscript claim is promoted to validated status.
@@ -28,20 +29,18 @@ G1 maps literature and novelty risk. It does not perform model equation review, 
 
 ## Evidence
 
-* `docs/04_literature_map.md` is currently a template.
+* `docs/04_literature_map.md`
+* `docs/05_novelty_framing.md`
+* `docs/06_prior_art_risk_matrix.md`
+* `docs/07_g1_frozen_corpus.md`
 * `docs/validated/claim_evidence.md` contains no validated evidence yet.
 
-## Blockers
+## Completion record
 
-* Literature map is not populated.
-* No dedicated literature task has been completed.
+G1 was accepted by the user. The project has moved to G2 model specification.
 
-## Next tasks
-
-* Populate `docs/04_literature_map.md` with traceable sources.
-* Prioritize known oscillator classes and LCST transport-coupling literature.
-* Identify novelty risks before model-specification work resumes.
+Remaining DOI/BibTeX cleanup is still required before manuscript drafting, but it does not block G2 model specification.
 
 ## Promotion rule
 
-Do not draft strong manuscript novelty claims before the literature matrix is populated and reviewed.
+Do not draft strong manuscript novelty claims before later model evidence is recorded. G1 constrains novelty language, but it does not validate any scientific claim.
