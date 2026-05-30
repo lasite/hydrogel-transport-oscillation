@@ -8,11 +8,15 @@ A single exothermic Arrhenius reaction, although non-oscillatory in a well-mixed
 
 Status: early exploratory repository
 
+Active gate: `G0 -- Idea Brief`
+
 No model has been validated yet.
 
 The initial model derivation should be inserted into `docs/derivations/initial_model_derivation.tex` and summarized in `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
 
 Long derivations belong in `.tex`, not Markdown.
+
+Model review is paused until G0 exits or the user explicitly opens G2 model work.
 
 ## Repository layers
 
@@ -32,18 +36,22 @@ Long derivations belong in `.tex`, not Markdown.
 ## Minimal checks
 
 ```bash
+make install
+make env-check
 make quickcheck
 make derivations
 ```
+
+From a fresh checkout, run `make install` before `make quickcheck` unless dependencies are already available in the active Python environment.
 
 `make derivations` may report a warning if `latexmk` is unavailable. During the exploratory scaffold stage, that warning should not block repository structure checks.
 
 ## Workflow
 
 1. Read `docs/project_state.md` before starting a new task.
-2. Insert the user's preliminary model derivation into `docs/derivations/initial_model_derivation.tex`.
-3. Summarize the candidate model in `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
-4. Run `make quickcheck` and `make derivations`.
-5. Complete `docs/tasks/exploration/EXP-001-ingest-initial-model.md`.
-6. Produce a report under `docs/reports/exploration/`.
-7. Run `EXP-002-sanity-check-candidate-model` before promoting any claim or model into `docs/validated/`.
+2. ChatGPT defines or reviews the task scope.
+3. Codex implements only within the assigned TASK scope.
+4. Run the task's required verification commands.
+5. Produce a CODEX report under `docs/reports/` for handoff back to ChatGPT.
+6. Do not run model review tasks until G0 exits or the user explicitly opens G2 model work.
+7. Do not promote any claim or model into `docs/validated/` before the required gates pass.

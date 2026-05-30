@@ -8,18 +8,26 @@ active
 
 Ensure the project idea is explicit, bounded, and recoverable before deeper modeling or verification work proceeds.
 
+At the current G0 protocol-hardening step, the ChatGPT -> Codex -> Git -> verification -> ChatGPT review loop must also be explicit and auditable.
+
 ## Required outputs
 
 * Central hypothesis recorded.
 * Physical mechanism chain recorded.
 * Distinction from known oscillator classes recorded as candidate framing.
 * Open uncertainty list recorded.
+* TASK template requires scope, forbidden actions, acceptance criteria, failure conditions, report path, and review requirements.
+* CODEX report template records commits, branch, commands with exit codes, environment, artifacts, limitations, and forbidden-action compliance.
+* Fresh-checkout verification path is documented.
 
 ## Acceptance criteria
 
 * The idea is stated without claiming validation.
 * The central mechanism is distinguishable from BZ gels, external photothermal feedback, and pre-patterned catalytic switching at the hypothesis level.
 * Current uncertainty is visible in repository files.
+* New tasks can be audited against `docs/tasks/TASK-TEMPLATE.md`.
+* Completed Codex work can be audited against `docs/reports/CODEX-REPORT-TEMPLATE.md`.
+* Model review remains paused unless G0 exits or the user explicitly opens G2 model work.
 
 ## Evidence
 
@@ -27,16 +35,22 @@ Ensure the project idea is explicit, bounded, and recoverable before deeper mode
 * `docs/01_project_brief.md`
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
+* `docs/tasks/TASK-TEMPLATE.md`
+* `docs/reports/CODEX-REPORT-TEMPLATE.md`
+* `README.md`
+* `AGENTS.md`
 
 ## Blockers
 
 * Initial model sanity check is pending.
 * Literature map is not populated.
+* ChatGPT review of the hardened G0 protocol is pending.
 
 ## Next tasks
 
 * Keep `docs/project_state.md` current.
-* Run `EXP-002-sanity-check-candidate-model`.
+* Ask ChatGPT to review the hardened G0 protocol.
+* Do not run `EXP-002-sanity-check-candidate-model` until G0 exits or the user explicitly opens G2.
 
 ## Promotion rule
 

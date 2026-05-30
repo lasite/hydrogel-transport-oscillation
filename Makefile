@@ -1,7 +1,13 @@
 PYTHON ?= python3
 PYTEST ?= $(PYTHON) -m pytest
 
-.PHONY: quickcheck test derivations clean
+.PHONY: install env-check quickcheck test derivations clean
+
+install:
+	$(PYTHON) -m pip install -e .
+
+env-check:
+	$(PYTHON) -c "import numpy, scipy, matplotlib, pytest; print('Environment check passed.')"
 
 quickcheck:
 	$(PYTHON) scripts/check_repo_structure.py
