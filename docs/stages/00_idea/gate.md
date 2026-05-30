@@ -2,7 +2,7 @@
 
 ## Status
 
-active
+complete
 
 ## Purpose
 
@@ -33,15 +33,9 @@ G0 is a ChatGPT-only conceptual framing gate. Codex, TASK handoff, CODEX reports
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
 
-## Blockers
+## Completion record
 
-* Hypothesis and candidate claims need user or ChatGPT acceptance before marking G0 complete.
-
-## Next tasks
-
-* Review `docs/01_project_brief.md` and `docs/03_hypotheses.md`.
-* If accepted, mark G0 complete and explicitly choose the next active gate.
-* Do not run `EXP-002-sanity-check-candidate-model` until the model-specification gate is explicitly opened.
+G0 was accepted by the user. The project has moved to G1 literature / novelty mapping.
 
 ## Promotion rule
 
