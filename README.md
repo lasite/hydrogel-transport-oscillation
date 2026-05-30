@@ -18,6 +18,7 @@ Long derivations belong in `.tex`, not Markdown.
 
 * `docs/`: idea log, project brief, hypotheses, open questions, tasks, reports, decisions, and manuscript planning.
 * `docs/project_state.md`: centralized project-control snapshot for current stage, blockers, gates, and next tasks.
+* `docs/stages/`: explicit project-stage gates from idea to submission.
 * `docs/model_candidates/`: candidate models before validation.
 * `docs/derivations/`: long mathematical derivations in LaTeX.
 * `docs/validated/`: only models, derivations, and claims that pass sanity checks and verification gates.
