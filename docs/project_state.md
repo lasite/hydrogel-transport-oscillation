@@ -2,15 +2,15 @@
 
 ## Current Stage
 
-Stage: Idea / Early Exploration
+Stage: G0 — Idea Brief
 
-Substage: Initial candidate model ingested; sanity check pending
+Substage: Idea framing and workflow-protocol stabilization
 
-Model status: candidate only, not validated
+Model status: candidate notes exist only; no model-review task is currently recommended
 
 Numerics status: no production PDE solver; no verified simulation
 
-Manuscript status: blueprint/skeleton only; no validated results for writing
+Manuscript status: idea/project-brief level only; no validated results for writing
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -20,8 +20,8 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 * Idea log and project brief created.
 * Open questions and hypotheses created.
-* Model A candidate summary created.
-* Initial derivation ingested into `docs/derivations/initial_model_derivation.tex`.
+* Model A candidate summary exists as exploratory background only.
+* Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created.
 * Derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
@@ -29,29 +29,27 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 ## Active Blockers
 
-* `EXP-002-sanity-check-candidate-model` not completed.
+* G0 idea-brief exit criteria are not yet hardened into a machine-checkable gate.
+* TASK handoff and CODEX-REPORT templates need stricter required fields.
+* Verification environment is not yet fully reproducible from a single command.
+* Repository visibility should be intentionally confirmed before unpublished manuscript work accumulates.
 * Literature map not populated.
-* Homogeneous ODE limit incomplete.
-* Boundary-condition sign convention unresolved.
-* Material functions not fully specified.
-* Front/barrier observables not finalized.
-* Source appendix numerical claims not independently reproduced.
-* No verified numerical simulation.
 * No claim-evidence item validated.
+* No verified numerical simulation.
 * Current local quickcheck is blocked at the pytest step unless `pytest` is installed in the active Python environment.
 
 ## Next Recommended Tasks
 
-1. Run `EXP-002-sanity-check-candidate-model`.
-2. Create or run a literature-map task after or alongside sanity checking.
-3. Derive the homogeneous ODE limit.
-4. Audit boundary-condition signs.
-5. Define front/barrier observables before numerical validation.
-6. Only then design minimal numerical verification tasks.
+1. Harden the G0 idea-brief gate and workflow protocol before model review.
+2. Add explicit TASK and CODEX-REPORT templates with allowed files, forbidden actions, failure conditions, command exit codes, environment, and artifact records.
+3. Add an environment check or install target so `make quickcheck` is reproducible from a fresh checkout.
+4. Confirm repository visibility is intentional for unpublished research material.
+5. Keep Model A and derivation material labeled as exploratory background until G0 exits and a later model gate is explicitly opened.
 
 ## Non-Bypassable Gates
 
 * Do not move candidate material into `docs/validated/` before sanity checks and evidence are recorded.
+* Do not start model-review or production solver work while G0 idea-brief protocol hardening is the active stage.
 * Do not write a production PDE solver before the model is sanity-checked.
 * Do not treat numerical oscillation as evidence without grid/timestep checks and control cases.
 * Do not draft strong manuscript claims before literature matrix and claim-evidence matrix are populated.
@@ -59,6 +57,7 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 Promotion gates:
 
+* G0 exit: requires a stable idea brief, explicit uncertainty list, hardened TASK/CODEX-REPORT protocol, and reproducible scaffold checks.
 * `docs/validated/`: requires sanity checks, explicit evidence, and updated claim-evidence records.
 * Numerical implementation: requires a sanity-checked model, boundary-condition audit, and defined observables.
 * Results: require reproducible scripts or notebooks, control cases, and convergence checks.
@@ -74,6 +73,8 @@ Promotion gates:
 * `docs/01_project_brief.md`
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
+* `docs/stages/stage_index.md`
+* `docs/stages/00_idea/gate.md`
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`
 * `docs/derivations/initial_model_derivation.tex`
 * `docs/reports/exploration/CODEX-REPORT-EXP-001.md`
