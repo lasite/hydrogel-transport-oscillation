@@ -8,19 +8,19 @@ A single exothermic Arrhenius reaction, although non-oscillatory in a well-mixed
 
 Status: early exploratory repository
 
-Active gate: `G1 -- Literature / Novelty Mapping`
+Active gate: `G2 -- Model Specification`
 
-G0 idea brief has been accepted by the user.
+G0 idea brief and G1 literature / novelty mapping have been accepted by the user.
 
 No model has been validated yet.
 
-Model review is paused until G1 exits or the user explicitly opens G2 model work.
+G2 model specification is active. Production PDE implementation, numerical verification, figure generation, and manuscript drafting remain blocked until later gates.
 
 Long derivations belong in `.tex`, not Markdown.
 
 ## Repository layers
 
-* `docs/`: idea log, project brief, hypotheses, open questions, tasks, reports, decisions, and manuscript planning.
+* `docs/`: idea log, project brief, hypotheses, open questions, literature/novelty mapping, tasks, reports, decisions, and manuscript planning.
 * `docs/project_state.md`: centralized project-control snapshot for current stage, blockers, gates, and next tasks.
 * `docs/stages/`: explicit project-stage gates from idea to submission.
 * `docs/model_candidates/`: candidate models before validation.
@@ -53,6 +53,6 @@ From a fresh checkout, run `make install` before `make quickcheck` unless depend
 3. Codex implements only within the assigned TASK scope.
 4. Run the task's required verification commands.
 5. Produce a CODEX report under `docs/reports/` for handoff back to ChatGPT.
-6. During G1, prioritize literature mapping and novelty-risk assessment.
-7. Do not run model review tasks until G1 exits or the user explicitly opens G2 model work.
+6. During G2, prioritize model specification, variable definitions, limiting cases, boundary-condition signs, material-function assumptions, and front/barrier observables.
+7. Do not write production solver code until the G2 model gate passes.
 8. Do not promote any claim or model into `docs/validated/` before the required gates pass.
