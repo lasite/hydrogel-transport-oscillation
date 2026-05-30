@@ -8,6 +8,7 @@ def test_core_docs_exist():
     assert (ROOT / "docs/00_idea_log.md").exists()
     assert (ROOT / "docs/01_project_brief.md").exists()
     assert (ROOT / "docs/03_hypotheses.md").exists()
+    assert (ROOT / "docs/project_state.md").exists()
 
 
 def test_model_candidate_and_derivation_exist():
@@ -31,3 +32,8 @@ def test_agents_scientific_guardrail():
 def test_validated_model_not_yet_validated():
     model_spec = (ROOT / "docs/validated/model_spec.md").read_text(encoding="utf-8")
     assert "not yet validated" in model_spec
+
+
+def test_project_state_records_early_exploration_stage():
+    project_state = (ROOT / "docs/project_state.md").read_text(encoding="utf-8")
+    assert "Stage: Idea / Early Exploration" in project_state

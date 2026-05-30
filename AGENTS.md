@@ -23,6 +23,7 @@ Do not assume:
 
 Before working on any task, read:
 
+* `docs/project_state.md`
 * `docs/00_idea_log.md`
 * `docs/01_project_brief.md`
 * `docs/02_open_questions.md`

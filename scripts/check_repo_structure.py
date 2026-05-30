@@ -10,6 +10,7 @@ REQUIRED_FILES = [
     "Makefile",
     "pyproject.toml",
     "docs/00_idea_log.md",
+    "docs/project_state.md",
     "docs/01_project_brief.md",
     "docs/02_open_questions.md",
     "docs/03_hypotheses.md",
