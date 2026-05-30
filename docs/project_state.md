@@ -9,9 +9,9 @@ Previous stages:
 * G0 -- Idea Brief completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * G1 -- Literature / Novelty Mapping completed after user accepted the novelty framing and prior-art risk matrix; G1 frozen corpus created.
 
-Substage: Model A specification and sanity-check preparation against G1 novelty-risk constraints.
+Substage: ChatGPT G2 model review completed; P0 model-specification blockers identified.
 
-Model status: candidate notes exist only; model-review/specification work is now active, but no model is validated.
+Model status: candidate notes exist only; model-review/specification work is active, but no model is validated.
 
 Numerics status: no production PDE solver; no verified simulation.
 
@@ -41,28 +41,32 @@ Stage details are tracked in docs/stages/stage_index.md.
 * EXP-001 report created.
 * Derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
+* ChatGPT G2 model review created at `docs/reports/exploration/GPT-REVIEW-G2-001.md`.
 * Project state control document created.
 * Stage details are tracked in `docs/stages/stage_index.md`.
 * No model or claim has been promoted to `docs/validated/`.
 
 ## Active Blockers
 
-* Model A has not yet been sanity-checked against G1 novelty-risk constraints.
-* Homogeneous ODE / well-mixed limit incomplete.
-* Boundary-condition sign convention unresolved.
-* Material functions not fully specified.
+* Free-surface reactant boundary conditions are inconsistent between full flux form and compact form.
+* Continuous boundary conditions for the gradient-energy term are not explicitly specified.
+* The mixing chemical potential must be reaudited for composition-dependent `chi(theta, phi)`.
+* Homogeneous ODE / well-mixed dynamical limit is incomplete.
+* The admissible model domain is not fully stated, including `J >= phi_p0`, `0 < phi <= 1`, and `1 + epsilon_T theta > 0`.
+* Front/barrier observables are not finalized.
+* Material functions `M(J,theta)`, `D(J,theta)`, `K(J)`, and `C(J)` are not fully specified.
 * Reaction accessibility, diffusivity, permeability, and poroelastic collapse are not yet fully separated at the specification level.
-* Front/barrier observables not finalized.
 * No claim-evidence item validated; validation is outside G2 until evidence is recorded.
 
 ## Next Recommended Tasks
 
-1. Run a G2 model-specification / sanity-check task based on `docs/tasks/exploration/EXP-002-sanity-check-candidate-model.md` or its updated successor.
-2. Audit variable and parameter definitions in `docs/model_candidates/model_A_initial_lcst_transport_barrier.md` and `docs/derivations/initial_model_derivation.tex`.
-3. Derive, scope, or explicitly mark incomplete the homogeneous ODE / well-mixed limit.
-4. Audit boundary-condition signs and physical meanings.
-5. Define minimum front/barrier observables required to test the transport-barrier mechanism.
-6. Do not promote any model or claim into `docs/validated/` until G2 evidence is recorded.
+1. Resolve free-surface reactant boundary-condition convention and propagate it consistently through compact PDE, homogeneous limit, and linearization.
+2. Add explicit continuous boundary conditions for the gradient-energy regularization.
+3. Reaudit or rederive `mu_mix` for `chi(theta, phi) = chi_infty + S_chi theta + chi_1 phi`.
+4. Derive, scope, or explicitly mark incomplete the homogeneous ODE / well-mixed dynamical system.
+5. Define the admissible domain and physical constraints on `J`, `phi`, `theta`, and the Arrhenius denominator.
+6. Define minimum front/barrier observables required to test the transport-barrier mechanism.
+7. Do not promote any model or claim into `docs/validated/` until G2 evidence is recorded.
 
 ## Non-Bypassable Gates
 
@@ -103,6 +107,7 @@ Promotion gates:
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`
 * `docs/derivations/initial_model_derivation.tex`
 * `docs/reports/exploration/CODEX-REPORT-EXP-001.md`
+* `docs/reports/exploration/GPT-REVIEW-G2-001.md`
 * `docs/tasks/TASK-TEMPLATE.md`
 * `docs/reports/CODEX-REPORT-TEMPLATE.md`
 * `docs/validated/model_spec.md`
