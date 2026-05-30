@@ -6,7 +6,7 @@ Stage: G0 -- Idea Brief
 
 Legacy scaffold label: Stage: Idea / Early Exploration
 
-Substage: Workflow-protocol stabilization before model-gate work
+Substage: ChatGPT-only conversion of idea into hypothesis and candidate claims
 
 Model status: candidate notes exist only; no model-review task is currently recommended
 
@@ -14,7 +14,7 @@ Numerics status: no production PDE solver; no verified simulation
 
 Manuscript status: idea/project-brief level only; no validated results for writing
 
-Workflow protocol status: G0 hardening in progress; ChatGPT defines and reviews tasks, Codex implements only within TASK scope, and CODEX reports are required for handoff.
+G0 scope: ChatGPT organizes the initial idea into a project brief, central hypothesis, and candidate claims. Codex, TASK handoff, CODEX reports, Makefile verification, and implementation work are not required to complete G0.
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -23,7 +23,9 @@ Stage details are tracked in docs/stages/stage_index.md.
 ## Completed Work
 
 * Idea log and project brief created.
-* Open questions and hypotheses created.
+* One-sentence central hypothesis recorded in `docs/01_project_brief.md`.
+* Candidate hypotheses and claims recorded in `docs/03_hypotheses.md`.
+* Open questions recorded in `docs/02_open_questions.md`.
 * Model A candidate summary exists as exploratory background only.
 * Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created.
@@ -35,23 +37,22 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 ## Active Blockers
 
-* `EXP-002-sanity-check-candidate-model` not completed.
-* G0 protocol hardening needs ChatGPT review before model-gate work resumes.
-* Literature map not populated.
-* No claim-evidence item validated.
-* Fresh checkouts need dependency setup before `make quickcheck`; use `make install` or an equivalent project environment setup.
+* G0 hypothesis/claim framing needs user or ChatGPT acceptance before the project moves to the next gate.
+* `EXP-002-sanity-check-candidate-model` not completed, but this is a later model-gate blocker, not a G0 blocker.
+* Literature map not populated, but this is a later literature/manuscript-risk task, not a G0 blocker.
+* No claim-evidence item validated, but validation is outside G0.
 
 ## Next Recommended Tasks
 
-1. Complete `TASK-G0-001` and record the CODEX report.
-2. Ask ChatGPT to review the hardened G0 task/report protocol.
-3. Exit G0 only after its gate criteria are satisfied and recorded.
-4. Run `EXP-002-sanity-check-candidate-model` only after G0 exits or the user explicitly opens G2 model work.
+1. Review `docs/01_project_brief.md` and `docs/03_hypotheses.md` as the G0 output.
+2. If the hypothesis and candidate claims are accepted, mark G0 complete.
+3. After G0 completion, explicitly choose the next active gate: literature/novelty mapping or model specification.
+4. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
 
 ## Non-Bypassable Gates
 
 * Do not move candidate material into `docs/validated/` before sanity checks and evidence are recorded.
-* Do not run model review while G0 protocol stabilization is active unless the user explicitly opens G2.
+* Do not run model review while G0 is active unless the user explicitly opens model-specification work.
 * Do not write a production PDE solver before the model is sanity-checked.
 * Do not treat numerical oscillation as evidence without grid/timestep checks and control cases.
 * Do not draft strong manuscript claims before literature matrix and claim-evidence matrix are populated.
@@ -59,7 +60,7 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 Promotion gates:
 
-* G0 exit: requires a stable idea brief, explicit uncertainty list, hardened TASK/CODEX-REPORT protocol, and reproducible scaffold checks.
+* G0 exit: requires a project brief, central hypothesis, candidate claims, and visible uncertainty list. G0 does not require Codex, TASK files, CODEX reports, Makefile verification, or CI.
 * `docs/validated/`: requires sanity checks, explicit evidence, and updated claim-evidence records.
 * Numerical implementation: requires a sanity-checked model, boundary-condition audit, and defined observables.
 * Results: require reproducible scripts or notebooks, control cases, and convergence checks.
