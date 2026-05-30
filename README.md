@@ -8,15 +8,15 @@ A single exothermic Arrhenius reaction, although non-oscillatory in a well-mixed
 
 Status: early exploratory repository
 
-Active gate: `G0 -- Idea Brief`
+Active gate: `G1 -- Literature / Novelty Mapping`
+
+G0 idea brief has been accepted by the user.
 
 No model has been validated yet.
 
-The initial model derivation should be inserted into `docs/derivations/initial_model_derivation.tex` and summarized in `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
+Model review is paused until G1 exits or the user explicitly opens G2 model work.
 
 Long derivations belong in `.tex`, not Markdown.
-
-Model review is paused until G0 exits or the user explicitly opens G2 model work.
 
 ## Repository layers
 
@@ -53,5 +53,6 @@ From a fresh checkout, run `make install` before `make quickcheck` unless depend
 3. Codex implements only within the assigned TASK scope.
 4. Run the task's required verification commands.
 5. Produce a CODEX report under `docs/reports/` for handoff back to ChatGPT.
-6. Do not run model review tasks until G0 exits or the user explicitly opens G2 model work.
-7. Do not promote any claim or model into `docs/validated/` before the required gates pass.
+6. During G1, prioritize literature mapping and novelty-risk assessment.
+7. Do not run model review tasks until G1 exits or the user explicitly opens G2 model work.
+8. Do not promote any claim or model into `docs/validated/` before the required gates pass.
