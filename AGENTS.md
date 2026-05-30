@@ -10,15 +10,13 @@ The repository is the source of truth. Prior chat history is not the source of t
 
 The project is in the exploratory stage.
 
-Current active gate: `G1 -- Literature / Novelty Mapping`.
+Current active gate: `G2 -- Model Specification`.
 
-G0 idea brief has been accepted by the user.
+G0 idea brief and G1 literature / novelty mapping have been accepted by the user.
 
 The Git repository is the source of truth. ChatGPT defines and reviews tasks. Codex implements only within the assigned TASK scope and must produce a CODEX report for handoff back to ChatGPT.
 
-During G1, prioritize literature mapping, mechanism comparison, and novelty-risk assessment. Do not perform model equation review unless the user explicitly opens G2 model work.
-
-Model review is paused until G1 exits or the user explicitly opens G2 model work.
+During G2, prioritize model specification, variable definitions, units, material functions, boundary-condition signs, limiting cases, and minimum observables. Do not write a production PDE solver unless the user explicitly opens a later numerical gate.
 
 Do not assume:
 
@@ -39,6 +37,9 @@ Before working on any task, read:
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
 * `docs/04_literature_map.md`
+* `docs/05_novelty_framing.md`
+* `docs/06_prior_art_risk_matrix.md`
+* `docs/07_g1_frozen_corpus.md`
 * the assigned task file under `docs/tasks/`
 
 If the task involves equations, also read:
@@ -75,7 +76,12 @@ When reviewing or implementing a model, check:
 * whether a spatial barrier can form;
 * whether the proposed oscillation requires spatial PDE dynamics rather than homogeneous ODE dynamics.
 
-During G1, do not use the scientific-rule checklist to perform model review unless a G2 model task is explicitly opened.
+G2-specific constraints from G1:
+
+* Verify that the chemical subsystem is non-oscillatory by itself or mark this unresolved.
+* Distinguish reaction accessibility, diffusivity, permeability, and poroelastic collapse.
+* Define front/barrier observables before numerical validation.
+* Treat SNIC scaling, hysteresis, penetration-depth, and basin-size claims as unvalidated until reproduced in this repository.
 
 ## Coding rules
 
@@ -84,7 +90,7 @@ At this stage:
 * Do not write a production PDE solver.
 * Do not create large simulations.
 * Do not create large datasets.
-* Only create minimal scaffolding, literature-map tooling, sanity-check scripts, or toy exploratory scripts when explicitly requested.
+* Only create minimal scaffolding, sanity-check scripts, symbolic checks, or toy exploratory scripts when explicitly requested by the task.
 
 If code is added later:
 
