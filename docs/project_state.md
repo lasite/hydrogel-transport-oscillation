@@ -14,6 +14,8 @@ Manuscript status: blueprint/skeleton only; no validated results for writing
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
+Stage details are tracked in docs/stages/stage_index.md.
+
 ## Completed Work
 
 * Idea log and project brief created.
