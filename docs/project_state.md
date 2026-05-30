@@ -2,19 +2,19 @@
 
 ## Current Stage
 
-Stage: G0 -- Idea Brief
+Stage: G1 -- Literature / Novelty Mapping
 
-Legacy scaffold label: Stage: Idea / Early Exploration
+Previous stage: G0 -- Idea Brief completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 
-Substage: ChatGPT-only conversion of idea into hypothesis and candidate claims
+Substage: Build a source-backed literature map and novelty-risk matrix before model-review or manuscript-claim work proceeds.
 
-Model status: candidate notes exist only; no model-review task is currently recommended
+Model status: candidate notes exist only; model-review work is not active.
 
-Numerics status: no production PDE solver; no verified simulation
+Numerics status: no production PDE solver; no verified simulation.
 
-Manuscript status: idea/project-brief level only; no validated results for writing
+Manuscript status: idea/project-brief level only; no validated results for writing.
 
-G0 scope: ChatGPT organizes the initial idea into a project brief, central hypothesis, and candidate claims. Codex, TASK handoff, CODEX reports, Makefile verification, and implementation work are not required to complete G0.
+G1 scope: map the relevant literature, compare neighboring mechanisms, and identify novelty risks. G1 does not require model review, PDE implementation, numerical verification, figure generation, or manuscript drafting.
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -22,6 +22,7 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 ## Completed Work
 
+* G0 Idea Brief accepted by the user.
 * Idea log and project brief created.
 * One-sentence central hypothesis recorded in `docs/01_project_brief.md`.
 * Candidate hypotheses and claims recorded in `docs/03_hypotheses.md`.
@@ -37,30 +38,32 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 ## Active Blockers
 
-* G0 hypothesis/claim framing needs user or ChatGPT acceptance before the project moves to the next gate.
-* `EXP-002-sanity-check-candidate-model` not completed, but this is a later model-gate blocker, not a G0 blocker.
-* Literature map not populated, but this is a later literature/manuscript-risk task, not a G0 blocker.
-* No claim-evidence item validated, but validation is outside G0.
+* `docs/04_literature_map.md` is not yet populated with traceable sources.
+* Novelty risks have not been assessed against BZ gels, LCST hydrogels, thermochemical fronts, thermal runaway, transport-limited gels, and self-oscillating polymer systems.
+* No claim-evidence item validated; validation is outside G1.
+* `EXP-002-sanity-check-candidate-model` not completed, but this is a later model-gate blocker, not a G1 blocker.
 
 ## Next Recommended Tasks
 
-1. Review `docs/01_project_brief.md` and `docs/03_hypotheses.md` as the G0 output.
-2. If the hypothesis and candidate claims are accepted, mark G0 complete.
-3. After G0 completion, explicitly choose the next active gate: literature/novelty mapping or model specification.
-4. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
+1. Populate `docs/04_literature_map.md` with traceable sources and mechanism categories.
+2. Separate similar mechanisms, competing mechanisms, and true novelty risks.
+3. Keep all novelty statements provisional until the literature map is reviewed.
+4. After G1 completion, explicitly choose whether to enter G2 model specification or continue literature refinement.
+5. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
 
 ## Non-Bypassable Gates
 
 * Do not move candidate material into `docs/validated/` before sanity checks and evidence are recorded.
-* Do not run model review while G0 is active unless the user explicitly opens model-specification work.
+* Do not run model review while G1 literature mapping is active unless the user explicitly opens model-specification work.
 * Do not write a production PDE solver before the model is sanity-checked.
 * Do not treat numerical oscillation as evidence without grid/timestep checks and control cases.
-* Do not draft strong manuscript claims before literature matrix and claim-evidence matrix are populated.
+* Do not draft strong manuscript novelty claims before the literature matrix and claim-evidence matrix are populated and reviewed.
 * Do not treat source appendix numerical notes as reproduced evidence until verified in this repo.
 
 Promotion gates:
 
-* G0 exit: requires a project brief, central hypothesis, candidate claims, and visible uncertainty list. G0 does not require Codex, TASK files, CODEX reports, Makefile verification, or CI.
+* G0 exit: completed; requires a project brief, central hypothesis, candidate claims, and visible uncertainty list. G0 does not require Codex, TASK files, CODEX reports, Makefile verification, or CI.
+* G1 exit: requires a populated literature map, traceable source matrix, mechanism comparison, and novelty-risk list.
 * `docs/validated/`: requires sanity checks, explicit evidence, and updated claim-evidence records.
 * Numerical implementation: requires a sanity-checked model, boundary-condition audit, and defined observables.
 * Results: require reproducible scripts or notebooks, control cases, and convergence checks.
@@ -76,8 +79,10 @@ Promotion gates:
 * `docs/01_project_brief.md`
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
+* `docs/04_literature_map.md`
 * `docs/stages/stage_index.md`
 * `docs/stages/00_idea/gate.md`
+* `docs/stages/01_literature/gate.md`
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`
 * `docs/derivations/initial_model_derivation.tex`
 * `docs/reports/exploration/CODEX-REPORT-EXP-001.md`
