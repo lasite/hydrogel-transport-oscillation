@@ -1,12 +1,12 @@
-# Gate: 02 Model
+# Gate: G2 Model
 
 ## Status
 
-active
+paused
 
 ## Purpose
 
-Ensure Model A is organized and sanity-checked before analysis, numerics, or validation claims depend on it.
+Ensure Model A is organized and sanity-checked before analysis, numerics, or validation claims depend on it. This gate is not currently active because the project is in G0 idea-brief protocol hardening.
 
 ## Required outputs
 
@@ -33,16 +33,17 @@ Ensure Model A is organized and sanity-checked before analysis, numerics, or val
 
 ## Blockers
 
-* `EXP-002-sanity-check-candidate-model` not completed.
+* G0 idea-brief protocol hardening is the active stage.
+* `EXP-002-sanity-check-candidate-model` is intentionally paused.
 * Homogeneous ODE limit incomplete.
 * Boundary-condition sign convention unresolved.
 * Material functions not fully specified.
 
 ## Next tasks
 
-* Run `EXP-002-sanity-check-candidate-model`.
-* Resolve notation and boundary-condition questions.
+* Do not run `EXP-002-sanity-check-candidate-model` while G0 is active.
+* Re-open this model gate only after G0 exits or the user explicitly creates a model-gate task.
 
 ## Promotion rule
 
-Do not promote Model A to `docs/validated/` until sanity checks and evidence are recorded.
+Do not promote Model A to `docs/validated/` until this gate is re-opened, sanity checks are completed, and evidence is recorded.
