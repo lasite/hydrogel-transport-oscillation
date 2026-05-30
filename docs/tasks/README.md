@@ -8,7 +8,7 @@ Tasks are grouped by project stage and purpose:
 
 The Git repository is the source of truth for task state. ChatGPT defines and reviews tasks. Codex implements only within the assigned task scope and must leave a CODEX report for handoff back to ChatGPT.
 
-Current active stage: `G1 -- Literature / Novelty Mapping`. Model review is paused until G1 exits or the user explicitly opens G2 model work.
+Current active stage: `G2 -- Model Specification`. G2 reviews model definitions, units, material functions, boundary conditions, limiting cases, and minimum observables. Production PDE solver work remains blocked until later gates.
 
 Each task must define:
 
