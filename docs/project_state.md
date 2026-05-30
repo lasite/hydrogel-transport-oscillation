@@ -6,7 +6,7 @@ Stage: G1 -- Literature / Novelty Mapping
 
 Previous stage: G0 -- Idea Brief completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 
-Substage: Literature map v0.1 populated; source/DOI audit and corpus freeze pending.
+Substage: Literature map v0.1, novelty framing memo, and prior-art risk matrix created; source/DOI audit and corpus freeze pending.
 
 Model status: candidate notes exist only; model-review work is not active.
 
@@ -14,7 +14,7 @@ Numerics status: no production PDE solver; no verified simulation.
 
 Manuscript status: idea/project-brief level only; no validated results for writing.
 
-G1 scope: map the relevant literature, compare neighboring mechanisms, and identify novelty risks. G1 does not require model review, PDE implementation, numerical verification, figure generation, or manuscript drafting.
+G1 scope: map the relevant literature, compare neighboring mechanisms, identify novelty risks, and constrain allowed novelty language. G1 does not require model review, PDE implementation, numerical verification, figure generation, or manuscript drafting.
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -29,6 +29,8 @@ Stage details are tracked in docs/stages/stage_index.md.
 * Open questions recorded in `docs/02_open_questions.md`.
 * `docs/04_literature_map.md` populated with G1 literature map v0.1.
 * G1 literature map v0.1 includes a 50-item candidate corpus, mechanism-family map, novelty-risk matrix, and allowed/forbidden novelty language.
+* `docs/05_novelty_framing.md` created from the user-provided research-significance memo and G1 literature-map constraints.
+* `docs/06_prior_art_risk_matrix.md` created to map candidate novelty claims to nearest prior-art families, risk levels, required narrowing, and later evidence requirements.
 * Model A candidate summary exists as exploratory background only.
 * Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created.
@@ -42,7 +44,7 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 * DOI/source audit is needed for all `doi-audit-needed` rows in `docs/04_literature_map.md`.
 * The G1 corpus is not yet frozen; weak P2 placeholder rows should be verified, replaced, or removed.
-* Novelty risks have been identified but not yet accepted as final G1 framing.
+* Novelty framing and prior-art risk matrix need user or ChatGPT acceptance before G1 can exit.
 * No claim-evidence item validated; validation is outside G1.
 * `EXP-002-sanity-check-candidate-model` not completed, but this is a later model-gate blocker, not a G1 blocker.
 
@@ -50,9 +52,10 @@ Stage details are tracked in docs/stages/stage_index.md.
 
 1. Audit DOI/source metadata in `docs/04_literature_map.md`.
 2. Freeze a smaller P0/P1 corpus of approximately 20--30 papers for manuscript introduction and reviewer-risk analysis.
-3. Keep all novelty statements provisional until the literature map is reviewed.
-4. After G1 completion, explicitly choose whether to enter G2 model specification or continue literature refinement.
-5. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
+3. Review and accept or revise `docs/05_novelty_framing.md` and `docs/06_prior_art_risk_matrix.md`.
+4. Keep all novelty statements provisional until the retained corpus and risk matrix are accepted.
+5. After G1 completion, explicitly choose whether to enter G2 model specification or continue literature refinement.
+6. Run `EXP-002-sanity-check-candidate-model` only after the model-specification gate is explicitly opened.
 
 ## Non-Bypassable Gates
 
@@ -83,6 +86,8 @@ Promotion gates:
 * `docs/02_open_questions.md`
 * `docs/03_hypotheses.md`
 * `docs/04_literature_map.md`
+* `docs/05_novelty_framing.md`
+* `docs/06_prior_art_risk_matrix.md`
 * `docs/stages/stage_index.md`
 * `docs/stages/00_idea/gate.md`
 * `docs/stages/01_literature/gate.md`
