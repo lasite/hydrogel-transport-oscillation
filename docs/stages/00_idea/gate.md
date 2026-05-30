@@ -1,4 +1,4 @@
-# Gate: 00 Idea
+# Gate: G0 Idea Brief
 
 ## Status
 
@@ -6,7 +6,7 @@ active
 
 ## Purpose
 
-Ensure the project idea is explicit, bounded, and recoverable before deeper modeling or verification work proceeds.
+Ensure the project idea is explicit, bounded, recoverable, and governed by a reliable GPT/Codex/Git handoff protocol before deeper modeling or verification work proceeds.
 
 At the current G0 protocol-hardening step, the ChatGPT -> Codex -> Git -> verification -> ChatGPT review loop must also be explicit and auditable.
 
@@ -42,7 +42,9 @@ At the current G0 protocol-hardening step, the ChatGPT -> Codex -> Git -> verifi
 
 ## Blockers
 
-* Initial model sanity check is pending.
+* TASK and CODEX-REPORT protocol templates are not yet strict enough.
+* Fresh-checkout verification is not yet fully documented.
+* Repository visibility needs intentional confirmation for unpublished research material.
 * Literature map is not populated.
 * ChatGPT review of the hardened G0 protocol is pending.
 
@@ -54,4 +56,4 @@ At the current G0 protocol-hardening step, the ChatGPT -> Codex -> Git -> verifi
 
 ## Promotion rule
 
-Idea framing can inform model and literature work, but it cannot promote any model or claim to validated status.
+Idea framing can inform later model and literature work, but it cannot promote any model or claim to validated status. Model-review work is paused while G0 idea-brief protocol hardening is the active stage.
