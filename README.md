@@ -8,21 +8,43 @@ A single exothermic Arrhenius reaction, although non-oscillatory in a well-mixed
 
 Status: early exploratory repository
 
-Active gate: `G2 -- Model Specification`
+Active stage: Model Specification
 
-G0 idea brief and G1 literature / novelty mapping have been accepted by the user.
+Internal anchor: `G2`
+
+Research Idea Brief and Literature / Novelty Mapping have been accepted by the user.
 
 No model has been validated yet.
 
-G2 model specification is active. Production PDE implementation, numerical verification, figure generation, and manuscript drafting remain blocked until later gates.
+Model Specification is active. Production PDE implementation, numerical verification, figure generation, and manuscript drafting remain blocked until later gates.
 
 Long derivations belong in `.tex`, not Markdown.
+
+## Workflow design
+
+The Git repository is the source of truth.
+
+ChatGPT is the theory-planning and review interface. Codex is the repository-editing, command-execution, and verification interface.
+
+This workflow is for interaction with a physics expert, not primarily for programmer task management.
+
+Design principles:
+
+* Formality only at state transitions.
+* Physics-first everywhere else.
+* Concrete task names first; internal stage anchors such as `G2` are secondary labels for ordering and traceability.
+
+Use full TASK files and CODEX reports when a change affects project state, gate status, validation status, executable behavior, numerical evidence, claim evidence, figures, or manuscript text.
+
+Use lightweight physics notes for non-state-changing theory review, derivation sketches, physical intuition, and critique. Physics notes must not promote claims or validated status.
 
 ## Repository layers
 
 * `docs/`: idea log, project brief, hypotheses, open questions, literature/novelty mapping, tasks, reports, decisions, and manuscript planning.
 * `docs/project_state.md`: centralized project-control snapshot for current stage, blockers, gates, and next tasks.
-* `docs/stages/`: explicit project-stage gates from idea to submission.
+* `docs/stages/`: human-readable stage gates with internal anchors.
+* `docs/notes/`: lightweight physics-first notes that do not change project state.
+* `docs/claims/`: candidate claim and evidence registers before validation.
 * `docs/model_candidates/`: candidate models before validation.
 * `docs/derivations/`: long mathematical derivations in LaTeX.
 * `docs/validated/`: only models, derivations, and claims that pass sanity checks and verification gates.
@@ -49,10 +71,11 @@ From a fresh checkout, run `make install` before `make quickcheck` unless depend
 ## Workflow
 
 1. Read `docs/project_state.md` before starting a new task.
-2. ChatGPT defines or reviews the task scope.
-3. Codex implements only within the assigned TASK scope.
-4. Run the task's required verification commands.
-5. Produce a CODEX report under `docs/reports/` for handoff back to ChatGPT.
-6. During G2, prioritize model specification, variable definitions, limiting cases, boundary-condition signs, material-function assumptions, and front/barrier observables.
-7. Do not write production solver code until the G2 model gate passes.
-8. Do not promote any claim or model into `docs/validated/` before the required gates pass.
+2. Choose the work mode: physics note, Codex task, or gate/state transition.
+3. ChatGPT defines or reviews the physics scope.
+4. Codex modifies files or runs commands only within the assigned task scope.
+5. Run the task's required verification commands.
+6. Produce a CODEX report under `docs/reports/` only when Codex changed repository content, ran verification, or prepared a state transition.
+7. During Model Specification, prioritize model definitions, variable definitions, limiting cases, boundary-condition signs, material-function assumptions, and front/barrier observables.
+8. Do not write production solver code until the Model Specification gate passes.
+9. Do not promote any claim or model into `docs/validated/` before the required gates pass.
