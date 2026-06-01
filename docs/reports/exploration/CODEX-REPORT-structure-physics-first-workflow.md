@@ -20,13 +20,17 @@ Model Specification workflow maintenance
 
 `252d4720d436f0a208a5ef410c939c4003202d90`
 
-## Final commit
+## Final repository state
 
-See the head commit of PR #5 after this report is committed.
+The structural workflow update was merged into `main` through PR #5. The PR squash merge commit was:
+
+`8d7e8feb5ab88769888817a13b74e24aba42f3a4`
+
+This report was refreshed after merge to remove stale PR-review wording.
 
 ## Branch or worktree name
 
-`workflow-physics-first-structure`
+`workflow-physics-first-structure`, merged to `main`
 
 ## Files changed
 
@@ -78,7 +82,7 @@ Dependency setup command used: not required; `pytest` was available in the verif
 
 ## Artifacts produced
 
-* PR #5: `Structure workflow for physics-first AI research collaboration`
+* PR #5: `Structure workflow for physics-first AI research collaboration`, merged to `main`
 * New physics-note template under `docs/notes/`
 * New candidate-claims directory under `docs/claims/`
 * New workflow-evaluation rubric under `docs/workflow_eval.md`
@@ -88,7 +92,7 @@ Dependency setup command used: not required; `pytest` was available in the verif
 
 * Structural file presence check passed in the local mirror.
 * Updated pytest structure tests passed in the local mirror.
-* PR #5 is open and marked ready for review.
+* PR #5 was mergeable and was merged to `main`.
 
 ## Checks failed
 
@@ -110,4 +114,4 @@ No model or claim was promoted to validated status.
 
 ## Recommended next task
 
-Review PR #5 and merge only if the structural workflow policy is acceptable. After merge, run `make quickcheck` from a fresh checkout.
+From a fresh checkout, run `make quickcheck` once in the normal development environment. Then continue with the first concrete physics task only if the user chooses to proceed.
