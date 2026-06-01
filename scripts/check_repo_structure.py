@@ -11,11 +11,21 @@ REQUIRED_FILES = [
     "pyproject.toml",
     "docs/00_idea_log.md",
     "docs/project_state.md",
+    "docs/workflow_eval.md",
     "docs/01_project_brief.md",
     "docs/02_open_questions.md",
     "docs/03_hypotheses.md",
     "docs/04_literature_map.md",
+    "docs/05_novelty_framing.md",
+    "docs/06_prior_art_risk_matrix.md",
+    "docs/07_g1_frozen_corpus.md",
     "docs/dead_ends.md",
+    "docs/stages/stage_index.md",
+    "docs/stages/02_model/gate.md",
+    "docs/notes/README.md",
+    "docs/notes/PHYSICS-NOTE-TEMPLATE.md",
+    "docs/claims/README.md",
+    "docs/claims/candidate_claim_evidence.md",
     "docs/model_candidates/README.md",
     "docs/model_candidates/model_A_initial_lcst_transport_barrier.md",
     "docs/derivations/README.md",
@@ -24,16 +34,19 @@ REQUIRED_FILES = [
     "docs/validated/model_spec.md",
     "docs/validated/claim_evidence.md",
     "docs/tasks/README.md",
+    "docs/tasks/TASK-TEMPLATE.md",
     "docs/tasks/exploration/EXP-001-ingest-initial-model.md",
     "docs/tasks/exploration/EXP-002-sanity-check-candidate-model.md",
     "docs/tasks/verification/README.md",
     "docs/tasks/production/README.md",
     "docs/reports/README.md",
+    "docs/reports/CODEX-REPORT-TEMPLATE.md",
     "docs/reports/exploration/README.md",
     "docs/reports/verification/README.md",
     "docs/reports/production/README.md",
     "docs/decisions/README.md",
     "docs/decisions/ADR-000-template.md",
+    "docs/decisions/ADR-001-physics-first-workflow.md",
     "docs/manuscript/figure_blueprint.md",
     "docs/manuscript/manuscript_blueprint.md",
     "docs/manuscript/revision_checklist.md",
@@ -52,15 +65,77 @@ REQUIRED_FILES = [
 ]
 
 
+def read_text(path: str) -> str:
+    return (ROOT / path).read_text(encoding="utf-8")
+
+
+def check_required_files() -> list[str]:
+    return [path for path in REQUIRED_FILES if not (ROOT / path).exists()]
+
+
+def check_content_invariants() -> list[str]:
+    errors: list[str] = []
+
+    project_state = read_text("docs/project_state.md")
+    if "Stage: Model Specification" not in project_state:
+        errors.append("docs/project_state.md must record the active stage as Model Specification.")
+    if "Internal anchor: `G2`" not in project_state:
+        errors.append("docs/project_state.md must retain G2 as an internal anchor.")
+    if "No model or claim has been promoted to `docs/validated/`" not in project_state:
+        errors.append("docs/project_state.md must record that no model or claim is validated.")
+
+    for path in ["README.md", "AGENTS.md"]:
+        text = read_text(path)
+        if "Formality only at state transitions" not in text:
+            errors.append(f"{path} must include the workflow principle: Formality only at state transitions.")
+        if "Physics-first" not in text:
+            errors.append(f"{path} must include the workflow principle: Physics-first.")
+        if "Concrete task names" not in text and "concrete task names" not in text:
+            errors.append(f"{path} must require concrete task names.")
+
+    stage_index = read_text("docs/stages/stage_index.md")
+    if "Human-readable stage" not in stage_index or "Internal anchor" not in stage_index:
+        errors.append("docs/stages/stage_index.md must separate human-readable stage names from internal anchors.")
+
+    task_template = read_text("docs/tasks/TASK-TEMPLATE.md")
+    if "Concrete task name" not in task_template:
+        errors.append("docs/tasks/TASK-TEMPLATE.md must require a concrete task name.")
+    if "PHYSICS-NOTE-TEMPLATE" not in task_template:
+        errors.append("docs/tasks/TASK-TEMPLATE.md must point non-state-changing work to the physics-note template.")
+
+    validated_model = read_text("docs/validated/model_spec.md")
+    if "not yet validated" not in validated_model:
+        errors.append("docs/validated/model_spec.md must still state that the model is not yet validated.")
+
+    validated_claims = read_text("docs/validated/claim_evidence.md")
+    if "Status: no validated claim evidence" not in validated_claims:
+        errors.append("docs/validated/claim_evidence.md must not contain candidate claim evidence as validated content.")
+
+    candidate_claims = read_text("docs/claims/candidate_claim_evidence.md")
+    if "Status: candidate; not validated" not in candidate_claims:
+        errors.append("docs/claims/candidate_claim_evidence.md must mark claims as candidate and unvalidated.")
+
+    return errors
+
+
 def main() -> int:
-    missing = [path for path in REQUIRED_FILES if not (ROOT / path).exists()]
+    missing = check_required_files()
+    errors = check_content_invariants()
+
     if missing:
         print("Missing required scaffold files:")
         for path in missing:
             print(f"- {path}")
+
+    if errors:
+        print("Repository structure/content invariant errors:")
+        for error in errors:
+            print(f"- {error}")
+
+    if missing or errors:
         return 1
 
-    print("Repository scaffold check passed.")
+    print("Repository scaffold and workflow structure check passed.")
     return 0
 
 
