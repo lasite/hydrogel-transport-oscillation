@@ -11,9 +11,9 @@ Previous stages:
 * Research Idea Brief (`G0`) completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * Literature / Novelty Mapping (`G1`) completed after user accepted the novelty framing and prior-art risk matrix; the frozen literature corpus was created for Model Specification.
 
-Substage: ChatGPT model review completed; P0 model-specification blockers identified.
+Substage: reset for fresh Model A review under the physics-first workflow.
 
-Model status: candidate notes exist only; model-review/specification work is active, but no model is validated.
+Model status: candidate notes exist only; Model A has not been re-reviewed under the new structure; no model is validated.
 
 Numerics status: no production PDE solver; no verified simulation.
 
@@ -35,9 +35,7 @@ Current workflow policy:
 * Use full TASK files and CODEX reports for repository edits, verification runs, and state transitions.
 * Use lightweight physics notes for non-state-changing theoretical reasoning.
 
-This workflow policy changes only the project structure and working rules. It does not advance the model, validate claims, or open numerical-production work.
-
-## Completed Work
+## Completed Pre-Model-Specification Work
 
 * Research Idea Brief accepted by the user.
 * Literature / Novelty Mapping accepted by the user for entry into Model Specification.
@@ -46,32 +44,32 @@ This workflow policy changes only the project structure and working rules. It do
 * Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created; derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
-* ChatGPT model review created at `docs/reports/exploration/GPT-REVIEW-G2-001.md`.
 * No model or claim has been promoted to `docs/validated/`.
+
+## Superseded Model-Specification Work
+
+The previous ChatGPT review at `docs/reports/exploration/GPT-REVIEW-G2-001.md` is retained as a historical artifact only. It is superseded by the workflow reset and must not be treated as current Model Specification progress, accepted blocker state, or validated evidence.
+
+No current Model Specification sanity-check report exists after this reset.
 
 ## Active Blockers
 
-* Free-surface reactant boundary conditions are inconsistent between full flux form and compact form.
-* Continuous boundary conditions for the gradient-energy term are not explicitly specified.
-* The mixing chemical potential must be reaudited for composition-dependent `chi(theta, phi)`.
-* Homogeneous ODE / well-mixed dynamical limit is incomplete.
-* The admissible model domain is not fully stated, including `J >= phi_p0`, `0 < phi <= 1`, and `1 + epsilon_T theta > 0`.
-* Front/barrier observables are not finalized.
-* Material functions `M(J,theta)`, `D(J,theta)`, `K(J)`, and `C(J)` are not fully specified.
-* Reaction accessibility, diffusivity, permeability, and poroelastic collapse are not yet fully separated at the specification level.
-* No claim-evidence item validated; validation is outside Model Specification until evidence is recorded.
+No current Model Specification blocker list is accepted after the reset. The blocker list must be rebuilt by a fresh review of Model A under the physics-first workflow.
+
+Standing constraints remain:
+
+* No claim-evidence item is validated.
+* Production PDE implementation remains blocked.
+* Numerical verification remains blocked.
+* Manuscript drafting remains blocked.
 
 ## Next Recommended Tasks
 
 Use concrete task names. Internal anchors may be added only for ordering.
 
-1. Resolve Free-Surface Reactant Boundary-Condition Convention.
-2. Add Continuous Boundary Conditions for Gradient-Energy Regularization.
-3. Reaudit Composition-Dependent Mixing Chemical Potential.
-4. Derive or Scope the Homogeneous Well-Mixed Limit.
-5. Define the Admissible Model Domain.
-6. Define Front and Barrier Observables.
-7. Do not promote any model or claim into `docs/validated/` until Model Specification evidence is recorded.
+1. Re-review Candidate Model A from Scratch.
+2. Rebuild the Model Specification blocker list only from the fresh review.
+3. Do not promote any model or claim into `docs/validated/` until Model Specification evidence is recorded.
 
 ## Non-Bypassable Gates
 
