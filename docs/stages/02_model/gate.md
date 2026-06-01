@@ -4,13 +4,19 @@ Internal anchor: `G2`
 
 ## Status
 
-active
+active; reset for fresh review
 
 ## Purpose
 
 Convert the candidate Model A material into a clear, auditable model specification before analysis, numerics, or validated claims depend on it.
 
 Model Specification is not a numerical-production gate. Its purpose is to determine whether the candidate equations and assumptions are sufficiently defined and physically consistent to test the novelty mechanism identified during Literature / Novelty Mapping.
+
+## Reset note
+
+Model Specification progress was reset so Model A can be re-reviewed under the physics-first workflow.
+
+The prior ChatGPT review at `docs/reports/exploration/GPT-REVIEW-G2-001.md` is retained only as a historical artifact. It must not be treated as current Model Specification progress, accepted blocker state, or validated evidence.
 
 ## Literature / Novelty Mapping constraints carried into Model Specification
 
@@ -33,7 +39,8 @@ The model must be assessed against these questions:
 
 ## Required outputs
 
-* Candidate model summary reviewed against novelty-risk constraints.
+* Fresh candidate model review against novelty-risk constraints.
+* Rebuilt blocker list based only on the fresh review.
 * Organized derivation source reviewed for variable/parameter definitions.
 * Defined state variables, parameters, units, and material functions.
 * Boundary-condition sign and physical-meaning audit.
@@ -52,7 +59,7 @@ The model must be assessed against these questions:
 * No model, derivation, or claim is moved into `docs/validated/`.
 * The report identifies the minimum next verification task.
 
-## Evidence
+## Evidence retained for fresh review
 
 * EXP-001 is complete.
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md` exists.
@@ -62,23 +69,16 @@ The model must be assessed against these questions:
 * `docs/07_g1_frozen_corpus.md` exists.
 * EXP-002 is not complete.
 
-## Blockers
+## Current blocker state
 
-* `EXP-002-sanity-check-candidate-model` not completed.
-* Homogeneous ODE limit incomplete.
-* Boundary-condition sign convention unresolved.
-* Material functions not fully specified.
-* Front/barrier observables not finalized.
+No current Model Specification blocker list is accepted after the reset. The blocker list must be rebuilt by fresh review.
 
 ## Next tasks
 
 Use concrete physics task names. Internal anchors may be added only as secondary labels.
 
-* Resolve Free-Surface Reactant Boundary-Condition Convention.
-* Add Continuous Boundary Conditions for Gradient-Energy Regularization.
-* Reaudit Composition-Dependent Mixing Chemical Potential.
-* Derive or Scope the Homogeneous Well-Mixed Limit.
-* Define Front and Barrier Observables.
+* Re-review Candidate Model A from Scratch.
+* Rebuild the Model Specification blocker list from the fresh review.
 
 ## Promotion rule
 
