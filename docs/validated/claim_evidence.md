@@ -1,41 +1,20 @@
-# Claim-Evidence Matrix
+# Validated Claim-Evidence Matrix
 
-Status: tentative
+Status: no validated claim evidence
 
-## Candidate Claim C1
+No claim has passed a validation gate.
 
-LCST collapse self-generates a transport and reaction-accessibility barrier.
+Candidate claim-evidence tracking lives in:
 
-Evidence required:
+* `docs/claims/candidate_claim_evidence.md`
 
-* barrier observable;
-* spatial profiles of concentration, temperature, and collapse;
-* comparison with no-collapse or no-transport-degradation control.
+Do not cite candidate claim entries as validated evidence.
 
-Status: no evidence yet.
+Promotion criteria:
 
-## Candidate Claim C2
-
-The barrier converts Arrhenius thermal runaway into relaxation oscillation.
-
-Evidence required:
-
-* closed cycle in diagnostic phase space;
-* bounded recurrent oscillations;
-* phase lag;
-* front motion;
-* comparison to well-mixed ODE.
-
-Status: no evidence yet.
-
-## Candidate Claim C3
-
-Homogeneous linear stability is insufficient to predict the spatial PDE attractor.
-
-Evidence required:
-
-* homogeneous ODE or linear stability analysis;
-* PDE attractor analysis;
-* finite-amplitude front/barrier mechanism.
-
-Status: no evidence yet.
+1. Claim is stated in evidence-bounded language.
+2. Required controls are identified.
+3. Evidence artifact paths are recorded.
+4. Verification commands and outcomes are recorded.
+5. ChatGPT review and user approval are recorded when required by the relevant task.
+6. The relevant gate permits promotion.

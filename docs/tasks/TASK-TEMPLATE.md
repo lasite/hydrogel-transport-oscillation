@@ -1,12 +1,24 @@
-# TASK-XXX: Title
+# TASK: Concrete Task Name
 
-## Task ID
+Example: `Resolve Free-Surface Reactant Boundary-Condition Convention`
 
-`TASK-XXX`
+Use this template for Codex tasks, repository edits, verification work, and state-transition preparation. Do not use the full template for a non-state-changing physics note; use `docs/notes/PHYSICS-NOTE-TEMPLATE.md` instead.
 
-## Stage
+## Concrete task name
 
-Example: `G0 -- Idea Brief`
+State the task in physics or workflow terms. Do not use only an abstract stage label such as `G2-001`.
+
+## Task ID or slug
+
+Example: `resolve-reactant-boundary-flux-convention`
+
+## Human-readable stage
+
+Example: `Model Specification`
+
+## Internal stage anchor
+
+Example: `G2_model` or `Not applicable`
 
 ## Objective
 
@@ -30,7 +42,7 @@ List every file the worker may create or edit. If no files may be modified, writ
 
 ## Forbidden actions
 
-List actions that are out of scope, including scientific, coding, data, validation, and Git actions when relevant.
+List actions that are out of scope, including scientific, coding, data, validation, manuscript, and Git actions when relevant.
 
 ## Deliverables
 
@@ -44,17 +56,17 @@ List commands that must be run before handoff.
 
 List observable conditions that must all be true for the task to pass.
 
-Missing acceptance criteria make a task invalid.
+Missing acceptance criteria make a Codex task invalid.
 
 ## Failure conditions
 
 List conditions that make the task fail or require human review before proceeding.
 
-Missing failure conditions make a task invalid.
+Missing failure conditions make a Codex task invalid.
 
 ## Required CODEX-REPORT path
 
-Example: `docs/reports/exploration/CODEX-REPORT-TASK-XXX.md`
+Example: `docs/reports/exploration/CODEX-REPORT-resolve-reactant-boundary-flux-convention.md`
 
 ## User approval required before merge
 
@@ -63,4 +75,3 @@ Yes / No / Not applicable
 ## ChatGPT review required before merge
 
 Yes / No / Not applicable
-

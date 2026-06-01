@@ -1,6 +1,14 @@
 # CODEX Report Template
 
-## Task ID
+Use this report for Codex tasks, repository edits, command execution, and state-transition preparation. Do not use it for a non-state-changing physics note.
+
+## Concrete task name
+
+## Task ID or slug
+
+## Human-readable stage
+
+## Internal stage anchor
 
 ## Base commit
 
@@ -45,4 +53,3 @@ When applicable, include this exact statement:
 No model or claim was promoted to validated status.
 
 ## Recommended next task
-

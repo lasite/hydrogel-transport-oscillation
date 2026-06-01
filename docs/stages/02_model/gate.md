@@ -1,4 +1,6 @@
-# Gate: G2 Model Specification
+# Gate: Model Specification
+
+Internal anchor: `G2`
 
 ## Status
 
@@ -8,17 +10,17 @@ active
 
 Convert the candidate Model A material into a clear, auditable model specification before analysis, numerics, or validated claims depend on it.
 
-G2 is not yet a numerical-production gate. Its purpose is to determine whether the candidate equations and assumptions are sufficiently defined and physically consistent to test the G1 novelty mechanism.
+Model Specification is not a numerical-production gate. Its purpose is to determine whether the candidate equations and assumptions are sufficiently defined and physically consistent to test the novelty mechanism identified during Literature / Novelty Mapping.
 
-## G1 constraints carried into G2
+## Literature / Novelty Mapping constraints carried into Model Specification
 
-G2 must test the mechanism implied by:
+Model Specification must test the mechanism implied by:
 
 * `docs/05_novelty_framing.md`
 * `docs/06_prior_art_risk_matrix.md`
 * `docs/07_g1_frozen_corpus.md`
 
-The model must be assessed against these G1-derived questions:
+The model must be assessed against these questions:
 
 1. Is the chemical subsystem non-oscillatory by itself?
 2. Is a homogeneous ODE or well-mixed limit derivable, and what does it predict?
@@ -31,14 +33,14 @@ The model must be assessed against these G1-derived questions:
 
 ## Required outputs
 
-* Candidate model summary reviewed against G1 constraints.
+* Candidate model summary reviewed against novelty-risk constraints.
 * Organized derivation source reviewed for variable/parameter definitions.
 * Defined state variables, parameters, units, and material functions.
 * Boundary-condition sign and physical-meaning audit.
 * Limiting-case checklist.
 * Explicit list of undefined quantities or assumptions.
 * Minimum front/barrier observables required for later verification.
-* G2 sanity-check report.
+* Model Specification sanity-check report.
 
 ## Acceptance criteria
 
@@ -70,9 +72,13 @@ The model must be assessed against these G1-derived questions:
 
 ## Next tasks
 
-* Create or revise a G2 model-specification task that uses G1 constraints.
-* Run `EXP-002-sanity-check-candidate-model` only if its scope is updated to include G1 novelty-risk constraints.
-* Resolve notation, boundary-condition signs, material functions, and minimum observables.
+Use concrete physics task names. Internal anchors may be added only as secondary labels.
+
+* Resolve Free-Surface Reactant Boundary-Condition Convention.
+* Add Continuous Boundary Conditions for Gradient-Energy Regularization.
+* Reaudit Composition-Dependent Mixing Chemical Potential.
+* Derive or Scope the Homogeneous Well-Mixed Limit.
+* Define Front and Barrier Observables.
 
 ## Promotion rule
 
