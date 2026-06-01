@@ -6,17 +6,17 @@ You are assisting with an early-stage theoretical soft-matter physics research p
 
 The repository is the source of truth. Prior chat history is not the source of truth.
 
+This repository supports interaction with a physics expert. Optimize for physical correctness, auditability, and falsifiability. Do not turn routine physical reasoning into programmer-centric ceremony.
+
 ## Current stage
 
-The project is in the exploratory stage.
+Active stage: Model Specification
 
-Current active gate: `G2 -- Model Specification`.
+Internal anchor: `G2`
 
-G0 idea brief and G1 literature / novelty mapping have been accepted by the user.
+Research Idea Brief and Literature / Novelty Mapping have been accepted by the user. The model remains candidate-only and unvalidated.
 
-The Git repository is the source of truth. ChatGPT defines and reviews tasks. Codex implements only within the assigned TASK scope and must produce a CODEX report for handoff back to ChatGPT.
-
-During G2, prioritize model specification, variable definitions, units, material functions, boundary-condition signs, limiting cases, and minimum observables. Do not write a production PDE solver unless the user explicitly opens a later numerical gate.
+During Model Specification, prioritize model specification, variable definitions, units, material functions, boundary-condition signs, limiting cases, and minimum observables. Do not write a production PDE solver unless the user explicitly opens a later numerical-verification stage.
 
 Do not assume:
 
@@ -27,25 +27,74 @@ Do not assume:
 * linear stability analysis is sufficient;
 * the PDE attractor structure is known.
 
-## Required reading before any task
+## Operating principles
 
-Before working on any task, read:
+* Formality only at state transitions.
+* Physics-first everywhere else.
+* Concrete task names first; internal anchors such as `G2` are secondary labels.
+* A task name should state the actual issue, for example `Resolve Reactant Boundary Flux Convention`, `Reaudit Composition-Dependent Mixing Potential`, or `Define Front and Barrier Observables`.
+* Use structure to prevent false promotion of claims, not to replace physical reasoning.
 
-* `docs/project_state.md`
-* `docs/00_idea_log.md`
-* `docs/01_project_brief.md`
-* `docs/02_open_questions.md`
-* `docs/03_hypotheses.md`
-* `docs/04_literature_map.md`
-* `docs/05_novelty_framing.md`
-* `docs/06_prior_art_risk_matrix.md`
-* `docs/07_g1_frozen_corpus.md`
-* the assigned task file under `docs/tasks/`
+## Work modes
 
-If the task involves equations, also read:
+### Physics note
 
-* `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`
-* `docs/derivations/initial_model_derivation.tex`
+Use a physics note for non-state-changing theoretical review, derivation sketches, physical intuition, critique, or option comparison.
+
+A physics note may be written in chat or placed under `docs/notes/`. It should normally contain: question, physics intuition, candidate derivation or equations, assumptions, limiting or failure cases, and next action.
+
+A physics note must not change project stage, validation status, claim evidence, executable behavior, figures, or manuscript claims.
+
+### Codex task
+
+Use a full TASK file when repository files will be modified, commands will be run, or a handoff report is needed.
+
+Every Codex task should have:
+
+* concrete task name;
+* internal stage anchor if needed;
+* objective;
+* scientific or workflow context;
+* inputs;
+* allowed files to read;
+* allowed files to modify;
+* forbidden actions;
+* deliverables;
+* verification commands;
+* acceptance criteria;
+* failure conditions;
+* required CODEX-REPORT path;
+* whether user approval is required before merge;
+* whether ChatGPT review is required before merge.
+
+Missing acceptance criteria or missing failure conditions make a Codex task invalid.
+
+### Gate or state transition
+
+Use full formal review for any change that affects project stage, gate status, validation status, claim evidence, numerical evidence, figure evidence, or manuscript text.
+
+State-transition work must update `docs/project_state.md` and the relevant gate, decision, report, or evidence file. If evidence is missing, record the item as pending rather than inferring success.
+
+## Required reading
+
+Before any work, read:
+
+* `docs/project_state.md`;
+* the assigned task file or note request;
+* files explicitly listed as inputs or allowed-to-modify files.
+
+If the task changes or reviews model equations, also read:
+
+* `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`;
+* `docs/derivations/initial_model_derivation.tex`.
+
+If the task changes novelty framing, manuscript claims, or evidence requirements, also read:
+
+* `docs/04_literature_map.md`;
+* `docs/05_novelty_framing.md`;
+* `docs/06_prior_art_risk_matrix.md`;
+* `docs/07_g1_frozen_corpus.md`;
+* `docs/claims/candidate_claim_evidence.md`.
 
 ## Math documentation rules
 
@@ -58,9 +107,11 @@ If the task involves equations, also read:
 
 ## Scientific rules
 
-Do not invent equations that the user has not provided.
+Do not silently promote newly proposed equations into the model.
 
-If equations are missing, use explicit TODO markers.
+Proposed equations, closures, material functions, nondimensionalizations, or boundary conventions may be suggested only when marked as candidate, proposed, or TODO, with assumptions and required checks stated explicitly.
+
+Do not move any model, derivation, result, or claim into `docs/validated/` unless the relevant gate requires it and evidence is recorded.
 
 When reviewing or implementing a model, check:
 
@@ -76,7 +127,7 @@ When reviewing or implementing a model, check:
 * whether a spatial barrier can form;
 * whether the proposed oscillation requires spatial PDE dynamics rather than homogeneous ODE dynamics.
 
-G2-specific constraints from G1:
+Model Specification constraints from the Literature / Novelty Mapping stage:
 
 * Verify that the chemical subsystem is non-oscillatory by itself or mark this unresolved.
 * Distinguish reaction accessibility, diffusivity, permeability, and poroelastic collapse.
@@ -100,30 +151,6 @@ If code is added later:
 * Put tests under `tests/`.
 * Put parameters under `configs/`.
 
-## Task protocol
-
-Every task should have:
-
-* Task ID;
-* Stage;
-* objective;
-* scientific or workflow context;
-* inputs;
-* allowed files to read;
-* allowed files to modify;
-* forbidden actions;
-* deliverables;
-* verification commands;
-* acceptance criteria;
-* failure conditions;
-* required CODEX-REPORT path;
-* whether user approval is required before merge;
-* whether ChatGPT review is required before merge.
-
-Missing acceptance criteria or missing failure conditions make a task invalid.
-
-Every completed task should produce a report under `docs/reports/`.
-
 ## Verification commands
 
 For scaffold-level checks, run:
@@ -142,10 +169,14 @@ If `latexmk` is unavailable, `make derivations` should report a warning and cont
 
 ## Reporting rules
 
-At the end of each task, report:
+At the end of each Codex task, report:
 
 * files created or modified;
-* commands run;
+* commands run with exit codes;
 * whether checks passed;
 * known TODOs;
 * recommended next task.
+
+When applicable, include this exact statement:
+
+No model or claim was promoted to validated status.
