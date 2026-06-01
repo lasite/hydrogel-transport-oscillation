@@ -8,7 +8,7 @@ Current overall state:
 
 * Research Idea Brief (`G0`): complete
 * Literature / Novelty Mapping (`G1`): complete
-* Model Specification (`G2`): active
+* Model Specification (`G2`): active; reset for fresh review
 * Mechanism Analysis (`G3`): blocked
 * Minimal Numerical Verification (`G4`): blocked
 * Parameter-Scan Evidence (`G5`): blocked
