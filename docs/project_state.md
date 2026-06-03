@@ -11,13 +11,13 @@ Previous stages:
 * Research Idea Brief (`G0`) completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * Literature / Novelty Mapping (`G1`) completed after user accepted the novelty framing and prior-art risk matrix; the frozen literature corpus was created for Model Specification.
 
-Substage: post-`paper_latest` source-material import and triage.
+Substage: replaced Model A derivation from migrated Appendix A--B; ChatGPT scientific review pending.
 
-Model status: candidate only. The repository now contains migrated prior-draft model text, homogeneous/stability diagnostic text, appendices, selected figures, figure data, plotting scripts, and CPU solver source from `paper_latest`, but these materials have not been reconciled with Model A and no model is validated.
+Model status: candidate only. The active long derivation source at `docs/derivations/initial_model_derivation.tex` now mechanically copies the migrated Appendix A `Model Construction` and Appendix B `Nondimensionalization` material from `paper/appendix/appendix.tex`. The material has not yet received ChatGPT scientific review and no model is validated.
 
 Numerics status: no production PDE solver; no verified simulation. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only.
 
-Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Composite figure generation is not yet verified in this repository because the migration report records plotting smoke-test failures at PDF assembly due to missing `pypdf`.
+Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Migration hygiene resolved the missing `pypdf` dependency and composite figure smoke tests now pass as repository assembly checks only; these checks do not validate the figure data or numerical results.
 
 Manuscript status: no current manuscript draft is active. The migrated `paper/sections/` and `paper/appendix/` files are fragments for audit and future reuse only, not an accepted manuscript.
 
@@ -43,10 +43,12 @@ Current workflow policy:
 * Literature / Novelty Mapping accepted by the user for entry into Model Specification.
 * Idea log, project brief, open questions, hypotheses, literature map, novelty framing, prior-art risk matrix, and frozen corpus created.
 * Model A candidate summary exists as exploratory background only.
-* Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
+* The earlier EXP-001 derivation organization is retained as historical workflow context, but the active derivation file has now been replaced by migrated Appendix A--B material.
 * EXP-001 report created; derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
 * Selected `paper_latest` assets have been imported by PR `#7` and recorded in `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`, `paper/paper_latest_provenance.md`, and `paper/paper_latest_migration_manifest.tsv`.
+* Migration hygiene was resolved by PR `#8`, including `pypdf` declaration, composite figure smoke tests, LaTeX figure path cleanup, dirty-source provenance, and large-cache deduplication.
+* `docs/derivations/initial_model_derivation.tex` has been replaced with the migrated Appendix A--B model-construction and nondimensionalization source material for ChatGPT review.
 * GPT review of the merged migration is recorded in `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
 * No model or claim has been promoted to `docs/validated/`.
 
@@ -58,20 +60,17 @@ The imported `paper_latest` draft material is historical source material. It mus
 
 ## Active Blockers
 
-### Migration-hygiene blockers
+### Derivation-review blockers
 
-These must be resolved before the imported source material is clean enough to serve as a stable reference for Model Specification.
+These must be resolved before the replaced derivation can serve as the basis of a candidate model specification.
 
-1. Migrated LaTeX fragments still contain figure paths that do not resolve from the new repository layout without an external wrapper or `\graphicspath` convention.
-2. Figure composite plotting smoke tests failed because `pypdf` is missing from the current environment or dependency declaration.
-3. The source `paper_latest` tree was dirty during migration; the exact dirty-state provenance is not fully reconstructable from the recorded source HEAD alone.
-4. Two near-100 MB cache files appear duplicated under Figure 2 and Figure 3 bundles and require a repository-size decision.
-5. The migration report metadata still needs the final merged commit information.
-6. The title mismatch between requested `III. LINEAR STABILITY ANALYSIS` and migrated `III. HOMOGENEOUS STABILITY DIAGNOSTIC` needs explicit mapping or correction.
+1. ChatGPT must scientifically review the replaced Appendix A--B derivation.
+2. The review must check conserved variables, state-vector consistency, flux signs, boundary conditions, material functions, and nondimensional groups.
+3. Any scientific issues found by review must remain candidate or unresolved until explicitly accepted by the user.
 
 ### Model-Specification blockers
 
-The blocker list must be rebuilt from a fresh reconciliation of Model A and the migrated draft. Known issues to include in that review are:
+The blocker list must be rebuilt from the ChatGPT review of the replaced derivation. Known issues to include in that review are:
 
 1. Reconcile `J,u,theta,mu` notation with the migrated conservative variables `J,W=Ju,theta,m`.
 2. Audit free-surface reactant flux signs using the integral conservation law.
@@ -96,11 +95,10 @@ Standing constraints remain:
 
 Use concrete task names. Internal anchors may be added only for ordering.
 
-1. Resolve `paper_latest` Migration Hygiene.
-2. Reconcile Migrated Draft Model with Model A.
-3. Rebuild the Model Specification Blocker List.
-4. Define Minimum Front/Barrier Observables.
-5. Prepare Minimal Numerical Verification Design only after the Model Specification gate passes.
+1. Request ChatGPT Scientific Review of Replaced Model A Derivation.
+2. Rebuild the Model Specification Blocker List from that review.
+3. Define Minimum Front/Barrier Observables.
+4. Prepare Minimal Numerical Verification Design only after the Model Specification gate passes.
 
 Detailed task files are tracked under `docs/tasks/exploration/`.
 
@@ -154,6 +152,8 @@ Promotion gates:
 * `docs/tasks/exploration/TASK-reconcile-migrated-draft-model-with-model-A.md`
 * `docs/reports/CODEX-REPORT-TEMPLATE.md`
 * `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`
+* `docs/reports/exploration/CODEX-REPORT-resolve-paper-latest-migration-hygiene.md`
+* `docs/reports/exploration/CODEX-REPORT-replace-initial-model-derivation-from-paper-appendix.md`
 * `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`
 * `paper/paper_latest_provenance.md`
 * `paper/paper_latest_migration_manifest.tsv`

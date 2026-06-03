@@ -12,8 +12,8 @@
 \newcommand{\Rhat}{\widehat{R}}
 \newcommand{\pp}{\phi_{p0}}
 
-\title{Initial Model Derivation: LCST Transport-Barrier Mechanism}
-\author{User-provided preliminary derivation, organized for the repository}
+\title{Initial Model Derivation from Migrated Appendix}
+\author{Migrated Appendix A--B source material, organized for repository review}
 \date{\today}
 
 \begin{document}
@@ -22,391 +22,376 @@
 \noindent This file is the source of truth for long mathematical derivations. Markdown files should only summarize it.
 
 \medskip
-\noindent\textbf{Ingestion note.}
-This document organizes the user-provided preliminary material from Sections II--III and the appendices of the attached manuscript source.  The scientific content is kept at the candidate-model stage: equations and assumptions are recorded here, but no model, simulation result, or claim is validated by this repository.
+\noindent\textbf{Provenance note.}
+This document mechanically copies Appendix A, ``Model Construction,'' and Appendix B, ``Nondimensionalization,'' from \texttt{paper/appendix/appendix.tex}. The copied source begins at the Model Construction section and stops before the Homogeneous Diagnostic Derivation section. Wrapper packages and macro definitions were added only so this derivation can compile as a standalone document. No scientific corrections, equation edits, or validation claims are made here.
 
-\section{Model variables}
+\section{Model Construction}
+\label{app:model}
 
-\subsection{Physical system}
+We formulate a one-dimensional Lagrangian model for the coupled thermo-chemo-poroelastic dynamics of a thermoresponsive gel slab undergoing an exothermic reaction. The conservative variables are the local swelling ratio $J(X,t)$, the reactant content per reference volume $Jc$, and the temperature $T(X,t)$; the solvent chemical potential is used as an algebraic mixed variable.
 
-The source model considers a planar thermoresponsive gel slab of reference half-thickness $H_0$ containing an immobilised catalyst for an exothermic, irreversible, first-order reaction.  The slab is in contact at its free surface with a well-mixed bath of constant temperature $T_\infty$ and constant reactant concentration $c_b$.  The Lagrangian coordinate is
-\begin{equation}
-  \xi = X/H_0 \in [0,1],
-\end{equation}
-with $\xi=0$ the symmetry plane and $\xi=1$ the free surface.
+\subsection{Kinematics}
 
-\subsection{Kinematics and fields}
-
-In the dimensional appendix notation, the current position of a material point is $x(X,t)$ and the local swelling ratio is
+Consider a gel slab of reference (as-prepared) half-thickness $H_0$. We adopt a material (Lagrangian) coordinate $X\in[0,H_0]$, with $X=0$ denoting the symmetry plane and $X=H_0$ the free surface. The current position of a material point is $x(X,t)$, and the local volume ratio is
 \begin{equation}
   J(X,t) = \frac{\partial x}{\partial X} > 0.
   \label{eq:J_def}
 \end{equation}
-The polymer volume fraction is
+In one dimension, $J$ is the local swelling ratio. The polymer volume fraction is a dependent variable determined by mass conservation of the network:
 \begin{equation}
   \phi(X,t) = \frac{\pp}{J(X,t)},
   \label{eq:phi_J}
 \end{equation}
-where $\pp$ is the polymer volume fraction in the reference state.  The current slab thickness is
+where $\pp$ is the polymer volume fraction in the reference (as-prepared) state; $\pp=0.15$ corresponds to a gel that is $85\%$ solvent by volume at preparation. The current thickness of the slab is
 \begin{equation}
   h(t) = x(H_0,t) = \int_0^{H_0} J(X,t)\,dX.
   \label{eq:thickness}
 \end{equation}
 
-The three primary fields in the nondimensional model are
-\begin{align}
-  J(\xi,t) &: \text{local swelling ratio},\\
-  u(\xi,t) &= c/c_b : \text{normalized reactant concentration},\\
-  \theta(\xi,t) &= (T-T_\infty)/\Delta T_* : \text{dimensionless temperature excess},
-\end{align}
-where
-\begin{equation}
-  \Delta T_* = \frac{(-\Delta H_r)c_b}{C_*}
-\end{equation}
-is the adiabatic reaction temperature rise.
+\subsection{Governing equations}
 
-\subsection{Dimensionless parameter table from the source model}
+\subsubsection{Swelling--permeation equation}
 
-\begin{center}
-\begin{tabular}{llll}
-\hline
-Symbol & Physical meaning & Default & Range\\
-\hline
-$\Da$ & Reaction rate / swelling rate & 4 & 3--18\\
-$\Bi_\mu$ & Surface permeation Biot number & 1.0 & --\\
-$\Bi_c$ & Surface reactant Biot number & 0.70 & 0.1--2\\
-$\Bi_T$ & Thermal exchange number & 0.10 & 0.05--0.5\\
-$S_\chi$ & LCST sensitivity & 1.0 & 0.5--8\\
-$\Gamma_A$ & Arrhenius sensitivity & 1.5 & 0--7\\
-$D_0$ & Reactant diffusivity scale & 2.0 & 0.5--3\\
-$m_\mathrm{act}$ & Reaction accessibility exponent & 6 & 1--6\\
-$m_\mathrm{diff}$ & Diffusion tortuosity exponent & 2 & 1--6\\
-$\alpha$ & Thermal / swelling time ratio & 0.03 & --\\
-$\delta$ & Diffusion / permeation ratio & 0.08 & --\\
-$\ell$ & Interface regularization length & 0.01 & --\\
-$\Omega_e$ & Elastic / mixing energy ratio & 0.12 & --\\
-$\pp$ & Reference polymer fraction & 0.15 & --\\
-$\chi_\infty$ & Interaction parameter at $T_\infty$ & 0.60 & --\\
-$\chi_1$ & Concentration-dependent $\chi$ & 1.10 & --\\
-$\varepsilon_T$ & Nonlinear Arrhenius correction & 0.03 & --\\
-\hline
-\end{tabular}
-\end{center}
-
-\section{Governing equations}
-
-\subsection{Compact dimensionless PDE system}
-
-The compact nondimensional governing equations in the source manuscript are
-\begin{subequations}
-\label{eq:governing}
-\begin{align}
-  \frac{\partial J}{\partial t} &=
-    \frac{\partial}{\partial \xi}
-    \left[\Ms(J)\,\frac{\partial\mu}{\partial\xi}\right],
-    \label{eq:gov_J}\\[4pt]
-  \frac{\partial (uJ)}{\partial t} &=
-    -\frac{\partial}{\partial\xi}\bigl(u\,q\bigr)
-    + \frac{\partial}{\partial\xi}
-    \left[\Ds(J)\,\frac{\partial u}{\partial\xi}\right]
-    - \Da\,J\,\Rhat,
-    \label{eq:gov_u}\\[4pt]
-  \Cs(J)\,\frac{\partial\theta}{\partial t} &=
-    \frac{\partial}{\partial\xi}
-    \left[\Ks(J)\,\frac{\partial\theta}{\partial\xi}\right]
-    + \Da\,J\,\Rhat.
-    \label{eq:gov_theta}
-\end{align}
-\end{subequations}
-Here
-\begin{equation}
-  q=-\Ms\,\partial_\xi\mu
-\end{equation}
-is the solvent flux, $\Ms$ is the swelling mobility, $\Ds$ and $\Ks$ are the effective reactant diffusivity and thermal conductivity, and $\Cs$ is the effective heat capacity.  In this compact form, the prefactors $\delta$ and $\alpha$ are absorbed into $\Ds$ and $\Ks$.  The enthalpy-advection term is neglected under the source assumption $\Pe_T\ll 1$.
-
-\subsection{Reaction rate}
-
-The compact source reaction rate is
-\begin{equation}
-  \Rhat
-  = u\,(1-\phi)^{m_\mathrm{act}}\,
-  \exp\!\left(\frac{\Gamma_A\,\theta}{1+\varepsilon_T\,\theta}\right),
-  \label{eq:rxn}
-\end{equation}
-with $\phi=\pp/J$.  The appendix writes the general reaction order as
-\begin{equation}
-  \Rhat(u,\theta,J)
-  = u^n\,a(J)\,
-  \exp\!\left[\frac{\Gamma_A\,\theta}{1+\varepsilon_T\,\theta}\right],
-  \label{eq:Rhat_general}
-\end{equation}
-where
-\begin{equation}
-  a(J) = \left(1-\frac{\pp}{J}\right)^{m_\mathrm{act}}
-  = (1-\phi)^{m_\mathrm{act}}.
-  \label{eq:aJ}
-\end{equation}
-The compact model corresponds to the first-order case $n=1$.
-
-\subsection{Dimensional conservation laws from the appendix}
-
-The dimensional solvent conservation equation is
+The evolution of $J$ is governed by solvent conservation:
 \begin{equation}
   \frac{\partial J}{\partial t} = -\frac{\partial Q_s}{\partial X},
   \label{eq:J_evol}
 \end{equation}
-with solvent flux
+where $Q_s$ is the solvent flux relative to the polymer network, driven by chemical-potential gradients:
 \begin{equation}
   Q_s = -M_s(J,T)\,\frac{\partial \mu_s}{\partial X}.
   \label{eq:Qs}
 \end{equation}
+Here $M_s(J,T)$ is the permeation mobility and $\mu_s$ is the solvent chemical potential.
 
-The dimensional reactant balance is
+\subsubsection{Reactant transport equation}
+
+The reactant concentration $c(X,t)$ (moles per unit current total volume) evolves according to
 \begin{equation}
   \frac{\partial (Jc)}{\partial t}
   + \frac{\partial N_c}{\partial X}
   = -J\,R(c,T,J),
   \label{eq:c_evol}
 \end{equation}
-with total reactant flux
+with the total reactant flux
 \begin{equation}
   N_c = c\,Q_s - D_c(J,T)\,\frac{\partial c}{\partial X}.
   \label{eq:Nc}
 \end{equation}
+The first term represents advective transport by the solvent flow, and the second term Fickian diffusion within the pore fluid. The effective diffusivity $D_c(J,T)$ depends on the local microstructure via $J$.
 
-The dimensional heat equation is
+\subsubsection{Heat equation}
+
+The temperature field satisfies
 \begin{multline}
   C_\mathrm{eff}(J)\,\frac{\partial T}{\partial t}
   = \frac{\partial}{\partial X}\!\left(K_T(J)\,\frac{\partial T}{\partial X}\right)
   - \frac{\partial}{\partial X}\!\left(c_p^\ell\,T\,Q_s\right)
   \\
-  + (-\Delta H_r)\,J\,R(c,T,J).
+  + (-\Delta H_r)\,J\,R(c,T,J),
   \label{eq:T_evol}
 \end{multline}
+where $C_\mathrm{eff}(J)$ is the effective volumetric heat capacity,
+$K_T(J)$ the effective thermal conductivity, $c_p^\ell$ the solvent
+heat capacity per unit volume, and $-\Delta H_r > 0$ the exothermic
+reaction enthalpy.  The three right-hand-side terms represent thermal
+conduction, enthalpy advection by the solvent flow, and reaction heat
+generation, respectively.
 
 \subsection{Free energy and chemical potential}
 
-The Helmholtz free-energy density per unit reference volume is
+The Helmholtz free-energy density per unit reference volume is written as
 \begin{equation}
   \Psi(J,T) = \Psi_\mathrm{el}(J) + \Psi_\mathrm{mix}(\phi,T)
   + \frac{\kappa_J}{2}\left(\frac{\partial J}{\partial X}\right)^2,
   \label{eq:Psi}
 \end{equation}
-where
+where $\phi = \pp/J$, and the three contributions are the elastic
+energy of the network, the Flory--Huggins mixing energy, and a
+gradient-energy regularization.
+
+For the polymer network we adopt a neo-Hookean elastic energy
+appropriate for uniaxial swelling in the slab geometry:
 \begin{equation}
   \Psi_\mathrm{el}(J) = \frac{G}{2}
-  \left(J^{2} - 1 - 2\ln J\right)
+  \bigl(J^{2} - 1 - 2\ln J\bigr),
   \label{eq:Psi_el}
 \end{equation}
-and
+where $G$ is the shear modulus of the reference-state network.
+
+The mixing free-energy density takes the standard Flory--Huggins
+form~\cite{Flory1953}:
 \begin{equation}
   \Psi_\mathrm{mix}(\phi,T)
   = \frac{R_g T}{v_s}
-  \left[(1-\phi)\ln(1-\phi) + \chi(T,\phi)\,\phi(1-\phi)\right].
+  \Big[(1-\phi)\ln(1-\phi) + \chi(T,\phi)\,\phi(1-\phi)\Big],
   \label{eq:Psi_mix}
 \end{equation}
-The interaction parameter is
+with $R_g$ the gas constant, $v_s$ the solvent molar volume, and
+the Flory--Huggins interaction parameter
 \begin{equation}
   \chi(T,\phi) = \chi_0(T) + \chi_1\,\phi.
   \label{eq:chi}
 \end{equation}
+The temperature-dependent part $\chi_0(T)$ encodes the LCST
+behavior of the gel; $\chi_1$ captures the leading
+concentration dependence.
 
-The source appendix gives the mixing contribution to the solvent chemical potential as
+The solvent chemical potential is obtained as
+$\mu_s = v_s\,\partial\Psi/\partial(1-\phi)\cdot
+\partial(1-\phi)/\partial J$~\cite{Hong2008}.  Evaluating this
+derivative yields the mixing contribution
 \begin{equation}
   \frac{\mu_\mathrm{mix}}{R_g T/v_s}
-  = \ln(1-\phi) + \phi + \chi(T,\phi)\,\phi^2,
+  = \ln(1-\phi) + \phi + \chi(T,\phi)\,\phi^2
+  - \phi^2(1-\phi)\,\frac{\partial\chi}{\partial\phi},
   \label{eq:mu_mix}
 \end{equation}
-and the elastic contribution as
+so that the linear form~\eqref{eq:chi} gives
+$\partial\chi/\partial\phi=\chi_1$.  The shorter expression without
+this final term is retained only as an effective-osmotic comparison
+closure, not as a strict free-energy derivative.
+and the elastic contribution
 \begin{equation}
   \frac{\mu_\mathrm{el}}{R_g T/v_s}
   = \frac{G\,v_s}{R_g T}
-  \left(J - J^{-1}\right).
+  \bigl(J - J^{-1}\bigr).
   \label{eq:mu_el}
 \end{equation}
-The full chemical potential, including gradient regularization, is
+The full chemical potential, including the gradient-energy
+regularization, is
 \begin{equation}
   \mu_s = \mu_\mathrm{mix}(J,T) + \mu_\mathrm{el}(J)
   - \kappa_J\,\frac{\partial^2 J}{\partial X^2}.
   \label{eq:mu_s}
 \end{equation}
 
-\subsection{Microstructure-dependent transport}
+\subsection{Reaction kinetics}
 
-The dimensional reaction rate is
+The volumetric reaction rate takes the Arrhenius form modulated by a collapse-dependent accessibility factor:
 \begin{equation}
-  R(c,T,J) = k_0\,c^n\,\exp\!\left(-\frac{E_a}{R_g T}\right)a(J),
+  R(c,T,J) = k_0\,c^n\,\exp\!\left(-\frac{E_a}{R_g T}\right) a(J),
   \label{eq:R}
 \end{equation}
-with $a(J)$ defined in Eq.~\eqref{eq:aJ}.  The effective diffusivity and mobility are
+where $k_0$ is the pre-exponential factor, $n$ the reaction order, and $E_a$ the activation energy.
+
+The activity factor $a(J)$ models the suppression of reaction due to reduced free solvent volume upon collapse:
+\begin{equation}
+  a(J) = A_\mathrm{min}+(1-A_\mathrm{min})\,
+  \bar p^{\,m_\mathrm{act}}, \qquad
+  \bar p=\mathrm{clip}\!\left[
+    \frac{1-\phi}{1-\phi_\mathrm{ref}},0,1\right].
+  \label{eq:aJ}
+\end{equation}
+When the gel collapses ($J\to\pp$, $\phi\to 1$), the activity approaches
+the residual floor $A_\mathrm{min}$.  This is a phenomenological
+porosity/accessibility closure rather than a microscopic derivation.
+
+The effective transport coefficients similarly depend on the microstructure:
 \begin{align}
-  D_c(J) &= D_0\left(1-\frac{\pp}{J}\right)^{m_\mathrm{diff}},
-  \label{eq:Dc}\\
-  M_s(J) &= M_0\left(1-\frac{\pp}{J}\right)^{m_\mathrm{mob}}.
-  \label{eq:Ms}
+  D_c(J) &= D_0\left[D_\mathrm{min}+(1-D_\mathrm{min})
+  \bar p^{\,m_\mathrm{diff}}\right], \label{eq:Dc} \\
+  M_s(J) &= M_0\,\bar p^{\,m_\mathrm{mob}}, \label{eq:Ms}
 \end{align}
-Thus the user-provided model suppresses both solute diffusion and solvent permeation in the collapsed state.
+with optional Mackie--Meares and free-volume forms used only for
+comparison.  Thus solute diffusion and solvent permeation are
+suppressed but not forced to vanish in the collapsed state.
 
 \subsection{Boundary conditions}
 
-At the symmetry plane $X=0$, the dimensional appendix imposes
+At the symmetry plane $X=0$:
 \begin{equation}
   Q_s = 0, \qquad N_c = 0, \qquad \frac{\partial T}{\partial X} = 0.
   \label{eq:bc_sym}
 \end{equation}
 
-At the free surface $X=H_0$, solvent exchange is
+At the free surface $X=H_0$:
+
+\paragraph{Solvent exchange.}
+A Robin-type condition couples the surface chemical potential to the bath:
 \begin{equation}
-  Q_s = L_\mu\left(\mu_s - \mu_\mathrm{bath}\right),
+  Q_s = L_\mu\!\left(\mu_s - \mu_\mathrm{bath}\right),
   \label{eq:bc_mu}
 \end{equation}
-reactant supply is
+where $L_\mu$ is a surface transfer coefficient. In the limit of rapid equilibration, $\mu_s = \mu_\mathrm{bath}$.
+
+\paragraph{Reactant supply.}
 \begin{equation}
   N_c = k_c\,(c - c_b),
   \label{eq:bc_c}
 \end{equation}
-and heat exchange is
+where $c_b$ is the constant bath concentration.
+
+\paragraph{Heat exchange.}
 \begin{equation}
-  -K_T\,\frac{\partial T}{\partial X} = h_T\,(T - T_\infty).
+  -K_T\,\frac{\partial T}{\partial X} = h_T\,(T - T_\infty),
   \label{eq:bc_T}
 \end{equation}
-The source appendix states that the free surface is traction-free and that, in the $J$ formulation, this is implicitly satisfied by the chemical-potential balance.
+where $h_T$ is the surface heat-transfer coefficient and $T_\infty$ the ambient temperature.
 
-In compact nondimensional notation, the source model states
-\begin{align}
-  q\big|_1 &= \Bi_\mu\,\mu, &
-  \Ds\,u_\xi\big|_1 &= \Bi_c\,(1-u), &
-  \Ks\,\theta_\xi\big|_1 &= -\Bi_T\,\theta,
-  \label{eq:bc_compact}
-\end{align}
-with the bath chemical potential set to $\mu_b=0$ by convention.  The fuller nondimensional appendix keeps explicit fluxes and a bath value $m_b$; see Eqs.~\eqref{eq:bc1_mu}--\eqref{eq:bc1_T}.
+\paragraph{Mechanical boundary.}
+The free surface is traction-free. In the $J$-formulation this is implicitly satisfied by the chemical-potential balance.
 
+%% ================================================================
+%%  Appendix B: Nondimensionalization
+%% ================================================================
 \section{Nondimensionalization}
+\label{app:nondim}
 
-\subsection{Scales}
+\subsection{Scaling}
 
-Length, concentration, and temperature are scaled as
-\begin{align}
-  X &= H_0\,\tilde{x}, \qquad \tilde{x}\in[0,1],\\
-  c &= c_b\,u,\\
-  T &= T_\infty + \Delta T_*\,\theta,
+We introduce the following dimensionless variables. Length is scaled by the reference thickness:
+\begin{equation}
+  X = H_0\,\tilde{x}, \qquad \tilde{x}\in[0,1].
+\end{equation}
+The swelling ratio $J$ is already dimensionless. Reactant concentration is normalized by the bath value:
+\begin{equation}
+  c = c_b\,u.
+\end{equation}
+Temperature is measured relative to ambient, scaled by the adiabatic reaction temperature rise:
+\begin{equation}
+  T = T_\infty + \Delta T_*\,\theta,
   \qquad
-  \Delta T_* = \frac{(-\Delta H_r)c_b}{C_*}.
-\end{align}
-The chemical potential scale is
+  \Delta T_* = \frac{(-\Delta H_r)\,c_b}{C_*},
+\end{equation}
+where $C_*$ is a representative volumetric heat capacity.
+
+The chemical potential is scaled by the thermal mixing energy:
 \begin{equation}
   \mu_s = \mu_*\,m, \qquad \mu_* = \frac{R_g T_\infty}{v_s}.
 \end{equation}
-Time is scaled by the swelling/permeation time
+
+Time is scaled by the swelling/permeation time:
 \begin{equation}
-  \tau_s = \frac{H_0^2}{M_0\,\mu_*}.
+  \tau_s = \frac{H_0^2}{M_0\,\mu_*},
 \end{equation}
-The flux scales are
+where $M_0$ is a reference mobility. The solvent and reactant flux scales follow:
 \begin{equation}
   Q_s = \frac{H_0}{\tau_s}\,q,
   \qquad
   N_c = \frac{c_b\,H_0}{\tau_s}\,n.
 \end{equation}
-Material functions are factored as
+
+Material functions are factored as reference value times dimensionless function:
 \begin{align}
   M_s &= M_0\,\Ms(J,\theta), &
-  D_c &= D_0\,\Ds(J,\theta), \\
+  D_c &= D_0\,\Ds_\mathrm{cur}(J,\theta), \\
   C_\mathrm{eff} &= C_*\,\Cs(J), &
-  K_T &= K_*\,\Ks(J).
+  K_T &= K_*\,\Ks_\mathrm{cur}(J).
 \end{align}
+In the reference-coordinate equations below, the baseline closure
+uses effective reference-coordinate coefficients
+$\Ds_\mathrm{ref}$, $\Ks_\mathrm{ref}$, and $\Cs_\mathrm{ref}$.
+When the tabulated coefficients are interpreted as current-space
+material properties, the metric-corrected comparison uses
+$\Ds_\mathrm{ref}=\Ds_\mathrm{cur}/J$,
+$\Ks_\mathrm{ref}=\Ks_\mathrm{cur}/J$, and
+$\Cs_\mathrm{ref}=J\Cs_\mathrm{cur}$.
 
 \subsection{Dimensionless reaction rate}
 
-The reference reaction rate is
+Defining the reference reaction rate
 \begin{equation}
   R_0 = k_0\,c_b^{\,n}\,\exp\!\left(-\frac{E_a}{R_g T_\infty}\right),
 \end{equation}
-and $R=R_0\,\Rhat(u,\theta,J)$ with $\Rhat$ given by Eq.~\eqref{eq:Rhat_general}.  The Arrhenius parameters are
+we write $R = R_0\,\Rhat(u,\theta,J)$ with
+\begin{equation}
+  \Rhat(u,\theta,J)
+  = u^n\,a(J)\,
+  \exp\!\left[\frac{\Gamma_A\,\theta}{1+\varepsilon_T\,\theta}\right],
+  \label{eq:Rhat}
+\end{equation}
+where
 \begin{equation}
   \varepsilon_T = \frac{\Delta T_*}{T_\infty},
   \qquad
   \Gamma_A = \frac{E_a\,\Delta T_*}{R_g\,T_\infty^2}.
   \label{eq:epsT_GammaA}
 \end{equation}
-When $\varepsilon_T\ll 1$, the source notes the approximation
-\begin{equation}
-  \Rhat \approx u^n\,a(J)\,e^{\Gamma_A\theta}.
-\end{equation}
+When $\varepsilon_T \ll 1$, this simplifies to $\Rhat \approx u^n\,a(J)\,e^{\Gamma_A\theta}$.
 
 \subsection{Dimensionless chemical potential}
 
 The dimensionless chemical potential is
 \begin{equation}
-  m = m_\mathrm{mix}(J,\theta) + m_\mathrm{el}(J)
-  - \ell^2\,\frac{\partial^2 J}{\partial \tilde{x}^2},
+  m = m_\mathrm{mix}(J,\theta) + m_\mathrm{el}(J) - \ell^2\,\frac{\partial^2 J}{\partial \tilde{x}^2},
   \label{eq:m_nondim}
 \end{equation}
-with
+with the interface parameter
 \begin{equation}
   \ell^2 = \frac{\kappa_J}{\mu_*\,H_0^2}.
 \end{equation}
-Neglecting the $T/T_\infty\approx 1+\varepsilon_T\theta\approx 1$ prefactor, the source gives
+
+The mixing part retains the Flory--Huggins form (neglecting the
+$T/T_\infty\approx 1+\varepsilon_T\theta\approx 1$ prefactor, valid
+when $\varepsilon_T\ll 1$):
 \begin{equation}
-  m_\mathrm{mix} = \ln(1-\phi) + \phi + \chi(\theta,\phi)\,\phi^2,
+  m_\mathrm{mix} = \ln(1-\phi) + \phi + \chi(\theta,\phi)\,\phi^2
+  -\phi^2(1-\phi)\,\frac{\partial\chi}{\partial\phi},
   \qquad \phi = \frac{\pp}{J},
   \label{eq:m_mix}
 \end{equation}
-with
+with the dimensionless interaction parameter
 \begin{equation}
   \chi(\theta,\phi) = \chi_\infty + S_\chi\,\theta + \chi_1\,\phi,
   \label{eq:chi_nondim}
 \end{equation}
-where
+where $\chi_\infty = \chi_0(T_\infty)$ and the thermo-swelling sensitivity is
 \begin{equation}
-  S_\chi = \Delta T_*
-  \left.\frac{d\chi_0}{dT}\right|_{T_\infty}.
+  S_\chi = \Delta T_*\left.\frac{d\chi_0}{dT}\right|_{T_\infty}.
   \label{eq:Schi}
 \end{equation}
-The elastic contribution is
+For the linear concentration dependence in Eq.~\eqref{eq:chi_nondim},
+$\partial\chi/\partial\phi=\chi_1$.
+
+The elastic contribution follows from Eq.~\eqref{eq:mu_el}:
 \begin{equation}
   m_\mathrm{el} = \Omega_e\,(J - J^{-1}),
   \qquad
-  \Omega_e = \frac{G\,v_s}{R_g\,T_\infty}.
+  \Omega_e = \frac{G\,v_s}{R_g\,T_\infty},
 \end{equation}
+measuring the network stiffness relative to the thermal mixing energy.
 
-\subsection{Dimensionless governing equations with explicit prefactors}
+\subsection{Dimensionless governing equations}
 
-Dropping tildes, the appendix version of the nondimensional system is
+Dropping tildes for clarity, the dimensionless system reads:
+
+\paragraph{Swelling equation.}
 \begin{equation}
   \frac{\partial J}{\partial t}
   = \frac{\partial}{\partial x}\!\left(\Ms(J,\theta)\,\frac{\partial m}{\partial x}\right),
   \label{eq:J_nondim}
 \end{equation}
+
+\paragraph{Chemical potential.}
 \begin{equation}
-  m = m_\mathrm{mix}(J,\theta) + m_\mathrm{el}(J)
-  - \ell^2\,\frac{\partial^2 J}{\partial x^2},
+  m = m_\mathrm{mix}(J,\theta) + m_\mathrm{el}(J) - \ell^2\,\frac{\partial^2 J}{\partial x^2},
   \label{eq:m_nondim_box}
 \end{equation}
+
+\paragraph{Reactant equation.}
 \begin{equation}
   \frac{\partial(J u)}{\partial t}
-  + \frac{\partial}{\partial x}\!\left(u\,q - \delta\,\Ds(J,\theta)\,\frac{\partial u}{\partial x}\right)
+  + \frac{\partial}{\partial x}\!\left(u\,q - \delta\,\Ds_\mathrm{ref}(J,\theta)\,\frac{\partial u}{\partial x}\right)
   = -\Da\,J\,\Rhat(u,\theta,J),
   \label{eq:u_nondim}
 \end{equation}
-where
+where $q = -\Ms(J,\theta)\,\partial_x m$ and
 \begin{equation}
-  q = -\Ms(J,\theta)\,\partial_x m
+  \delta = \frac{D_0}{M_0\,\mu_*}
 \end{equation}
-and
+is the ratio of solute diffusion speed to solvent permeation speed.
+
+The Damk\"ohler number, measuring reaction rate relative to swelling rate, is
 \begin{equation}
-  \delta = \frac{D_0}{M_0\,\mu_*}.
-\end{equation}
-The Damk\"ohler number is
-\begin{equation}
-  \Da = \tau_s\,k_0\,c_b^{\,n-1}\,
-  \exp\!\left(-\frac{E_a}{R_g T_\infty}\right).
+  \Da = \tau_s\,k_0\,c_b^{\,n-1}\,\exp\!\left(-\frac{E_a}{R_g T_\infty}\right).
   \label{eq:Da}
 \end{equation}
 
-The heat equation is
+\paragraph{Heat equation.}
 \begin{multline}
-  \Cs(J)\,\frac{\partial\theta}{\partial t}
-  = \alpha\,\frac{\partial}{\partial x}\!\left(\Ks(J)\,\frac{\partial\theta}{\partial x}\right)
+  \Cs_\mathrm{ref}(J)\,\frac{\partial\theta}{\partial t}
+  = \alpha\,\frac{\partial}{\partial x}\!\left(\Ks_\mathrm{ref}(J)\,\frac{\partial\theta}{\partial x}\right)
   + \Da\,J\,\Rhat(u,\theta,J)
   \\
   - \alpha\,\Pe_T\,\frac{\partial}{\partial x}\!\left[(\Theta_\infty + \theta)\,q\right],
@@ -421,379 +406,64 @@ with
   \Theta_\infty = \frac{T_\infty}{\Delta T_*},
   \label{eq:thermal_params}
 \end{equation}
-where $\tau_T=C_*H_0^2/K_*$.
+where $\tau_T = C_*H_0^2/K_*$ is the thermal diffusion time.
+When $\Pe_T \ll 1$, the convective term may be dropped.
+
+\paragraph{Constraint.}
+\begin{equation}
+  \phi = \frac{\pp}{J}.
+\end{equation}
 
 \subsection{Dimensionless boundary conditions}
 
-At $x=0$:
+At $x=0$ (symmetry):
 \begin{equation}
   q = 0, \qquad
-  u\,q - \delta\,\Ds\,u_x = 0, \qquad
+  u\,q - \delta\,\Ds_\mathrm{ref}\,u_x = 0, \qquad
   \theta_x = 0.
   \label{eq:bc0_nondim}
 \end{equation}
-At $x=1$:
+
+At $x=1$ (free surface):
 \begin{align}
-  q &= \Bi_\mu\,(m - m_b),
-  \label{eq:bc1_mu} \\
-  u\,q - \delta\,\Ds\,u_x &= \Bi_c\,(u - 1),
-  \label{eq:bc1_c} \\
-  -\alpha\,\Ks(J)\,\theta_x &= \Bi_T\,\theta.
-  \label{eq:bc1_T}
+  q &= \Bi_\mu\,(m - m_b), \label{eq:bc1_mu} \\
+  u\,q - \delta\,\Ds_\mathrm{ref}\,u_x &= \Bi_c\,(u - 1), \label{eq:bc1_c} \\
+  -\alpha\,\Ks_\mathrm{ref}(J)\,\theta_x &= \Bi_T\,\theta, \label{eq:bc1_T}
 \end{align}
-The surface Biot numbers are
+where the surface Biot numbers for permeation and mass transfer are
 \begin{equation}
   \Bi_\mu = \frac{L_\mu\,H_0}{M_0},
   \qquad
   \Bi_c = \frac{k_c\,H_0}{M_0\,\mu_*},
   \label{eq:Bi_mu_c}
 \end{equation}
-and
+and the thermal exchange number is
 \begin{equation}
   \Bi_T = \frac{h_T\,\tau_s}{C_*\,H_0}
-  = \alpha\,\frac{h_T\,H_0}{K_*}.
+  = \alpha\,\frac{h_T\,H_0}{K_*},
   \label{eq:Bi_T}
 \end{equation}
+which measures the surface heat loss rate directly on the swelling
+timescale $\tau_s$.  The standard thermal Biot number
+$h_T H_0/K_*=\Bi_T/\alpha$ is recovered by factoring out $\alpha$.
 
-\subsection{Controlling groups}
+\subsection{Controlling parameter groups}
 
-The source appendix identifies the following controlling groups: $\Da$, $\alpha$, $S_\chi$, $\Gamma_A$, $\delta$, $\ell$, $\Bi_c$, and $\Bi_T$, together with working-point parameters such as $\pp$ and $\chi_\infty$.  The source interpretation is that oscillation requires fast positive feedback (reaction $\to$ heating $\to$ collapse) and slow negative feedback (collapse $\to$ transport suppression $\to$ cooling $\to$ re-swelling) to operate on separated timescales.
-
-\section{Well-mixed limit}
-
-The source manuscript states the uniform steady-state balances for $(J_0,u_0,\theta_0)$ as
-\begin{align}
-  \mu(J_0,\theta_0)&=\mu_b, &
-  \Bi_c(1-u_0)&=\Da\,J_0\,\Rhat_0, \nonumber\\
-  \Bi_T\theta_0&=\Da\,J_0\,\Rhat_0,
-  \label{eq:lsa_ss}
-\end{align}
-where $\Rhat_0=\Rhat(u_0,J_0,\theta_0)$.  These algebraic balances are used as the base state for the linear stability analysis.
-
-The source appendix does not provide a fully separated homogeneous ODE derivation in this excerpt.  It states that the $k=0$ matrix is obtained by volume-averaging the governing equations over the slab and incorporating Robin boundary fluxes as lumped source/sink terms.  A complete homogeneous ODE derivation remains a TODO for sanity checking.
-
-\section{Linear stability of the homogeneous state}
-
-\subsection{Dispersion relation}
-
-Linearizing about the uniform base state with normal-mode perturbations proportional to $e^{\sigma t+ik\xi}$ gives
-\begin{equation}
-  \sigma\,\widehat{\mathbf y} = \mathbf A(k)\,\widehat{\mathbf y},
-  \qquad
-  \mathbf A(k)=\mathbf A_0 + k^2\mathbf D_2 + k^4\mathbf D_4.
-  \label{eq:dispersion_matrix}
-\end{equation}
-The source interpretation is that $\mathbf A_0$ encodes reaction kinetics and surface exchange, $\mathbf D_2$ collects diffusive transport, and $\mathbf D_4$ arises from Cahn--Hilliard gradient-energy regularization.
-
-Uniform branches are classified as stable when $\Re\sigma_1(0)<0$, Hopf unstable when $\Re\sigma_1(0)>0$ and $\Im\sigma_1(0)\neq 0$, and monotone unstable when $\Re\sigma_1(0)>0$ and $\Im\sigma_1(0)=0$.
-
-\subsection{Two instability mechanisms}
-
-For the $k=0$ Hopf mechanism, the source manuscript identifies a positive thermal feedback path: if the Arrhenius heat--reaction coupling $\Da J_0 R_\theta$ exceeds surface heat loss $\Bi_T$, a temperature perturbation increases reaction rate and heat release.  The negative feedback loop is $\theta\to J\to u\to\theta$: rising temperature increases $\chi$, drives collapse, suppresses reactant supply, and weakens the heat source.  Oscillation requires the positive and negative feedback paths to operate on separated timescales.
-
-For the finite-wavenumber spinodal mechanism, when
-\begin{equation}
-  f_J\equiv\partial_J[\,m_\mathrm{mix}+m_\mathrm{el}\,]<0,
-\end{equation}
-the base state lies inside the Flory--Huggins spinodal region and the $J$ diffusion term acts as a negative diffusivity.  The $k^4$ term limits growth to a finite band with maximum estimated by the source as
-\begin{equation}
-  k^\ast\approx\sqrt{-f_J/(2\ell^2)}.
-\end{equation}
-
-The source manuscript argues that spinodal patterns do not manifest during the oscillation because the system traverses the spinodal region transiently, boundary and penetration gradients break translational symmetry, and the large-amplitude Hopf limit cycle homogenizes spatial structure each period.  This is recorded here as a candidate interpretation, not as a validated repository result.
-
-\subsection{Dispersion matrix derivation}
-
-Let
-\begin{equation}
-  m = f(J,\theta)-\ell^2J_{\xi\xi},
-  \qquad
-  f(J,\theta)=m_\mathrm{mix}(J,\theta)+m_\mathrm{el}(J).
-\end{equation}
-Perturb about the uniform base state using
-\begin{equation}
-  (\widehat J,\widehat u,\widehat\theta)^T e^{\sigma t+ik\xi}.
-\end{equation}
-Define partial derivatives at the base state:
-\begin{subequations}
-\begin{align}
-  f_J &= \left.\frac{\partial f}{\partial J}\right|_0, &
-  f_\theta &= \left.\frac{\partial f}{\partial \theta}\right|_0,\\
-  R_J &= \left.\frac{\partial \Rhat}{\partial J}\right|_0, &
-  R_u &= \left.\frac{\partial \Rhat}{\partial u}\right|_0,\\
-  R_\theta &= \left.\frac{\partial \Rhat}{\partial \theta}\right|_0.
-\end{align}
-\end{subequations}
-The base-state transport coefficients are
-\begin{subequations}
-\begin{align}
-  \Ms_0 &= \Ms(J_0,\theta_0), &
-  \Ds_0 &= \delta\,\Ds(J_0,\theta_0),\\
-  \Ks_0 &= \alpha\,\Ks(J_0), &
-  \Cs_0 &= \Cs(J_0).
-\end{align}
-\end{subequations}
-
-The $k=0$ matrix is
-\begin{equation}
-  \mathbf A_0 =
-  \begin{bmatrix}
-    a_{11} & 0 & a_{13} \\
-    a_{21} & a_{22} & a_{23} \\
-    a_{31} & a_{32} & a_{33}
-  \end{bmatrix},
-  \label{eq:A0}
-\end{equation}
-with entries
-\begin{subequations}
-\label{eq:A0_entries}
-\begin{align}
-  a_{11} &= -\Bi_\mu f_J, \qquad
-  a_{13} = -\Bi_\mu f_\theta, \\
-  a_{21} &= \frac{u_0\Bi_\mu f_J
-             - \Da(\Rhat_0 + J_0R_J)}{J_0}, \\
-  a_{22} &= \frac{-\Bi_c - \Da J_0 R_u}{J_0}, \\
-  a_{23} &= \frac{u_0\Bi_\mu f_\theta
-             - \Da J_0 R_\theta}{J_0}, \\
-  a_{31} &= \frac{\Da(\Rhat_0 + J_0R_J)}{\Cs_0}, \quad
-  a_{32} = \frac{\Da J_0 R_u}{\Cs_0}, \\
-  a_{33} &= \frac{-\Bi_T + \Da J_0R_\theta}{\Cs_0}.
-\end{align}
-\end{subequations}
-Here $a_{12}=0$ because the swelling equation does not depend directly on the reactant concentration.
-
-The $k^2$ contribution is
-\begin{equation}
-  \mathbf D_2 =
-  \begin{bmatrix}
-    -\Ms_0 f_J & 0 & -\Ms_0 f_\theta \\
-    0 & -\Ds_0/J_0 & 0 \\
-    0 & 0 & -\Ks_0/\Cs_0
-  \end{bmatrix}.
-  \label{eq:D2}
-\end{equation}
-The only $k^4$ contribution is
-\begin{equation}
-  \mathbf D_4 =
-  \begin{bmatrix}
-    -\Ms_0\ell^2 & 0 & 0 \\
-    0 & 0 & 0 \\
-    0 & 0 & 0
-  \end{bmatrix}.
-  \label{eq:D4}
-\end{equation}
-
-\section{Front and barrier diagnostics}
-
-The user-provided equations contain two explicit collapse-dependent barrier factors:
-\begin{align}
-  a(J) &= (1-\phi)^{m_\mathrm{act}},\\
-  D_c(J) &= D_0(1-\phi)^{m_\mathrm{diff}}.
-\end{align}
-The model also allows solvent mobility suppression through
-\begin{equation}
-  M_s(J)=M_0(1-\phi)^{m_\mathrm{mob}}.
-\end{equation}
-These factors are the mathematical representation of reduced reaction accessibility, reduced reactant diffusion, and reduced solvent permeation as $J\to\pp$ and $\phi\to 1$.
-
-The source sections ingested here do not give a final front observable for the LCST transport barrier.  Candidate diagnostics to define in a follow-up include: LCST crossing position, collapsed skin thickness, reactant penetration depth, surface reactant flux, total reaction rate, and phase lag between $\theta$, $J$, and reactant flux.  These are TODO diagnostics, not new equations.
-
-\section{Limiting cases}
-
-\subsection{Recorded limiting cases}
-
-The source derivation explicitly identifies the following limits or controls:
+The oscillatory dynamics are governed by the following dimensionless groups:
 \begin{itemize}
-  \item $\Pe_T\ll 1$: enthalpy advection in the heat equation is neglected.
-  \item $\varepsilon_T\ll 1$: the Arrhenius factor can be approximated by $e^{\Gamma_A\theta}$.
-  \item $\Da=0$ with fixed $\theta$ above LCST: the source appendix uses this as a pure Cahn--Hilliard spinodal-decomposition verification case.
-  \item $k=0$: homogeneous long-wave Hopf analysis.
-  \item $k>0$ with $f_J<0$: finite-wavenumber spinodal analysis.
+  \item $\Da$\,---\,Damk\"ohler number: strength of reaction heat source relative to swelling.
+  \item $\alpha = \tau_s/\tau_T$\,---\,thermal diffusion relative to swelling.
+  \item $S_\chi$\,---\,thermo-swelling sensitivity: how strongly temperature shifts the interaction parameter.
+  \item $\Gamma_A$\,---\,Arrhenius feedback strength.
+  \item $\delta$\,---\,solute diffusion to permeation ratio.
+  \item $\ell$\,---\,interface regularization length.
+  \item $\Bi_c$\,---\,surface reactant Biot number.
+  \item $\Bi_T$\,---\,thermal exchange number (surface heat loss on the swelling timescale).
 \end{itemize}
+Together with the working-point parameters $\pp$ and $\chi_\infty$, these form the minimal set controlling the onset of self-oscillation. In physical terms, oscillation requires that the fast positive feedback (reaction $\to$ heating $\to$ collapse) and the slow negative feedback (collapse $\to$ transport suppression $\to$ cooling $\to$ re-swelling) operate on well-separated time scales.
 
-\subsection{Spinodal-decomposition verification note from the source appendix}
-
-The attached source appendix describes a direct numerical simulation of pure Cahn--Hilliard dynamics with reaction switched off, $\Da=0$, temperature held fixed at $\theta=1.5$, and no-flux boundary conditions.  The stated initial condition is a uniform collapsed state $J_0=0.30$ with $\phi=0.50$ and small random perturbations.  For that state, the source gives $f_J=-1.76<0$ and estimates
-\begin{equation}
-  k^\ast=\sqrt{-f_J/(2\ell^2)}\approx 94,
-\end{equation}
-with maximum growth rate
-\begin{equation}
-  \sigma^\ast=\Ms_0 f_J^2/(4\ell^2)\approx 3850,
-\end{equation}
-where $\Ms_0=(1-\phi)^{m_\mathrm{mob}}=0.50$.
-
-This note is preserved as part of the user's preliminary appendix.  The repository has not independently reproduced this numerical verification.
-
-\subsection{TODO limiting cases for sanity checking}
-
-The following limits still need to be derived or checked explicitly for this repository:
-\begin{itemize}
-  \item no-reaction limit with heat equation retained;
-  \item no-collapse or fixed-$J$ limit;
-  \item no-transport-degradation limit, e.g. $m_\mathrm{diff}=0$ or constant diffusivity;
-  \item no-accessibility-feedback limit, e.g. $m_\mathrm{act}=0$;
-  \item homogeneous ODE limit as a full dynamical system;
-  \item passive thermal limit with reaction disabled and bath exchange retained;
-  \item boundary-condition sign conventions for the dimensional and nondimensional fluxes.
-\end{itemize}
-
-\section{Numerical method notes from the source appendix}
-
-This section records the numerical-method appendix as source-provided derivation context.  It is not an implementation request and no PDE solver is added to this repository by EXP-001.
-
-\subsection{Mixed formulation}
-
-The source appendix introduces auxiliary variables $m$, $q$, $n$, and $h$:
-\begin{align}
-  J_t + q_x &= 0, &
-  q &= -\Ms(J,\theta)\,m_x,
-  \label{eq:mixed_J}\\
-  m &= f(J,\theta) - \ell^2\,J_{xx},
-  \label{eq:mixed_m}\\
-  (Ju)_t + n_x &= -\Da\,J\,\Rhat, &
-  n &= u\,q - \delta\,\Ds(J,\theta)\,u_x,
-  \label{eq:mixed_u}\\
-  \Cs(J)\,\theta_t + h_x &= \Da\,J\,\Rhat, &
-  h &= -\alpha\,\Ks(J)\,\theta_x.
-  \label{eq:mixed_T}
-\end{align}
-The source motivation is to avoid direct fourth-order discretization by splitting the swelling--chemical-potential system into second-order equations.
-
-\subsection{Spatial discretization}
-
-For a uniform mesh of $N$ cells,
-\begin{equation}
-  \Delta x = \frac{1}{N},
-  \qquad
-  x_i = \left(i-\tfrac{1}{2}\right)\Delta x,
-  \quad i=1,\dots,N.
-  \label{eq:mesh}
-\end{equation}
-Cell-centered unknowns are $J_i$, $m_i$, $u_i$, and $\theta_i$; face fluxes are $q_{i+1/2}$, $n_{i+1/2}$, and $h_{i+1/2}$.
-
-The source swelling update is
-\begin{equation}
-  \frac{J_i^{n+1} - J_i^{n}}{\Delta t}
-  + \frac{q_{i+1/2}^{n+1} - q_{i-1/2}^{n+1}}{\Delta x} = 0,
-  \label{eq:disc_J}
-\end{equation}
-with
-\begin{equation}
-  q_{i+1/2}^{n+1}
-  = -\Ms_{i+1/2}^{*}\,
-  \frac{m_{i+1}^{n+1} - m_i^{n+1}}{\Delta x}.
-  \label{eq:disc_q}
-\end{equation}
-The face mobility is evaluated using the harmonic mean
-\begin{equation}
-  \Ms_{i+1/2}^{*}
-  = \frac{2\,\Ms_i^{*}\,\Ms_{i+1}^{*}}{\Ms_i^{*} + \Ms_{i+1}^{*}}.
-  \label{eq:harm_mean}
-\end{equation}
-
-The discrete chemical potential is
-\begin{equation}
-  m_i^{n+1}
-  = f(J_i^{n+1},\theta_i^{*})
-  - \ell^2\,\frac{J_{i+1}^{n+1} - 2J_i^{n+1} + J_{i-1}^{n+1}}{\Delta x^2},
-  \label{eq:disc_m}
-\end{equation}
-with natural boundary condition $\partial_xJ=0$ imposed through ghost cells:
-\begin{equation}
-  J_0^{n+1} = J_1^{n+1}, \qquad J_{N+1}^{n+1} = J_N^{n+1}.
-  \label{eq:ghost_J}
-\end{equation}
-
-The conserved reactant variable is $W_i=J_i u_i$:
-\begin{equation}
-  \frac{W_i^{n+1} - W_i^{n}}{\Delta t}
-  + \frac{n_{i+1/2}^{n+1} - n_{i-1/2}^{n+1}}{\Delta x}
-  = -\Da\,J_i^{\sharp}\,\Rhat(u_i^{\sharp},\theta_i^{\sharp},J_i^{\sharp}),
-  \label{eq:disc_W}
-\end{equation}
-followed by $u_i^{n+1}=W_i^{n+1}/J_i^{n+1}$.  The flux is
-\begin{equation}
-  n_{i+1/2}^{n+1}
-  = q_{i+1/2}^{n+1}\,u_{i+1/2}^\mathrm{up}
-  - \delta\,\Ds_{i+1/2}^{*}\,
-  \frac{u_{i+1}^{n+1} - u_i^{n+1}}{\Delta x},
-  \label{eq:disc_n}
-\end{equation}
-with upwind value
-\begin{equation}
-  u_{i+1/2}^\mathrm{up}
-  = \begin{cases}
-    u_i^{n+1}, & q_{i+1/2}^{n+1} \ge 0, \\[4pt]
-    u_{i+1}^{n+1}, & q_{i+1/2}^{n+1} < 0.
-  \end{cases}
-  \label{eq:upwind}
-\end{equation}
-
-The heat update is
-\begin{equation}
-  \Cs_i^{*}\,\frac{\theta_i^{n+1} - \theta_i^{n}}{\Delta t}
-  + \frac{h_{i+1/2}^{n+1} - h_{i-1/2}^{n+1}}{\Delta x}
-  = \Da\,J_i^{\sharp}\,\Rhat(u_i^{\sharp},\theta_i^{\sharp},J_i^{\sharp}),
-  \label{eq:disc_theta}
-\end{equation}
-with
-\begin{equation}
-  h_{i+1/2}^{n+1}
-  = -\alpha\,\Ks_{i+1/2}^{*}\,
-  \frac{\theta_{i+1}^{n+1} - \theta_i^{n+1}}{\Delta x}.
-  \label{eq:disc_h}
-\end{equation}
-
-\subsection{Discrete boundary conditions}
-
-At $x=0$:
-\begin{equation}
-  q_{1/2}^{n+1} = 0,
-  \qquad
-  n_{1/2}^{n+1} = 0,
-  \qquad
-  h_{1/2}^{n+1} = 0.
-  \label{eq:disc_bc0}
-\end{equation}
-At $x=1$:
-\begin{align}
-  q_{N+1/2}^{n+1} &= \Bi_\mu\,(m_N^{n+1} - m_b),
-  \label{eq:disc_bc1_q}\\
-  n_{N+1/2}^{n+1} &= \Bi_c\,(u_N^{n+1} - 1),
-  \label{eq:disc_bc1_n}\\
-  h_{N+1/2}^{n+1} &= \Bi_T\,\theta_N^{n+1}.
-  \label{eq:disc_bc1_h}
-\end{align}
-
-\subsection{Time integration notes}
-
-The source appendix describes a method-of-lines approach advanced by an implicit BDF integrator, plus an alternative IMEX operator-splitting strategy with stages for swelling, reactant, and temperature.  For fully coupled solves, the source assembles
-\begin{multline}
-  \bm{Y} = (J_1,\dots,J_N,\;m_1,\dots,m_N,\\
-  W_1,\dots,W_N,\;\theta_1,\dots,\theta_N)^T
-\end{multline}
-and solves
-\begin{equation}
-  \bm{J}_\mathrm{ac}\,\delta\bm{Y} = -\bm{R}(\bm{Y}^{(k)}),
-  \qquad
-  \bm{Y}^{(k+1)} = \bm{Y}^{(k)} + \delta\bm{Y}.
-\end{equation}
-The source implementation notes state that the conserved variable $W=Ju$ should be used for reactant transport, that upwinding is needed for $u q$, and that the fourth-order swelling equation should be handled in mixed form.
-
-\section{Open derivation issues}
-
-\begin{enumerate}
-  \item Clarify whether the canonical model is strictly first-order in reactant concentration ($n=1$) or whether the general $n$-order appendix form remains allowed.
-  \item Reconcile notation between $\mu$ and $m$, between $x$ and $\xi$, and between compact equations with absorbed $\alpha,\delta$ and appendix equations with explicit $\alpha,\delta$.
-  \item Clarify the sign convention for the free-surface reactant flux, since the compact boundary condition and full flux form use different outward-flux presentations.
-  \item Define $m_b$ or $\mu_b$ consistently.  The compact model sets $\mu_b=0$ by convention; the appendix keeps $m_b$.
-  \item Specify $\Cs(J)$ and $\Ks(J)$, or state explicitly that they are constant or placeholder material functions.
-  \item Specify whether $\Ms(J,\theta)$ keeps temperature dependence after nondimensionalization and how $m_\mathrm{mob}$ is chosen.
-  \item Justify the approximations $\Pe_T\ll 1$ and $\varepsilon_T\ll 1$ for the intended physical regime.
-  \item Derive the homogeneous ODE limit explicitly rather than only the steady-state algebraic balances and $k=0$ matrix.
-  \item Define front and barrier observables before using them as evidence for oscillation.
-  \item Treat the source appendix's numerical verification claims as unverified until reproduced under this repository's verification protocol.
-\end{enumerate}
+%% ================================================================
+%%  Appendix C: Dispersion Relation Derivation
+%% ================================================================
 
 \end{document}
