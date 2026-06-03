@@ -1,12 +1,12 @@
-# TASK: Reconcile Migrated Draft Model with Model A
+# TASK: Replace Initial Model Derivation from Migrated Appendix and Request ChatGPT Review
 
 ## Concrete task name
 
-Reconcile Migrated Draft Model with Model A
+Replace Initial Model Derivation from Migrated Appendix and Request ChatGPT Review
 
 ## Task ID or slug
 
-`reconcile-migrated-draft-model-with-model-A`
+`replace-initial-model-derivation-from-paper-appendix`
 
 ## Human-readable stage
 
@@ -18,18 +18,22 @@ Model Specification
 
 ## Objective
 
-Produce a single auditable candidate model specification by reconciling the existing Model A candidate notes with the imported `paper_latest` model section, homogeneous/stability diagnostic section, and appendix.
+Replace `docs/derivations/initial_model_derivation.tex` with the complete model-construction and nondimensionalization material from `paper/appendix/appendix.tex`, then prepare the result for ChatGPT scientific review.
 
-The output should be a candidate model-specification review, not a validated model and not a numerical implementation task.
+This task reflects the user clarification that Model A was derived from the draft model in `paper/appendix/appendix.tex`. The goal is therefore not to treat the old `docs/derivations/initial_model_derivation.tex` and the migrated appendix as independent model sources. The migrated appendix is the source of the current Model A derivation.
+
+The output remains candidate model-source material only. This task does not validate the model, numerical results, figures, mechanisms, or manuscript claims.
 
 ## Scientific or workflow context
 
-The repository now contains two overlapping sources for the candidate hydrogel oscillator model:
+The previous task framing asked Codex to reconcile Model A with the migrated draft. The user clarified that Model A is actually based on the draft appendix model. The repository should therefore make `docs/derivations/initial_model_derivation.tex` match the migrated appendix source before ChatGPT performs the scientific review.
 
-1. the original Model A candidate summary and initial derivation under `docs/model_candidates/` and `docs/derivations/`;
-2. migrated prior-draft source material under `paper/sections/`, `paper/appendix/`, and `paper/solver/paper_latest_cpu/`.
+The source material to preserve is the complete Appendix A and Appendix B content from `paper/appendix/appendix.tex`:
 
-These sources differ in notation and in some modeling details. Before any Model Specification gate can pass, the project needs one explicit candidate specification and a rebuilt blocker list.
+* `\section{Model Construction}` / `\label{app:model}`;
+* `\section{Nondimensionalization}` / `\label{app:nondim}`.
+
+The replacement should copy this material faithfully, not rewrite the equations or silently resolve scientific issues. Any wrapper, preamble, macro, or heading changes needed for the derivation file to compile must be documented as mechanical formatting changes.
 
 No model or claim was promoted to validated status.
 
@@ -37,13 +41,12 @@ No model or claim was promoted to validated status.
 
 * `docs/project_state.md`.
 * `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
+* `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`.
+* `docs/reports/exploration/CODEX-REPORT-resolve-paper-latest-migration-hygiene.md`, if the migration-hygiene PR has been merged.
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
 * `docs/derivations/initial_model_derivation.tex`.
-* `paper/sections/model.tex`.
-* `paper/sections/linear_stability.tex`.
 * `paper/appendix/appendix.tex`.
-* `paper/solver/paper_latest_cpu/scan_optimized.py`.
-* `paper/solver/paper_latest_cpu/linear_stability_1d.py`.
+* `paper/sections/model.tex` only as a cross-check against the extracted appendix model summary.
 
 ## Allowed files to read
 
@@ -54,82 +57,111 @@ No model or claim was promoted to validated status.
 * `docs/stages/stage_index.md`.
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
 * `docs/derivations/initial_model_derivation.tex`.
-* `docs/claims/candidate_claim_evidence.md`.
 * `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
 * `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`.
-* `paper/sections/model.tex`.
-* `paper/sections/linear_stability.tex`.
+* `docs/reports/exploration/CODEX-REPORT-resolve-paper-latest-migration-hygiene.md`, if present.
 * `paper/appendix/appendix.tex`.
-* `paper/solver/paper_latest_cpu/scan_optimized.py`.
-* `paper/solver/paper_latest_cpu/linear_stability_1d.py`.
+* `paper/sections/model.tex`.
 
 ## Allowed files to modify
 
-* `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`.
-* A new model-specification review note or report under `docs/reports/exploration/`.
-* A new or updated blocker-list note under `docs/notes/` or `docs/reports/exploration/`, depending on whether the task only reviews or changes state.
-* `docs/project_state.md` only if the blocker list or next task changes.
-* `docs/stages/stage_index.md` only if the stage status or next task changes.
-* A CODEX report at `docs/reports/exploration/CODEX-REPORT-reconcile-migrated-draft-model-with-model-A.md`.
+* `docs/derivations/initial_model_derivation.tex`.
+* `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`, only to update ingestion/provenance text saying that the active Model A derivation now comes from `paper/appendix/appendix.tex` Appendix A--B.
+* `docs/project_state.md`, only if the next task or blocker list needs to reflect that ChatGPT review is pending.
+* `docs/stages/stage_index.md`, only if the next task label changes.
+* A CODEX report at `docs/reports/exploration/CODEX-REPORT-replace-initial-model-derivation-from-paper-appendix.md`.
 
 ## Forbidden actions
 
+* Do not edit, simplify, correct, or reinterpret the model equations during the copy.
+* Do not silently resolve boundary-condition, material-function, nondimensionalization, or notation issues.
 * Do not move any file into `docs/validated/`.
 * Do not claim that the model is validated.
 * Do not write or refactor a production PDE solver.
 * Do not run large simulations, parameter scans, or figure-generation jobs.
 * Do not treat migrated figure data or CPU solver outputs as reproduced evidence.
 * Do not begin manuscript drafting.
-* Do not change model equations silently. Proposed equation changes must be marked as candidate, unresolved, or requiring human review.
+* Do not use OCR or PDF extraction when the LaTeX source exists.
+
+## Required replacement behavior
+
+1. Replace the body of `docs/derivations/initial_model_derivation.tex` with a self-contained LaTeX derivation document built from `paper/appendix/appendix.tex` Appendix A--B.
+2. Extract the complete content from `\section{Model Construction}` through the end of `\section{Nondimensionalization}`, stopping before the next appendix section, for example the linear-stability appendix section.
+3. Preserve the source equations, labels, prose, assumptions, and subsection structure as source material.
+4. Add only mechanical document wrapper material required for compilation, such as document class, packages, macro definitions, title, and a short provenance note.
+5. If any label or macro must be adjusted for standalone compilation, record the exact change and reason in the CODEX report.
+6. Do not include linear-stability, numerical-method, spinodal-verification, or later appendix sections in `initial_model_derivation.tex` unless they are needed only as cross-references in comments.
+7. Leave unresolved scientific issues unresolved for ChatGPT review rather than editing the model.
 
 ## Deliverables
 
-1. A reconciled candidate-model review that explicitly compares Model A and migrated `paper_latest` model material.
-2. A decision table for notation and state variables, including `J`, `u`, `W=Ju`, `theta`, `mu/m`, `phi`, `q`, `n`, and `h`.
-3. A boundary-condition audit, especially the free-surface reactant total-flux sign convention.
-4. A material-function audit covering accessibility, diffusivity, mobility, thermal conductivity, heat capacity, floors, clipping, and reference-coordinate versus current-coordinate coefficients.
-5. A nondimensional-parameter audit that identifies which parameter definitions are accepted, which are candidate-only, and which are ambiguous.
-6. A limiting-case checklist for well-mixed, no-reaction, no-collapse/fixed-`J`, no-transport-degradation, no-accessibility-feedback, passive spinodal, and strong/weak surface exchange limits.
-7. A minimum-observable list for future verification, including front position, collapsed-skin thickness, barrier strength, period, amplitude, heat-source localization, and reactant penetration metrics.
-8. An updated Model Specification blocker list in `docs/project_state.md` or a linked report.
-9. A CODEX report with changed files and verification commands.
+1. `docs/derivations/initial_model_derivation.tex` fully replaced by the Appendix A--B model construction and nondimensionalization source material.
+2. A provenance note in the derivation file or nearby comments identifying `paper/appendix/appendix.tex` as the source.
+3. Optional update to `docs/model_candidates/model_A_initial_lcst_transport_barrier.md` clarifying that Model A is derived from the migrated appendix model.
+4. Optional update to `docs/project_state.md` marking ChatGPT review of the replaced derivation as the next required Model Specification action.
+5. A CODEX report with:
+   * source section boundaries used;
+   * exact files modified;
+   * any mechanical wrapper/macro/label changes;
+   * verification commands and exit codes;
+   * explicit statement that no scientific corrections were made;
+   * explicit request for ChatGPT review.
+
+## ChatGPT review handoff requirements
+
+The CODEX report must include a section titled `For ChatGPT Review` listing the review questions that remain after replacement. At minimum, include:
+
+1. Are the conserved variables and state vector internally consistent?
+2. Are the solvent, reactant, and heat flux sign conventions consistent with the integral conservation laws?
+3. Are the free-surface boundary conditions physically and dimensionally consistent?
+4. Is the `chi(T,phi)` chemical-potential derivative handled consistently?
+5. Are current-coordinate and reference-coordinate material coefficients clearly distinguished?
+6. Are accessibility, diffusivity, and mobility suppression functions physically justified as candidate closures?
+7. Are all nondimensional groups defined with correct dimensions and signs?
+8. Which parts should enter the eventual candidate model specification, and which should remain unresolved?
+
+Codex must not answer these scientific review questions as final authority. They are for ChatGPT review after the replacement task.
 
 ## Verification commands
 
 At minimum:
 
 ```bash
+make derivations
+```
+
+```bash
 make quickcheck
 ```
 
-If any `.tex` derivation is edited:
-
 ```bash
-make derivations
+git diff --check
 ```
 
 No numerical simulation verification is expected in this task.
 
 ## Acceptance criteria
 
-* The project has one explicit candidate model specification path or a clear list of unresolved alternatives.
-* Notation conflicts between Model A and migrated material are either resolved or listed as blockers.
-* Free-surface reactant flux sign convention is audited from the conservation law, not inferred from code style.
-* Material closures and coordinate conventions are explicitly marked as accepted candidate, unresolved, or rejected.
-* The blocker list is rebuilt from this reconciliation rather than inherited from historical notes.
+* `docs/derivations/initial_model_derivation.tex` contains the complete model-construction and nondimensionalization material from `paper/appendix/appendix.tex` Appendix A--B.
+* Linear-stability and numerical appendix sections are not copied into `initial_model_derivation.tex`.
+* The derivation file compiles or `make derivations` records a non-scientific environment failure.
+* Any changes relative to the source appendix text are mechanical and documented.
+* The task explicitly hands the replaced derivation back to ChatGPT for scientific review.
 * No model, numerical result, figure, or claim is promoted to validated status.
 * `make quickcheck` passes.
 
 ## Failure conditions
 
-* The task cannot reconcile flux signs or material closures without changing equations; in that case, stop and request human review.
-* The task discovers that Model A and migrated `paper_latest` equations are materially inconsistent in a way that changes the central hypothesis; in that case, record the conflict and stop before updating later-stage plans.
+* The source section boundaries in `paper/appendix/appendix.tex` cannot be identified unambiguously.
+* The replacement requires changing equations or scientific content to compile.
+* Macro or label conflicts cannot be resolved mechanically.
+* The task discovers that the migrated appendix lacks part of the intended model construction or nondimensionalization; in that case, record the gap and stop before inventing replacement content.
 * Any production solver or parameter scan is introduced.
 * Any claim is moved into `docs/validated/`.
 
 ## Required CODEX-REPORT path
 
-`docs/reports/exploration/CODEX-REPORT-reconcile-migrated-draft-model-with-model-A.md`
+`docs/reports/exploration/CODEX-REPORT-replace-initial-model-derivation-from-paper-appendix.md`
 
 ## User approval required before merge
 
