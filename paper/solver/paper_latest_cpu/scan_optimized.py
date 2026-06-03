@@ -20,10 +20,11 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import multiprocessing as mp
 import os
 import time
-from dataclasses import dataclass, replace
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -491,7 +492,23 @@ def make_sparse_fd_jac(rhs_fn, S_pattern, n3: int,
     return jac, n_groups
 
 
-def simulate(p: Params) -> Dict:
+def params_to_dict(p: Params, finalized: bool = True) -> Dict:
+    """Return a JSON-serializable snapshot of the full solver parameter set."""
+    pp = finalize_params(p) if finalized else p
+    return asdict(pp)
+
+
+def save_params_json(p: Params, path, finalized: bool = True) -> None:
+    """Persist the full parameter set used by a run."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(params_to_dict(p, finalized=finalized), indent=2, sort_keys=True),
+        encoding="utf-8",
+    )
+
+
+def simulate(p: Params, include_raw_state: bool = False, include_audit: bool = False) -> Dict:
     p = finalize_params(p)
     x, y0 = initial_state(p)
     n3     = 3 * p.N
@@ -520,13 +537,19 @@ def simulate(p: Params) -> Dict:
 
     n = p.N
     log_J_min = np.log(p.phi_p0 * 1.02)
-    J     = np.exp(np.clip(sol.y[:n], log_J_min, _LOG_J_MAX))
+    raw_logJ = sol.y[:n]
+    J     = np.exp(np.clip(raw_logJ, log_J_min, _LOG_J_MAX))
     W     = sol.y[n:2*n]
     theta = sol.y[2*n:]
     u     = np.maximum(W / J, p.u_floor)
 
-    return {"x": x, "t": sol.t, "J": J, "W": W, "u": u, "theta": theta,
+    data = {"x": x, "t": sol.t, "J": J, "W": W, "u": u, "theta": theta,
             "phi": phi_from_J(J, p), "success": True, "nfev": sol.nfev}
+    if include_raw_state or include_audit:
+        data["logJ_raw"] = raw_logJ
+    if include_audit:
+        data["audit_diagnostics"] = solver_audit_diagnostics(data, p)
+    return data
 
 
 # ---------------------------------------------------------------------------
@@ -596,6 +619,106 @@ def conservation_diagnostics(data: Dict, p: Params, late_frac: float = 0.60) -> 
         "heat_inventory_initial": float(heat_inventory[0]),
         "heat_inventory_final": float(heat_inventory[-1]),
     }
+
+
+def solver_audit_diagnostics(data: Dict, p: Params) -> Dict:
+    """Report clipping, positivity, flux, and provenance diagnostics.
+
+    This is intentionally read-only: it recomputes diagnostics from a saved
+    trajectory and does not alter the RHS, solver tolerances, or state.
+    """
+    p = finalize_params(p)
+    J = np.asarray(data["J"])
+    W = np.asarray(data.get("W", data["J"] * data["u"]))
+    theta = np.asarray(data["theta"])
+    raw_logJ_available = "logJ_raw" in data
+    logJ_raw = np.asarray(data["logJ_raw"]) if raw_logJ_available else np.log(J)
+    log_J_min = np.log(p.phi_p0 * 1.02)
+
+    raw_J = np.exp(np.clip(logJ_raw, -700.0, 700.0))
+    with np.errstate(divide="ignore", invalid="ignore"):
+        raw_u = W / raw_J
+        raw_phi = p.phi_p0 / raw_J
+
+    def _count_fraction(mask):
+        mask = np.asarray(mask)
+        count = int(np.count_nonzero(mask))
+        total = int(mask.size)
+        return count, float(count / total) if total else float("nan")
+
+    def _finite_min(a):
+        a = np.asarray(a)
+        finite = a[np.isfinite(a)]
+        return float(np.min(finite)) if finite.size else float("nan")
+
+    def _finite_max(a):
+        a = np.asarray(a)
+        finite = a[np.isfinite(a)]
+        return float(np.max(finite)) if finite.size else float("nan")
+
+    def _stats(prefix, values):
+        values = np.asarray(values, dtype=float)
+        finite = values[np.isfinite(values)]
+        if finite.size == 0:
+            return {
+                f"{prefix}_min": float("nan"),
+                f"{prefix}_max": float("nan"),
+                f"{prefix}_mean": float("nan"),
+            }
+        return {
+            f"{prefix}_min": float(np.min(finite)),
+            f"{prefix}_max": float(np.max(finite)),
+            f"{prefix}_mean": float(np.mean(finite)),
+        }
+
+    low_count, low_frac = _count_fraction(logJ_raw < log_J_min)
+    high_count, high_frac = _count_fraction(logJ_raw > _LOG_J_MAX)
+    u_clip_count, u_clip_frac = _count_fraction(raw_u < p.u_floor)
+    phi_clip_count, phi_clip_frac = _count_fraction(raw_phi > 0.995)
+
+    dx = 1.0 / p.N
+    nt = J.shape[1] if J.ndim == 2 else 0
+    q_surface, n_surface, h_surface = [], [], []
+    source_nonfinite = 0
+    flux_nonfinite = 0
+    for k in range(nt):
+        aux = state_fluxes(J[:, k], W[:, k], theta[:, k], p, dx)
+        source = p.Da * J[:, k] * aux["R"]
+        source_nonfinite += int(np.count_nonzero(~np.isfinite(source)))
+        for name in ("q", "nflux", "h"):
+            flux_nonfinite += int(np.count_nonzero(~np.isfinite(aux[name])))
+        q_surface.append(aux["q"][-1])
+        n_surface.append(aux["nflux"][-1])
+        h_surface.append(aux["h"][-1])
+
+    diagnostics = {
+        "raw_logJ_available": bool(raw_logJ_available),
+        "min_raw_logJ": _finite_min(logJ_raw),
+        "max_raw_logJ": _finite_max(logJ_raw),
+        "logJ_low_clip_count": low_count,
+        "logJ_low_clip_fraction": low_frac,
+        "logJ_high_clip_count": high_count,
+        "logJ_high_clip_fraction": high_frac,
+        "min_W": _finite_min(W),
+        "min_raw_u": _finite_min(raw_u),
+        "u_floor_clip_count": u_clip_count,
+        "u_floor_clip_fraction": u_clip_frac,
+        "max_phi_before_clip": _finite_max(raw_phi),
+        "phi_hard_ceiling": 0.995,
+        "phi_hard_ceiling_exceed_count": phi_clip_count,
+        "phi_hard_ceiling_exceed_fraction": phi_clip_frac,
+        "nonfinite_J_count": int(np.count_nonzero(~np.isfinite(J))),
+        "nonfinite_W_count": int(np.count_nonzero(~np.isfinite(W))),
+        "nonfinite_u_count": int(np.count_nonzero(~np.isfinite(raw_u))),
+        "nonfinite_theta_count": int(np.count_nonzero(~np.isfinite(theta))),
+        "nonfinite_source_count": int(source_nonfinite),
+        "nonfinite_flux_count": int(flux_nonfinite),
+        "params": params_to_dict(p, finalized=False),
+    }
+    diagnostics.update(_stats("surface_q", q_surface))
+    diagnostics.update(_stats("surface_nflux", n_surface))
+    diagnostics.update(_stats("surface_h", h_surface))
+    return diagnostics
 
 
 # ---------------------------------------------------------------------------

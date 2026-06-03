@@ -15,7 +15,7 @@ Substage: replaced Model A derivation from migrated Appendix A--B; ChatGPT scien
 
 Model status: candidate only. The active long derivation source at `docs/derivations/initial_model_derivation.tex` now mechanically copies the migrated Appendix A `Model Construction` and Appendix B `Nondimensionalization` material from `paper/appendix/appendix.tex`. The material has not yet received ChatGPT scientific review and no model is validated.
 
-Numerics status: no production PDE solver; no verified simulation. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only.
+Numerics status: no production PDE solver; no verified simulation. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only. The legacy CPU solver now has an audit note and opt-in diagnostics, but this does not validate its model or generated data.
 
 Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Migration hygiene resolved the missing `pypdf` dependency and composite figure smoke tests now pass as repository assembly checks only; these checks do not validate the figure data or numerical results.
 
@@ -50,6 +50,7 @@ Current workflow policy:
 * Migration hygiene was resolved by PR `#8`, including `pypdf` declaration, composite figure smoke tests, LaTeX figure path cleanup, dirty-source provenance, and large-cache deduplication.
 * `docs/derivations/initial_model_derivation.tex` has been replaced with the migrated Appendix A--B model-construction and nondimensionalization source material for ChatGPT review.
 * GPT review of the merged migration is recorded in `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
+* The legacy CPU solver model has been audited as migrated source material in `paper/solver/paper_latest_cpu/SOLVER_MODEL_AUDIT.md`, with opt-in diagnostics for clipping, positivity, surface fluxes, non-finite values, and full `Params` serialization.
 * No model or claim has been promoted to `docs/validated/`.
 
 ## Superseded or Historical Work
@@ -91,14 +92,29 @@ Standing constraints remain:
 * Evidence-backed figure generation remains blocked.
 * Manuscript drafting remains blocked.
 
+### Legacy CPU solver blockers
+
+The legacy CPU solver audit makes the existing code path more inspectable, but
+the following issues remain blockers before any generated data can become
+evidence:
+
+1. Decide whether the canonical model keeps the legacy `v0` effective-osmotic-chi closure or branches to a strict-derivative closure.
+2. Resolve whether `Da * J * R` is an acceptable current-volume source scaling for the intended immobilized-catalyst interpretation.
+3. Treat `Pe_T` as inactive in the RHS unless a later task explicitly changes the model.
+4. Report `logJ`, `phi`, and `u` clipping/floor interventions with any future numerical result.
+5. Treat boundary exchange laws as cell-center Robin approximations until a boundary-condition audit accepts or replaces them.
+6. Keep imported figure caches and solver-generated draft outputs unvalidated until reproduced with convergence and control cases.
+
 ## Active Work Plan
 
 Use concrete task names. Internal anchors may be added only for ordering.
 
 1. Request ChatGPT Scientific Review of Replaced Model A Derivation.
-2. Rebuild the Model Specification Blocker List from that review.
-3. Define Minimum Front/Barrier Observables.
-4. Prepare Minimal Numerical Verification Design only after the Model Specification gate passes.
+2. Request ChatGPT Review of the Legacy CPU Solver Audit.
+3. Decide Canonical Legacy Solver Closure and Source-Scaling Path.
+4. Rebuild the Model Specification Blocker List from the derivation and solver-audit reviews.
+5. Define Minimum Front/Barrier Observables.
+6. Prepare Minimal Numerical Verification Design only after the Model Specification gate passes.
 
 Detailed task files are tracked under `docs/tasks/exploration/`.
 
@@ -154,9 +170,11 @@ Promotion gates:
 * `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`
 * `docs/reports/exploration/CODEX-REPORT-resolve-paper-latest-migration-hygiene.md`
 * `docs/reports/exploration/CODEX-REPORT-replace-initial-model-derivation-from-paper-appendix.md`
+* `docs/reports/exploration/CODEX-REPORT-audit-freeze-legacy-cpu-solver-model.md`
 * `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`
 * `paper/paper_latest_provenance.md`
 * `paper/paper_latest_migration_manifest.tsv`
+* `paper/solver/paper_latest_cpu/SOLVER_MODEL_AUDIT.md`
 
 ## Update Protocol
 
