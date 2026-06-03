@@ -1,0 +1,144 @@
+%%  II. MODEL
+%% ================================================================
+\section{Model}
+\label{sec:model}
+
+\subsection{Physical system}
+
+We consider a planar thermoresponsive gel slab of reference
+half-thickness $H_0$ containing an immobilised catalyst that catalyses
+an exothermic, irreversible, first-order reaction. The slab is
+in contact at its free surface with a well-mixed bath of constant
+temperature $T_\infty$ and constant reactant concentration $c_b$;
+$\xi=X/H_0\in[0,1]$ is a Lagrangian coordinate, with $\xi=0$ the
+symmetry plane and $\xi=1$ the free surface. The spherical and
+membrane variants of the same reaction--swelling
+coupling~\cite{Siegel1988,Siegel1993,Boissonade2003,BoissonadeDeKepper2011}
+introduce additional radial-stretch and curvature effects that we
+defer to a separate study.
+
+\subsection{Governing equations}
+
+The conservative variables are the local swelling ratio $J$, the
+reactant content per reference volume $W=Ju$, the dimensionless
+temperature excess $\theta=(T-T_\infty)/\Delta T_*$, and the
+algebraic solvent chemical potential $m$.  Here
+$u=W/J$ is the bath-normalized reactant concentration,
+$\phi=\pp/J$ is the polymer volume fraction, and
+$\Delta T_*=(-\Delta H_r)c_b/C_*$ is the adiabatic reaction
+temperature rise.  The dimensionless first-principles model
+(Appendix~\ref{app:nondim}) is
+\begin{subequations}
+\label{eq:governing}
+\begin{align}
+  J_t + q_\xi &= 0,
+  & q &= -\Ms_\mathrm{ref}(J,\theta)\,m_\xi, \label{eq:gov_J}\\[4pt]
+  W_t + n_\xi &= -\Da\,J\,R_b,
+  & n &= u\,q-\delta\,\Ds_\mathrm{ref}(J,\theta)\,u_\xi,
+  \label{eq:gov_u}\\[4pt]
+  \Cs_\mathrm{ref}(J)\,\theta_t + h_\xi &= \Da\,J\,R_b,
+  & h &= -\alpha\,\Ks_\mathrm{ref}(J)\,\theta_\xi,
+  \label{eq:gov_theta}\\[4pt]
+  m &= m_\mathrm{mix}(J,\theta)+m_\mathrm{el}(J)-\ell^2J_{\xi\xi}.
+  \label{eq:gov_m}
+\end{align}
+\end{subequations}
+The subscript ``ref'' emphasizes that $\Ds_\mathrm{ref}$ and
+$\Ks_\mathrm{ref}$ multiply gradients in the reference coordinate
+and that $\Cs_\mathrm{ref}$ is a heat capacity per reference volume.
+When current-space material coefficients are used, the optional
+metric-corrected closure is
+$\Ds_\mathrm{ref}=\Ds_\mathrm{cur}/J$,
+$\Ks_\mathrm{ref}=\Ks_\mathrm{cur}/J$, and
+$\Cs_\mathrm{ref}=J\Cs_\mathrm{cur}$.  The baseline model treats the
+listed coefficients as effective reference-coordinate quantities.
+The enthalpy-advection term proportional to
+$\partial_\xi[(\Theta_\infty+\theta)q]$ is omitted from the baseline
+and retained only as a diagnostic estimate.
+
+The reaction rate is
+\begin{equation}
+  R_b = u^n\,A(\phi)\,
+  \exp\!\Bigl(\frac{\Gamma_A\,\theta}{1+\varepsilon_T\,\theta}\Bigr),
+  \label{eq:rxn}
+\end{equation}
+with a phenomenological porosity/accessibility factor
+\begin{equation}
+  A(\phi)=A_\mathrm{min}+(1-A_\mathrm{min})\,
+  \bar p^{\,m_\mathrm{act}}, \qquad
+  \bar p=\mathrm{clip}\!\left[
+    \frac{1-\phi}{1-\phi_\mathrm{ref}},0,1\right].
+  \label{eq:accessibility}
+\end{equation}
+The diffusivity barrier uses the analogous
+$\Ds_\mathrm{ref}=D_0[D_\mathrm{min}+(1-D_\mathrm{min})
+\bar p^{\,m_\mathrm{diff}}]$ in the baseline reference-coordinate
+closure.  The solvent chemical potential is derived from the
+Flory--Rehner free energy with
+$\chi(\theta,\phi)=\chi_\infty+S_\chi\theta+\chi_1\phi$:
+\begin{equation}
+  m_\mathrm{mix}
+  =\ln(1-\phi)+\phi+\chi(\theta,\phi)\phi^2
+  -\phi^2(1-\phi)\,\frac{\partial\chi}{\partial\phi},
+  \qquad \frac{\partial\chi}{\partial\phi}=\chi_1.
+  \label{eq:mmix_main}
+\end{equation}
+If the final correction in Eq.~\eqref{eq:mmix_main} is omitted, the
+parameter is interpreted only as an effective osmotic interaction
+parameter, not as the derivative of a strict free energy.
+
+\subsection{Boundary conditions}
+
+At the symmetry plane ($\xi=0$) all fluxes vanish. At the free
+surface ($\xi=1$):
+\begin{align}
+  q\big|_1&=\Bi_\mu\,(m-m_b), &
+  n\big|_1&=\Bi_c\,(u-1), &
+  h\big|_1&=\Bi_T\,\theta, &
+  J_\xi\big|_1&=0,
+  \label{eq:bc}
+\end{align}
+with $q=n=h=0$ and $J_\xi=0$ at $\xi=0$.  The reactant condition is
+therefore a total-flux condition on
+$n=u q-\delta\Ds_\mathrm{ref}u_\xi$, not a diffusion-only boundary
+condition.  The bath chemical potential $m_b$ is retained explicitly;
+one may shift to $\tilde m=m-m_b$ only if the same shifted variable is
+used everywhere.
+
+\subsection{Dimensionless parameters}
+
+The dimensionless groups are summarized in Table~\ref{tab:params}.
+
+\begin{table}[h]
+\centering
+\caption{Dimensionless parameters: primary control parameters (top)
+  and secondary material/numerical parameters (bottom).}
+\label{tab:params}
+\begin{ruledtabular}
+\begin{tabular}{clcc}
+Symbol & Physical meaning & Default & Range\\
+\hline
+$\Da$            & Reaction rate / swelling rate   & 4     & 3--18\\
+$\Bi_\mu$        & Surface permeation Biot number  & 1.0   & ---\\
+$\Bi_c$          & Surface reactant Biot number    & 0.70  & 0.1--2\\
+$\Bi_T$          & Thermal exchange number         & 0.10  & 0.05--0.5\\
+$S_\chi$         & LCST sensitivity               & 1.0   & 0.5--8\\
+$\Gamma_A$       & Arrhenius sensitivity           & 1.5   & 0--7\\
+$D_0$            & Reactant diffusivity scale     & 2.0   & 0.5--3\\
+$m_\mathrm{act}$ & Reaction accessibility exponent& 6     & 1--6\\
+$m_\mathrm{diff}$& Diffusion tortuosity exponent  & 2     & 1--6\\
+$A_\mathrm{min}$ & Accessibility floor           & $10^{-4}$ & ---\\
+$D_\mathrm{min}$ & Diffusivity floor             & $10^{-4}$ & ---\\
+\hline
+$\alpha$         & Thermal / swelling time ratio   & 0.03  & ---\\
+$\delta$         & Diffusion / permeation ratio    & 0.08  & ---\\
+$\ell$           & Interface regularization length & 0.01  & ---\\
+$\Omega_e$       & Elastic / mixing energy ratio   & 0.12  & ---\\
+$\pp$            & Reference polymer fraction      & 0.15  & ---\\
+$\chi_\infty$    & Interaction parameter at $T_\infty$ & 0.60 & ---\\
+$\chi_1$         & Concentration-dependent $\chi$  & 1.10  & ---\\
+$\varepsilon_T$  & Nonlinear Arrhenius correction  & 0.03  & ---\\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+

@@ -1,0 +1,119 @@
+%% ================================================================
+%%  III. HOMOGENEOUS STABILITY DIAGNOSTIC
+%% ================================================================
+\section{Homogeneous Stability Diagnostic}
+\label{sec:lsa}
+
+\subsection{Lumped diagnostic and base state}
+
+We use a homogeneous/lumped linear diagnostic for spatially uniform
+states of the PDE system~\eqref{eq:governing}.  This diagnostic is
+not the full spectrum of the linearized Robin-boundary PDE. It
+combines a lumped homogeneous balance, including boundary exchange
+terms, with local bulk dispersion corrections. It is used as a
+necessary but not sufficient indicator of possible oscillatory
+feedback.  The uniform steady states $(J_0,u_0,\theta_0)$ satisfy
+three algebraic balances:
+\begin{align}
+  \mu(J_0,\theta_0)&=\mu_b, &
+  \Bi_c(1-u_0)&=\Da\,J_0\,R_{b0}, \nonumber\\
+  \Bi_T\theta_0&=\Da\,J_0\,R_{b0},
+  \label{eq:lsa_ss}
+\end{align}
+where $R_{b0}=R_b(u_0,J_0,\theta_0)$.  Linearizing the lumped
+balance about this base state and adding local bulk-gradient
+corrections gives a $3\times 3$ eigenvalue problem for each
+diagnostic wavenumber $k$ (Appendix~\ref{app:lsa}):
+\begin{equation}
+  \sigma\,\widehat{\mathbf y} = \mathbf A(k)\,\widehat{\mathbf y},
+  \qquad
+  \mathbf A(k)=\mathbf A_0 + k^2\mathbf D_2 + k^4\mathbf D_4.
+  \label{eq:dispersion_matrix}
+\end{equation}
+Here $\mathbf A_0$ encodes reaction kinetics and surface exchange,
+$\mathbf D_2$ collects diffusive transport, and $\mathbf D_4$ arises
+from the Cahn--Hilliard gradient-energy regularization.  Uniform
+branches are classified as \emph{stable}
+($\Re\sigma_1(0)<0$), \emph{Hopf unstable}
+($\Re\sigma_1(0)>0$, $\Im\sigma_1(0)\neq 0$), or
+\emph{monotone unstable} ($\Re\sigma_1(0)>0$,
+$\Im\sigma_1(0)=0$).
+
+\subsection{Two instability mechanisms}
+
+The dispersion relation reveals two physically distinct instabilities
+(Fig.~\ref{fig:stability}).
+
+\paragraph{Hopf instability ($k=0$).}
+The long-wave mode is governed by $\mathbf A_0$ alone.  The positive
+feedback originates in the heat equation: when the Arrhenius
+heat--reaction coupling $\Da\,J_0 R_\theta$ exceeds the surface heat
+loss $\Bi_T$, a temperature perturbation amplifies the reaction rate,
+which in turn raises the temperature further.
+The negative feedback follows the off-diagonal loop
+$\theta\to J\to u\to\theta$: rising temperature increases $\chi$ and
+drives collapse, collapse suppresses reactant supply, and reduced
+reactant weakens the heat source.  Oscillation requires these two
+feedback paths to operate on well-separated timescales; the onset
+condition is set by the balance of the characteristic-polynomial
+coefficients of $\mathbf A_0$
+(Appendix~\ref{app:lsa}).
+
+\paragraph{Spinodal instability ($k>0$).}
+When the thermodynamic derivative $f_J\equiv\partial_J[\,m_\mathrm{mix}
++m_\mathrm{el}\,]<0$, the base state lies inside the Flory--Huggins
+spinodal region and the $(1,1)$ entry of $\mathbf D_2$ acts as a
+negative diffusivity: spatial perturbations in $J$ are amplified
+rather than damped~\cite{Onuki1993,Bai2023}.  The $k^4$ term limits
+growth to a finite band with maximum at
+$k^\ast\approx\sqrt{-f_J/(2\ell^2)}$
+[Fig.~\ref{fig:stability}(c)].  When triggered in isolation
+($\Da=0$, fixed $\theta$ above LCST), this mode produces alternating
+swollen and collapsed domains (Appendix~\ref{app:spinodal}).
+
+\paragraph{Why spinodal does not manifest during oscillation.}
+Although the spinodal growth rate ($\sigma^\ast\sim 10^3$) far exceeds
+the Hopf rate ($\sim\!1$), three factors prevent spinodal patterns
+from developing during the oscillation cycle: (i)~the system traverses
+the spinodal region only transiently during collapse
+($\lesssim 0.5\,\tau$, as confirmed in Sec.~\ref{sec:results}), too briefly for short-wavelength domains to
+reach macroscopic amplitude; (ii)~the Thiele penetration gradient and
+Robin boundary conditions break the translational symmetry required
+for classical spinodal pattern selection; (iii)~the large-amplitude
+Hopf limit cycle continuously homogenizes the spatial structure at
+each period.
+
+\begin{figure*}[tbp]
+  \centering
+  \includegraphics[width=\textwidth]{fig1.pdf}
+  \caption{Linear stability of the 1D slab.
+    \textbf{(a)}~Steady-state branches $J_0$ versus $\Bi_T$,
+    colored by $k=0$ stability; the star marks the working point.
+    \textbf{(b)}~Leading eigenvalue (real and imaginary parts) along
+    the collapsed branch, showing the monotone-to-Hopf transition.
+    \textbf{(c)}~Full dispersion curves for three $\Bi_T$ values;
+    inset resolves the $k\to 0$ Hopf regime.
+    \textbf{(d,e)}~Stability maps in the $(\Da,\Bi_T)$ and
+    $(S_\chi,\Bi_T)$ planes.
+    \textbf{(f)}~Linear period $T_\mathrm{LSA}=2\pi/\omega$ and
+    growth rate vs $\Da$.}
+  \label{fig:stability}
+\end{figure*}
+
+\subsection{Implications for the working point}
+\label{sec:lsa_implications}
+
+The lower-$J$ (collapsed) branch at the default parameters undergoes
+a sequence
+monotone~$\to$~Hopf~$\to$~stable as $\Bi_T$ increases: weak cooling
+causes thermal runaway, intermediate cooling produces oscillatory
+growth, and strong cooling stabilizes the system
+[Fig.~\ref{fig:stability}(a,b)].  The Hopf region persists only when
+$\Da$ and $S_\chi$ are large enough to overcome surface heat loss
+[Fig.~\ref{fig:stability}(d,e)].  The linear period estimate
+$T_\mathrm{LSA}=2\pi/\omega$ [Fig.~\ref{fig:stability}(f)] provides
+the small-amplitude precursor to the nonlinear oscillation period; the
+dispersion analysis correctly identifies the existence, type, and
+timescale of the instability that seeds the slab dynamics.
+
+

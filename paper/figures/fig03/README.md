@@ -1,0 +1,17 @@
+# Migrated Figure 3
+
+Status: migrated asset bundle, not validated.
+
+Source: `../paper_latest/paper_latest/Figure/fig3`,
+`../paper_latest/paper_latest/data/fig3`, the shared Figure 2 cache needed by
+the copied helper, and corresponding `scripts/fig3*` builders.
+
+## Layout
+
+* `Figure/fig3/`: generated PDF/PNG panels and composite figure.
+* `data/fig3/`: cached data used by Figure 3 scripts.
+* `data/fig2/cache.npz`: shared cache required by the migrated Figure 3 helper.
+* `scripts/`: figure builders and helper scripts copied from the source draft.
+
+The original relative layout is preserved so the copied scripts can be run from
+this figure bundle without path rewrites.
