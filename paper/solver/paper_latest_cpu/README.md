@@ -12,3 +12,12 @@ The files are copied for provenance and audit of the existing draft model. Their
 presence does not validate the model, does not promote the repository to a
 numerics stage, and should not be treated as permission to extend a production
 PDE solver during the current Model Specification stage.
+
+Audit note:
+
+* `SOLVER_MODEL_AUDIT.md`
+
+The audit note records the actual state vector, flux convention, RHS/source
+terms, boundary convention, chemical-potential variants, clipping interventions,
+and opt-in diagnostic path for this legacy solver. It does not validate the
+model or any figure data generated from the migrated scripts.
