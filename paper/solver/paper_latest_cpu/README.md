@@ -1,0 +1,14 @@
+# Migrated CPU Solver Source
+
+Status: migrated source material, not production solver for this repository.
+
+This directory preserves the CPU model script and homogeneous/stability
+diagnostic helper from the sibling draft:
+
+* `scan_optimized.py`
+* `linear_stability_1d.py`
+
+The files are copied for provenance and audit of the existing draft model. Their
+presence does not validate the model, does not promote the repository to a
+numerics stage, and should not be treated as permission to extend a production
+PDE solver during the current Model Specification stage.
