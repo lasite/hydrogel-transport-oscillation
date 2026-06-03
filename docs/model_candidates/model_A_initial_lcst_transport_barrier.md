@@ -6,15 +6,23 @@ Validation: not yet performed
 
 ## Ingestion status
 
-The user's preliminary derivation has been organized in:
+The active Model A derivation source has been replaced from the migrated
+`paper_latest` appendix model material:
 
 * `docs/derivations/initial_model_derivation.tex`
+
+The derivation now mechanically copies Appendix A, `Model Construction`, and
+Appendix B, `Nondimensionalization`, from:
+
+* `paper/appendix/appendix.tex`
 
 The rendered derivation, when available, is:
 
 * `docs/rendered/initial_model_derivation.pdf`
 
-This summary records variables, parameters, equations, assumptions, and open issues. It does not validate the model.
+This summary records variables, parameters, equations, assumptions, and open
+issues. It does not validate the model. Scientific review of the replaced
+derivation is pending.
 
 ## Purpose
 
@@ -178,4 +186,6 @@ Core groups:
 
 ## Current TODO
 
-Run `EXP-002-sanity-check-candidate-model` before treating any equation, parameter set, instability, or numerical observation as validated.
+Request ChatGPT scientific review of the replaced Appendix A--B derivation,
+then rebuild the Model Specification blocker list before treating any equation,
+parameter set, instability, or numerical observation as validated.
