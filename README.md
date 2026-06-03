@@ -53,7 +53,9 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `configs/`: placeholder configuration files.
 * `data/`: raw and processed data placeholders.
 * `results/`: reproducible output placeholders.
-* `paper/`: manuscript placeholders.
+* `paper/`: manuscript placeholders and migrated paper-source audit material.
+* `paper/solver/canonical_cpu/`: candidate canonical CPU solver scaffold for
+  non-evidence smoke checks; not a validated production solver.
 
 ## Minimal checks
 
@@ -77,5 +79,5 @@ From a fresh checkout, run `make install` before `make quickcheck` unless depend
 5. Run the task's required verification commands.
 6. Produce a CODEX report under `docs/reports/` only when Codex changed repository content, ran verification, or prepared a state transition.
 7. During Model Specification, prioritize model definitions, variable definitions, limiting cases, boundary-condition signs, material-function assumptions, and front/barrier observables.
-8. Do not write production solver code until the Model Specification gate passes.
+8. Do not write production solver code until the Model Specification gate passes; candidate solver scaffolds must remain explicitly non-evidence.
 9. Do not promote any claim or model into `docs/validated/` before the required gates pass.

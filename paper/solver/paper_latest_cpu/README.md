@@ -21,3 +21,12 @@ The audit note records the actual state vector, flux convention, RHS/source
 terms, boundary convention, chemical-potential variants, clipping interventions,
 and opt-in diagnostic path for this legacy solver. It does not validate the
 model or any figure data generated from the migrated scripts.
+
+Canonical candidate path:
+
+* `../canonical_cpu/`
+
+The canonical candidate solver preserves this legacy behavior as a controlled
+comparison branch, but new smoke checks and future paper-evidence preparation
+should use the canonical path rather than extending this monolithic migrated
+scan script.
