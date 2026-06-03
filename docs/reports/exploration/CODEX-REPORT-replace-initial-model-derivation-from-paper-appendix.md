@@ -22,7 +22,7 @@ Model Specification
 
 ## Final commit
 
-Pending at report creation.
+Implementation commit: `2ae8287`
 
 ## Branch or worktree name
 
