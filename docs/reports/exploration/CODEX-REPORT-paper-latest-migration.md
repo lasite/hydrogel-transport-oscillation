@@ -22,7 +22,13 @@ G2
 
 ## Final commit
 
-Pending at report creation.
+Migration branch commit: `6a8e94551a4283b523bbf3a0bb8eca996070d202`
+
+Merged by PR `#7` as merge commit:
+`539374dd5997cc475221d419ed9106647a11e036`
+
+Post-merge hygiene is recorded separately in
+`docs/reports/exploration/CODEX-REPORT-resolve-paper-latest-migration-hygiene.md`.
 
 ## Branch or worktree name
 
@@ -48,8 +54,9 @@ Created or updated:
 * `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`
 
 The exact copied-file mapping is recorded in
-`paper/paper_latest_migration_manifest.tsv` with 140 source-to-destination
-entries.
+`paper/paper_latest_migration_manifest.tsv`. After post-merge hygiene cleanup,
+the manifest contains 141 audit mappings with destination type, size, and
+checksum or symlink target.
 
 ## Summary of changes
 
@@ -70,7 +77,7 @@ Figure bundles:
 | ---------------- | ------------- | ----------- |
 | Figure 1 | `Figure/fig1`, `data/fig1`, `scripts/fig1*` | `paper/figures/fig01/` |
 | Figure 2 | `Figure/fig2`, `data/fig2`, selected supporting grids from `data/fig4`, `scripts/fig2*` and helpers | `paper/figures/fig02/` |
-| Figure 3 | `Figure/fig3`, `data/fig3`, shared `data/fig2/cache.npz`, `scripts/fig3*` and helpers | `paper/figures/fig03/` |
+| Figure 3 | `Figure/fig3`, `data/fig3`, shared Figure 2 cache, `scripts/fig3*` and helpers | `paper/figures/fig03/` |
 | Figure 9 | Source ninth figure environment stored as `fig7` spinodal appendix figure | `paper/figures/fig09/` |
 
 CPU model source:
@@ -136,16 +143,18 @@ Dependency setup command used: none during this task. Existing `.venv` was used.
   `python` executable. Retried successfully with `python3` and with the repo
   virtual environment.
 * Composite plotting scripts for Figures 1, 2, 3, and 9 failed at PDF assembly
-  because `pypdf` is not installed in the current `.venv`.
+  because `pypdf` was not installed in the current `.venv`. This dependency
+  issue was resolved in the follow-up hygiene task by declaring `pypdf` and
+  rerunning the smoke tests successfully.
 
 ## Known limitations
 
 * The source `paper_latest` working tree was dirty at migration time, so these
   files reflect the current local working tree rather than a clean committed
   source snapshot.
-* `paper/figures/fig02/data/fig2/cache.npz` and
-  `paper/figures/fig03/data/fig2/cache.npz` are each 96,403,852 bytes, close to
-  GitHub's 100 MB single-file limit.
+* The originally duplicated near-100 MB Figure 2 cache was deduplicated in the
+  follow-up hygiene task to `paper/figures/shared/data/fig2/cache.npz`, with
+  Figure 2 and Figure 3 local paths retained as symlinks.
 * The migrated CPU script is source material from the draft. It was not promoted
   to a production solver for this repository.
 * The migrated figure outputs and data were not scientifically revalidated.
@@ -170,5 +179,6 @@ No model or claim was promoted to validated status.
 
 ## Recommended next task
 
-Install or declare the missing plotting dependency `pypdf` in a separate
-environment-maintenance task, then rerun the composite figure smoke tests.
+Continue with
+`docs/tasks/exploration/TASK-reconcile-migrated-draft-model-with-model-A.md`
+after human approval and ChatGPT review of the migration-hygiene cleanup.
