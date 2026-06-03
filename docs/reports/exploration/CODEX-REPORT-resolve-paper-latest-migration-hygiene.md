@@ -22,7 +22,7 @@ Model Specification
 
 ## Final commit
 
-Pending at report creation.
+`d1a5b30`
 
 ## Branch or worktree name
 
