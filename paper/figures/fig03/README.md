@@ -11,6 +11,8 @@ the copied helper, and corresponding `scripts/fig3*` builders.
 * `Figure/fig3/`: generated PDF/PNG panels and composite figure.
 * `data/fig3/`: cached data used by Figure 3 scripts.
 * `data/fig2/cache.npz`: shared cache required by the migrated Figure 3 helper.
+  This path is a relative symlink to `../shared/` data to avoid storing a
+  duplicate near-100 MB file.
 * `scripts/`: figure builders and helper scripts copied from the source draft.
 
 The original relative layout is preserved so the copied scripts can be run from
