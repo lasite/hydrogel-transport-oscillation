@@ -11,15 +11,17 @@ Previous stages:
 * Research Idea Brief (`G0`) completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * Literature / Novelty Mapping (`G1`) completed after user accepted the novelty framing and prior-art risk matrix; the frozen literature corpus was created for Model Specification.
 
-Substage: reset for fresh Model A review under the physics-first workflow.
+Substage: post-`paper_latest` source-material import and triage.
 
-Model status: candidate notes exist only; Model A has not been re-reviewed under the new structure; no model is validated.
+Model status: candidate only. The repository now contains migrated prior-draft model text, homogeneous/stability diagnostic text, appendices, selected figures, figure data, plotting scripts, and CPU solver source from `paper_latest`, but these materials have not been reconciled with Model A and no model is validated.
 
-Numerics status: no production PDE solver; no verified simulation.
+Numerics status: no production PDE solver; no verified simulation. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only.
 
-Manuscript status: idea/project-brief level only; no validated results for writing.
+Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Composite figure generation is not yet verified in this repository because the migration report records plotting smoke-test failures at PDF assembly due to missing `pypdf`.
 
-Model Specification scope: convert the candidate Model A material into an auditable model specification. This stage reviews equations, variables, material functions, units, limiting cases, boundary conditions, and minimum observables. It does not perform production PDE implementation, numerical verification, figure generation, or manuscript drafting.
+Manuscript status: no current manuscript draft is active. The migrated `paper/sections/` and `paper/appendix/` files are fragments for audit and future reuse only, not an accepted manuscript.
+
+Model Specification scope: convert the candidate Model A material and the imported `paper_latest` source material into a single auditable model specification. This stage reviews equations, variables, material functions, units, limiting cases, boundary conditions, and minimum observables. It does not perform production PDE implementation, numerical verification, parameter scans, evidence-backed figure generation, or manuscript drafting.
 
 This document is a project-control snapshot for GPT and Codex workflows. It summarizes the current factual state of the repository without promoting candidate claims.
 
@@ -44,38 +46,71 @@ Current workflow policy:
 * Initial derivation exists as exploratory background only in `docs/derivations/initial_model_derivation.tex`.
 * EXP-001 report created; derivation build succeeded in EXP-001.
 * `docs/rendered/initial_model_derivation.pdf` has been generated from the derivation source.
+* Selected `paper_latest` assets have been imported by PR `#7` and recorded in `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`, `paper/paper_latest_provenance.md`, and `paper/paper_latest_migration_manifest.tsv`.
+* GPT review of the merged migration is recorded in `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
 * No model or claim has been promoted to `docs/validated/`.
 
-## Superseded Model-Specification Work
+## Superseded or Historical Work
 
 The previous ChatGPT review at `docs/reports/exploration/GPT-REVIEW-G2-001.md` is retained as a historical artifact only. It is superseded by the workflow reset and must not be treated as current Model Specification progress, accepted blocker state, or validated evidence.
 
-No current Model Specification sanity-check report exists after this reset.
+The imported `paper_latest` draft material is historical source material. It must not be treated as a current manuscript, validated model, reproduced numerical evidence, or accepted claim-evidence package.
 
 ## Active Blockers
 
-No current Model Specification blocker list is accepted after the reset. The blocker list must be rebuilt by a fresh review of Model A under the physics-first workflow.
+### Migration-hygiene blockers
+
+These must be resolved before the imported source material is clean enough to serve as a stable reference for Model Specification.
+
+1. Migrated LaTeX fragments still contain figure paths that do not resolve from the new repository layout without an external wrapper or `\graphicspath` convention.
+2. Figure composite plotting smoke tests failed because `pypdf` is missing from the current environment or dependency declaration.
+3. The source `paper_latest` tree was dirty during migration; the exact dirty-state provenance is not fully reconstructable from the recorded source HEAD alone.
+4. Two near-100 MB cache files appear duplicated under Figure 2 and Figure 3 bundles and require a repository-size decision.
+5. The migration report metadata still needs the final merged commit information.
+6. The title mismatch between requested `III. LINEAR STABILITY ANALYSIS` and migrated `III. HOMOGENEOUS STABILITY DIAGNOSTIC` needs explicit mapping or correction.
+
+### Model-Specification blockers
+
+The blocker list must be rebuilt from a fresh reconciliation of Model A and the migrated draft. Known issues to include in that review are:
+
+1. Reconcile `J,u,theta,mu` notation with the migrated conservative variables `J,W=Ju,theta,m`.
+2. Audit free-surface reactant flux signs using the integral conservation law.
+3. Decide whether `m_b` remains explicit or `mu_b=0` is used as a global convention.
+4. Audit the `chi(theta,phi)` derivative and whether `chi_1` is a strict free-energy parameter or an effective osmotic interaction parameter.
+5. Audit current-coordinate versus reference-coordinate material coefficients.
+6. Audit accessibility, diffusivity, and mobility suppression functions, including floors and clipping.
+7. Justify or remove neglected enthalpy advection and any small-parameter assumptions.
+8. Define front position, collapsed skin thickness, barrier strength, and minimum observables before numerical validation.
+9. Keep homogeneous stability as a diagnostic unless and until the nonlinear spatial mechanism is independently established.
 
 Standing constraints remain:
 
 * No claim-evidence item is validated.
 * Production PDE implementation remains blocked.
 * Numerical verification remains blocked.
+* Parameter scans remain blocked.
+* Evidence-backed figure generation remains blocked.
 * Manuscript drafting remains blocked.
 
-## Next Recommended Tasks
+## Active Work Plan
 
 Use concrete task names. Internal anchors may be added only for ordering.
 
-1. Re-review Candidate Model A from Scratch.
-2. Rebuild the Model Specification blocker list only from the fresh review.
-3. Do not promote any model or claim into `docs/validated/` until Model Specification evidence is recorded.
+1. Resolve `paper_latest` Migration Hygiene.
+2. Reconcile Migrated Draft Model with Model A.
+3. Rebuild the Model Specification Blocker List.
+4. Define Minimum Front/Barrier Observables.
+5. Prepare Minimal Numerical Verification Design only after the Model Specification gate passes.
+
+Detailed task files are tracked under `docs/tasks/exploration/`.
 
 ## Non-Bypassable Gates
 
 * Do not move candidate material into `docs/validated/` before sanity checks and evidence are recorded.
 * Do not write a production PDE solver before the model is sanity-checked.
+* Do not treat migrated CPU solver behavior as verified repository numerics.
 * Do not treat numerical oscillation as evidence without grid/timestep checks and control cases.
+* Do not treat imported figure data or generated figures as evidence-backed results until reproduced or explicitly accepted under an evidence gate.
 * Do not draft strong manuscript novelty claims before literature, model, and claim-evidence matrices are populated and reviewed.
 * Do not treat source appendix numerical notes as reproduced evidence until verified in this repo.
 
@@ -83,7 +118,7 @@ Promotion gates:
 
 * Research Idea Brief exit (`G0`): completed; requires a project brief, central hypothesis, candidate claims, and visible uncertainty list.
 * Literature / Novelty Mapping exit (`G1`): completed for Model Specification entry; requires populated literature map, novelty framing, prior-art risk matrix, and frozen retained corpus.
-* Model Specification exit (`G2`): requires a model specification, sanity-check report, defined variables/parameters, limiting cases, boundary-condition audit, material-function audit, and minimum observables. It does not validate numerical claims.
+* Model Specification exit (`G2`): requires a reconciled model specification, sanity-check report, defined variables/parameters, limiting cases, boundary-condition audit, material-function audit, and minimum observables. It does not validate numerical claims.
 * `docs/validated/`: requires sanity checks, explicit evidence, and updated claim-evidence records.
 * Numerical implementation: requires a sanity-checked model, boundary-condition audit, and defined observables.
 * Results: require reproducible scripts or notebooks, control cases, and convergence checks.
@@ -115,7 +150,13 @@ Promotion gates:
 * `docs/validated/model_spec.md`
 * `docs/validated/claim_evidence.md`
 * `docs/tasks/TASK-TEMPLATE.md`
+* `docs/tasks/exploration/TASK-resolve-paper-latest-migration-hygiene.md`
+* `docs/tasks/exploration/TASK-reconcile-migrated-draft-model-with-model-A.md`
 * `docs/reports/CODEX-REPORT-TEMPLATE.md`
+* `docs/reports/exploration/CODEX-REPORT-paper-latest-migration.md`
+* `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`
+* `paper/paper_latest_provenance.md`
+* `paper/paper_latest_migration_manifest.tsv`
 
 ## Update Protocol
 
