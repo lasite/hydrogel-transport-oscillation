@@ -1,0 +1,294 @@
+{
+  "audit_diagnostics": {
+    "A": {
+      "max": 1.0,
+      "mean": 0.8115301231171693,
+      "min": 0.00010000011857921843
+    },
+    "D": {
+      "max": 2.0,
+      "mean": 1.6589575422295417,
+      "min": 0.0011825105801244148
+    },
+    "D_ref": {
+      "max": 2.0,
+      "mean": 1.6589575422295417,
+      "min": 0.0011825105801244148
+    },
+    "M": {
+      "max": 1.0,
+      "mean": 0.8394524423155633,
+      "min": 0.022263171355498768
+    },
+    "M_ref": {
+      "max": 1.0,
+      "mean": 0.8394524423155633,
+      "min": 0.022263171355498768
+    },
+    "R": {
+      "max": 10.690794010755168,
+      "mean": 0.27885195899911447,
+      "min": 2.2532476569536482e-13
+    },
+    "S_R": {
+      "max": 10.690794010755168,
+      "mean": 0.27885195899911447,
+      "min": 2.2532476569536482e-13
+    },
+    "accessibility": {
+      "max": 1.0,
+      "mean": 0.8115301231171693,
+      "min": 0.00010000011857921843
+    },
+    "active_numerical_bounds": {
+      "J_max": 6.0,
+      "J_min": 0.153,
+      "arrh_exp_cap": 60.0,
+      "logJ_max": 1.791759469228055,
+      "logJ_min": -1.8773173575897015,
+      "phi_ceiling": 0.995,
+      "u_floor": 1e-12
+    },
+    "arrh_exp_cap_hit_count": 0,
+    "arrh_exp_cap_hit_fraction": 0.0,
+    "h": {
+      "max": 0.6982639762153156,
+      "mean": -0.007014267669168758,
+      "min": -0.309268511387917
+    },
+    "logJ_high_clip_count": 7720,
+    "logJ_high_clip_fraction": 0.4143631581772315,
+    "logJ_low_clip_count": 1707,
+    "logJ_low_clip_fraction": 0.09162149106328163,
+    "max_phi_before_clip": 1.5213480821025067e+303,
+    "max_raw_logJ": 1124.4592801068459,
+    "min_W": -6.646359855282507e-07,
+    "min_raw_logJ": -53139.72484650901,
+    "min_raw_u": -4.518047501458927e+296,
+    "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+      "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": true,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+      "enthalpy_advection": false,
+      "floor_scheme": "canonical_consistent",
+      "source_scaling": "reference_volume",
+      "transport_closure": "normalized_porosity_power",
+      "transport_metric_closure": "reference_metric",
+      "validation_status": "candidate_not_validated"
+    },
+    "n": {
+      "max": 0.05972920944109686,
+      "mean": -0.021898924619284315,
+      "min": -0.6987023292122896
+    },
+    "nonfinite_J_count": 0,
+    "nonfinite_W_count": 0,
+    "nonfinite_flux_count": 0,
+    "nonfinite_source_count": 0,
+    "nonfinite_theta_count": 0,
+    "nonfinite_u_count": 0,
+    "params": {
+      "A_min": 0.0001,
+      "B_Tvol": 0.0,
+      "B_vol": 0.0,
+      "Bi_J_vol": 0.0,
+      "Bi_T": 0.1,
+      "Bi_c": 0.7,
+      "Bi_c_vol": 0.0,
+      "Bi_mu": 1.0,
+      "C0": 1.0,
+      "D0": 2.0,
+      "D_min": 0.0001,
+      "Da": 2.0,
+      "Gamma_A": 1.5,
+      "J_init": 1.3,
+      "J_max": 6.0,
+      "J_min": 0.153,
+      "K0": 1.0,
+      "M0": 1.0,
+      "M_min": 0.0001,
+      "N": 31,
+      "Omega_e": 0.12,
+      "Pe_T": 0.0,
+      "S_chi": 1.0,
+      "Theta_infty": 33.3333333333,
+      "a_floor": 0.0,
+      "alpha": 0.2,
+      "arrh_exp_cap": 60.0,
+      "atol": 1e-08,
+      "auto_set_m_b": true,
+      "beta_free_volume": 8.0,
+      "boundary_scheme": "cell_center_robin",
+      "chi1": 1.1,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_inf": 0.6,
+      "closure_form": "power",
+      "d_floor": 0.0,
+      "delta": 0.08,
+      "ell": 0.01,
+      "enthalpy_advection": false,
+      "eps_J": 0.005,
+      "eps_T": 0.03,
+      "eps_theta": 0.0001,
+      "eps_u": 0.005,
+      "floor_scheme": "canonical_consistent",
+      "git": {
+        "branch": "codex/convert-legacy-solver-to-canonical",
+        "commit": "df5debcae27ed6da4c14aee44b801e67a4411887",
+        "dirty": true,
+        "status_short": "M README.md\n M docs/project_state.md\n?? paper/solver/canonical_cpu/evidence.py\n?? paper/solver/canonical_cpu/run_evidence_checks.py\n?? results/evidence_convergence_control/\n?? tests/test_evidence_observables.py"
+      },
+      "hill_eps": 0.05,
+      "m_act": 6.0,
+      "m_b": 0.06615257094362573,
+      "m_diff": 2.0,
+      "m_mob": 1.0,
+      "max_step": 0.2,
+      "method": "BDF",
+      "model_branches": {
+        "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+        "boundary_scheme": "cell_center_robin",
+        "canonical_paper_solver": true,
+        "chi_closure": "effective_osmotic_chi",
+        "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+        "enthalpy_advection": false,
+        "floor_scheme": "canonical_consistent",
+        "source_scaling": "reference_volume",
+        "transport_closure": "normalized_porosity_power",
+        "transport_metric_closure": "reference_metric",
+        "validation_status": "candidate_not_validated"
+      },
+      "mu_floor": 0.0,
+      "n_hill": 4.0,
+      "n_save": 601,
+      "phi_ceiling": 0.995,
+      "phi_floor": 1e-10,
+      "phi_p0": 0.15,
+      "reaction_order": 1.0,
+      "rtol": 1e-06,
+      "runtime": {
+        "numpy": "2.4.6",
+        "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+        "python": "3.12.3"
+      },
+      "solver": {
+        "module": "paper.solver.canonical_cpu.solver",
+        "name": "canonical_cpu",
+        "status": "final_paper_solver_evidence_generation_pending"
+      },
+      "source_file_sha256": {
+        "paper/solver/canonical_cpu/run_smoke_checks.py": "bfc662c18a413bd3bdf7771f8ad0ebbd7b8b6ec442411e295af95b79cce1f752",
+        "paper/solver/canonical_cpu/solver.py": "d5421938ce3e5c347b3857be57925cfd98c432a182c29479956edba407e8178b",
+        "tests/test_canonical_solver.py": "401f289c7c83aa6825a963bcddac0e1fe207c4a77f0cee543c2f7681c23da44b"
+      },
+      "source_scaling": "reference_volume",
+      "t_end": 120.0,
+      "theta_c": 0.5,
+      "theta_clip": 25.0,
+      "theta_init": 0.0,
+      "transport_closure": "normalized_porosity_power",
+      "u_floor": 1e-12,
+      "u_init": 0.02,
+      "use_hill": false
+    },
+    "phi_hard_ceiling": 0.995,
+    "phi_hard_ceiling_exceed_count": 1705,
+    "phi_hard_ceiling_exceed_fraction": 0.09151414309484193,
+    "q": {
+      "max": 4.220039216663012,
+      "mean": -0.05422577802857211,
+      "min": -4.324203944551979
+    },
+    "raw_logJ_available": true,
+    "source": {
+      "max": 21.381588021510336,
+      "mean": 0.5577039179982289,
+      "min": 4.5064953139072964e-13
+    },
+    "surface_h": {
+      "max": 0.6982639762153156,
+      "mean": 0.4995359470246012,
+      "min": 9.838709677419356e-06
+    },
+    "surface_nflux": {
+      "max": -3.343569427661785e-05,
+      "mean": -0.5582114009841425,
+      "min": -0.6987023292122896
+    },
+    "surface_q": {
+      "max": 1.4419288461692326,
+      "mean": 0.532896612645913,
+      "min": -0.9225291619221647
+    },
+    "u_floor_clip_count": 10587,
+    "u_floor_clip_fraction": 0.5682464709355376
+  },
+  "classification": {
+    "J_amp": 0.0007818229919633879,
+    "J_mean_final": 4.80799564096041,
+    "J_peaks": 1,
+    "J_period": null,
+    "is_nonuniform": 1,
+    "is_oscillatory": 0,
+    "label": "steady_hot_nonuniform",
+    "nfev": 11514,
+    "thermal_state": "hot",
+    "theta_amp": 0.14953230836882891,
+    "theta_mean_final": 6.983323074823978,
+    "theta_peaks": 1,
+    "theta_period": null,
+    "u_mean_final": 6.057851977456581e-05
+  },
+  "classification_status": "heuristic_not_evidence",
+  "conservation_diagnostics": {
+    "heat_balance_residual": 3.169542078332797e-05,
+    "heat_balance_residual_late": 6.357343528581884e-09,
+    "heat_inventory_final": 6.983323074823978,
+    "heat_inventory_initial": 4.9999999999999996e-05,
+    "max_enthalpy_advection_to_conduction_ratio": 0.0,
+    "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+      "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": true,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+      "enthalpy_advection": false,
+      "floor_scheme": "canonical_consistent",
+      "source_scaling": "reference_volume",
+      "transport_closure": "normalized_porosity_power",
+      "transport_metric_closure": "reference_metric",
+      "validation_status": "candidate_not_validated"
+    },
+    "reactant_balance_residual": 0.0015831662124494788,
+    "reactant_balance_residual_late": 2.909695269733429e-07,
+    "reactant_inventory_final": 0.0003623408158034821,
+    "reactant_inventory_initial": 0.026012500000000008
+  },
+  "model_branches": {
+    "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+    "boundary_scheme": "cell_center_robin",
+    "canonical_paper_solver": true,
+    "chi_closure": "effective_osmotic_chi",
+    "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+    "enthalpy_advection": false,
+    "floor_scheme": "canonical_consistent",
+    "source_scaling": "reference_volume",
+    "transport_closure": "normalized_porosity_power",
+    "transport_metric_closure": "reference_metric",
+    "validation_status": "candidate_not_validated"
+  },
+  "paper_evidence_status": "not_paper_evidence",
+  "run_name": "run",
+  "solver_status": {
+    "jac_color_groups": 15,
+    "message": "The solver successfully reached the end of the integration interval.",
+    "nfev": 11514,
+    "njev": 460,
+    "nlu": 1366,
+    "status": 0,
+    "success": true
+  },
+  "validation_status": "candidate_not_validated"
+}

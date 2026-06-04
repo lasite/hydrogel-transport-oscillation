@@ -16,7 +16,7 @@ Research Idea Brief and Literature / Novelty Mapping have been accepted by the u
 
 No model has been validated yet.
 
-Model Specification is active. A final canonical CPU solver path exists for future non-evidence verification work, but formal numerical evidence generation, figure generation, and manuscript drafting remain blocked until later gates.
+Model Specification is active. A final canonical CPU solver path exists and the first convergence/control evidence attempt has been run, but it did not establish an oscillatory transport-barrier mechanism. Figure generation and manuscript drafting remain blocked until later gates.
 
 Long derivations belong in `.tex`, not Markdown.
 
@@ -57,6 +57,9 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `paper/solver/canonical_cpu/`: final canonical CPU solver path for
   non-evidence smoke checks and future evidence generation; not validated
   claim evidence.
+* `results/evidence_convergence_control/`: first formal convergence/control
+  evidence attempt from the final canonical solver; readiness is
+  `not evidence ready`.
 
 ## Minimal checks
 
