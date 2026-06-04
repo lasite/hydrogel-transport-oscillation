@@ -1,17 +1,36 @@
-# Final Canonical CPU Solver Path
+# Superseded Canonical CPU Solver Path
 
-Status: final paper solver; evidence generation pending
+Status: superseded by scan_optimized.py for official paper reproduction
 Validation: not validated
 Evidence status: not paper evidence
 
-This directory contains the canonical CPU solver path finalized for issue #15.
-It refactors the migrated legacy solver into an auditable module while
-preserving the legacy `v0` behavior as a controlled non-canonical branch for
-short regression and sensitivity comparison.
+This directory contains the candidate canonical CPU solver path finalized for
+issue #15. Issue #20 changes the official paper-reproduction route to
+`paper.solver.official_paper_solver`, which directly invokes
+`paper/solver/paper_latest_cpu/scan_optimized.py` for reduced figure smoke
+checks.
+
+The code in this directory remains useful for historical audit, regression
+tests, and candidate-model diagnostics, but it is no longer the official paper
+reproduction entry point.
 
 No model or claim was promoted to validated status.
 
-## Final canonical path
+## Official paper reproduction path
+
+Implementation route:
+
+* `paper.solver.official_paper_solver`
+* `paper/solver/paper_latest_cpu/scan_optimized.py`
+
+Figure smoke runner:
+
+* `paper/solver/run_figure_smoke_checks.py`
+
+These checks are smoke tests only. They do not validate the numerical model,
+the figure data, or any paper claim.
+
+## Historical canonical path
 
 Implementation:
 
@@ -21,14 +40,14 @@ Smoke runner:
 
 * `paper/solver/canonical_cpu/run_smoke_checks.py`
 
-The old migrated script remains provenance material:
+The migrated script used by the official route is:
 
 * `paper/solver/paper_latest_cpu/scan_optimized.py`
 
 Figure-local copies under `paper/figures/*/scripts/scan_optimized.py` are frozen
-provenance scripts. They are not the active canonical solver definition.
-Future paper-evidence figure generation should import this canonical solver
-path, after formal convergence and control-case evidence tasks pass.
+provenance scripts. They are not independent solver definitions. Future
+paper-evidence figure generation should use the official route only after
+formal convergence and control-case evidence tasks pass.
 
 ## State variables
 
@@ -82,7 +101,7 @@ tests and outward-positive boundary sign tests pass. A face-value
 reconstruction remains a possible later accuracy upgrade, but is not required
 before the next evidence-generation task.
 
-## Final default model choices
+## Historical issue #15 default model choices
 
 Every saved run records:
 
@@ -94,7 +113,7 @@ Every saved run records:
 * `boundary_scheme`: `cell_center_robin`
 * `enthalpy_advection`: currently `false`; `Pe_T` remains diagnostic-only
 
-The final canonical paper-solver defaults are:
+The issue #15 candidate canonical defaults were:
 
 ```text
 source_scaling = reference_volume
@@ -166,9 +185,9 @@ The smoke suite runs short cases only:
 The generated files under `results/solver_smoke/` are not paper evidence.
 They are technical smoke outputs for audit and future task planning.
 
-The smoke summary records `readiness_level: final paper solver; evidence
-generation pending`. It also records whether nominal canonical short runs were
-free of active clipping/floor interventions.
+The smoke summary records `readiness_level: superseded candidate canonical
+solver; not official paper route`. It also records whether nominal canonical
+short runs were free of active clipping/floor interventions.
 
 Oscillation classifications saved in diagnostics are heuristic run summaries
 only. They are labeled `classification_status: heuristic_not_evidence` and must

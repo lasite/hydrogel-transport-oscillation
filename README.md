@@ -16,7 +16,10 @@ Research Idea Brief and Literature / Novelty Mapping have been accepted by the u
 
 No model has been validated yet.
 
-Model Specification is active. A final canonical CPU solver path exists and the first convergence/control evidence attempt has been run, but it did not establish an oscillatory transport-barrier mechanism. Figure generation and manuscript drafting remain blocked until later gates.
+Model Specification is active. The official paper-reproduction smoke route now
+uses the migrated `scan_optimized.py` through `paper.solver.official_paper_solver`.
+These are reduced workflow checks only; formal numerical evidence generation,
+figure validation, and manuscript drafting remain blocked until later gates.
 
 Long derivations belong in `.tex`, not Markdown.
 
@@ -54,12 +57,13 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `data/`: raw and processed data placeholders.
 * `results/`: reproducible output placeholders.
 * `paper/`: manuscript placeholders and migrated paper-source audit material.
-* `paper/solver/canonical_cpu/`: final canonical CPU solver path for
-  non-evidence smoke checks and future evidence generation; not validated
-  claim evidence.
-* `results/evidence_convergence_control/`: first formal convergence/control
-  evidence attempt from the final canonical solver; readiness is
-  `not evidence ready`.
+* `paper/solver/official_paper_solver.py`: official paper-reproduction solver
+  entry point routed to the migrated `scan_optimized.py`; smoke only, not
+  validated claim evidence.
+* `paper/solver/run_figure_smoke_checks.py`: reduced Fig. 1/2/3/9 workflow
+  smoke checks using the official solver route.
+* `paper/solver/canonical_cpu/`: superseded candidate canonical CPU solver path
+  retained for audit, regression tests, and historical diagnostics.
 
 ## Minimal checks
 
@@ -68,11 +72,16 @@ make install
 make env-check
 make quickcheck
 make derivations
+make figure-smoke
 ```
 
 From a fresh checkout, run `make install` before `make quickcheck` unless dependencies are already available in the active Python environment.
 
 `make derivations` may report a warning if `latexmk` is unavailable. During the exploratory scaffold stage, that warning should not block repository structure checks.
+
+`make figure-smoke` runs reduced Fig. 1/2/3/9 workflow checks through
+`scan_optimized.py`. It does not perform full figure reproduction and does not
+validate the numerical model.
 
 ## Workflow
 

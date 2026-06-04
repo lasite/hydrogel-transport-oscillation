@@ -1,7 +1,7 @@
 PYTHON ?= python3
 PYTEST ?= $(PYTHON) -m pytest
 
-.PHONY: install env-check quickcheck test derivations clean
+.PHONY: install env-check quickcheck test derivations figure-smoke clean
 
 install:
 	$(PYTHON) -m pip install -e .
@@ -18,6 +18,9 @@ test:
 
 derivations:
 	$(PYTHON) scripts/build_derivations.py
+
+figure-smoke:
+	$(PYTHON) -m paper.solver.run_figure_smoke_checks
 
 clean:
 	rm -rf .pytest_cache
