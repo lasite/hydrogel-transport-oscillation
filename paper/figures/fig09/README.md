@@ -18,3 +18,11 @@ plus `spinodal_demo.py`.
 
 The original source filename `fig7` is preserved inside this `fig09` bundle for
 script compatibility and auditability.
+
+## Solver status
+
+The local `scripts/scan_optimized.py` copy is frozen provenance for the migrated
+figure bundle. It is not the active canonical solver definition. New
+non-evidence smoke runs and future paper-evidence regeneration should use
+`paper/solver/canonical_cpu/`. This figure-local solver copy must remain a
+historical source artifact, not an independent model definition.

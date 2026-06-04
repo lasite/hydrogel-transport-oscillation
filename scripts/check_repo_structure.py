@@ -59,6 +59,8 @@ REQUIRED_FILES = [
     "data/README.md",
     "results/README.md",
     "paper/README.md",
+    "paper/solver/canonical_cpu/README.md",
+    "paper/solver/canonical_cpu/solver.py",
     "paper/main.tex",
     "paper/supplement.tex",
     "paper/refs.bib",

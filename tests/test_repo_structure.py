@@ -75,3 +75,10 @@ def test_physics_note_template_exists():
     assert "No model or claim is promoted by this note" in note_template.read_text(
         encoding="utf-8"
     )
+
+
+def test_candidate_canonical_solver_path_is_documented():
+    assert (ROOT / "paper/solver/canonical_cpu/README.md").exists()
+    assert (ROOT / "paper/solver/canonical_cpu/solver.py").exists()
+    project_state = read_text("docs/project_state.md")
+    assert "candidate canonical CPU solver scaffold" in project_state
