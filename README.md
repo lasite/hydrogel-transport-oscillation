@@ -16,7 +16,7 @@ Research Idea Brief and Literature / Novelty Mapping have been accepted by the u
 
 No model has been validated yet.
 
-Model Specification is active. Production PDE implementation, numerical verification, figure generation, and manuscript drafting remain blocked until later gates.
+Model Specification is active. A final canonical CPU solver path exists for future non-evidence verification work, but formal numerical evidence generation, figure generation, and manuscript drafting remain blocked until later gates.
 
 Long derivations belong in `.tex`, not Markdown.
 
@@ -54,8 +54,9 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `data/`: raw and processed data placeholders.
 * `results/`: reproducible output placeholders.
 * `paper/`: manuscript placeholders and migrated paper-source audit material.
-* `paper/solver/canonical_cpu/`: candidate canonical CPU solver scaffold for
-  non-evidence smoke checks; not a validated production solver.
+* `paper/solver/canonical_cpu/`: final canonical CPU solver path for
+  non-evidence smoke checks and future evidence generation; not validated
+  claim evidence.
 
 ## Minimal checks
 

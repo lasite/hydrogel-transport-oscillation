@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run non-evidence smoke checks for the candidate canonical CPU solver."""
+"""Run non-evidence smoke checks for the final canonical CPU solver path."""
 
 from __future__ import annotations
 
@@ -16,9 +16,11 @@ from .solver import (
     conservation_diagnostics,
     dumps_strict_json,
     finalize_params,
+    git_metadata,
     save_run_bundle,
     simulate,
     solver_audit_diagnostics,
+    source_file_hashes,
 )
 
 
@@ -70,11 +72,44 @@ def _difference(a: Dict[str, Any], b: Dict[str, Any]) -> Dict[str, float]:
     return {key: float(abs(a[key] - b[key])) for key in keys}
 
 
+def _expected_output_names(case_names: list[str]) -> set[str]:
+    expected = {"solver_smoke_summary.json"}
+    for name in case_names:
+        safe_name = "".join(ch if ch.isalnum() or ch in "-_." else "_" for ch in name)
+        expected.update(
+            {
+                f"{safe_name}_params.json",
+                f"{safe_name}_diagnostics.json",
+                f"{safe_name}_timeseries.npz",
+            }
+        )
+    return expected
+
+
+def _cleanup_stale_outputs(outdir: Path, expected_names: set[str]) -> list[str]:
+    removed: list[str] = []
+    for stale in outdir.glob("*"):
+        if (
+            stale.is_file()
+            and stale.suffix in {".json", ".npz"}
+            and stale.name not in expected_names
+        ):
+            stale.unlink()
+            removed.append(stale.name)
+    return sorted(removed)
+
+
+def _suite_metadata(outdir: str | Path) -> Dict[str, Any]:
+    return {
+        "command": "python -m paper.solver.canonical_cpu.run_smoke_checks",
+        "outdir": str(outdir),
+        "git": git_metadata(),
+        "source_file_sha256": source_file_hashes(),
+    }
+
+
 def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
     outdir.mkdir(parents=True, exist_ok=True)
-    for stale in outdir.glob("*"):
-        if stale.is_file() and stale.suffix in {".json", ".npz"}:
-            stale.unlink()
 
     base = CanonicalParams(N=15, t_end=0.6, n_save=13, max_step=0.1)
     cases: list[tuple[str, CanonicalParams]] = []
@@ -101,6 +136,10 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
                 ),
             ),
         ]
+    )
+
+    stale_outputs_removed = _cleanup_stale_outputs(
+        outdir, _expected_output_names([name for name, _ in cases])
     )
 
     results = []
@@ -130,6 +169,16 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
     }
 
     warnings = []
+    nominal_canonical_cases = {
+        "grid_N15",
+        "grid_N31",
+        "grid_N63",
+        "time_maxstep_0p10",
+        "time_maxstep_0p05",
+        "source_reference_volume",
+        "chi_effective_osmotic",
+    }
+    nominal_clipping_warnings = []
     for row in results:
         clip_total = (
             row["logJ_low_clip_count"]
@@ -138,9 +187,10 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
             + row["phi_hard_ceiling_exceed_count"]
         )
         if clip_total:
-            warnings.append(
-                f"{row['name']}: clipping/floor count is {clip_total}; inspect diagnostics."
-            )
+            message = f"{row['name']}: clipping/floor count is {clip_total}; inspect diagnostics."
+            warnings.append(message)
+            if row["name"] in nominal_canonical_cases:
+                nominal_clipping_warnings.append(message)
         if row["nonfinite_source_count"] or row["nonfinite_flux_count"]:
             warnings.append(f"{row['name']}: non-finite source or flux values were reported.")
 
@@ -148,11 +198,25 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
         "status": "completed",
         "evidence_status": "not_paper_evidence",
         "validation_status": "candidate_not_validated",
+        "readiness_level": "final paper solver; evidence generation pending",
+        "suite_metadata": _suite_metadata(outdir),
+        "stale_outputs_removed": stale_outputs_removed,
+        "final_default_model_branches": {
+            "source_scaling": "reference_volume",
+            "chi_closure": "effective_osmotic_chi",
+            "transport_closure": "normalized_porosity_power",
+            "floor_scheme": "canonical_consistent",
+            "boundary_scheme": "cell_center_robin",
+            "enthalpy_advection": False,
+        },
+        "canonical_nominal_clipping_free": not nominal_clipping_warnings,
+        "canonical_nominal_clipping_warnings": nominal_clipping_warnings,
         "runs": results,
         "comparisons": comparisons,
         "warnings": warnings,
         "notes": [
             "These are short smoke checks only, not convergence evidence.",
+            "The cell-center Robin boundary scheme is retained as the final finite-volume boundary approximation for now because inventory and sign checks pass; face-value reconstruction remains a future accuracy upgrade.",
             "No model or claim was promoted to validated status.",
         ],
     }

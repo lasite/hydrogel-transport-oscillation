@@ -22,6 +22,6 @@ this figure bundle without path rewrites.
 
 The local `scripts/scan_optimized.py` copy is frozen provenance for the migrated
 figure bundle. It is not the active canonical solver definition. New
-non-evidence smoke runs should use `paper/solver/canonical_cpu/`; future
-paper-evidence regeneration must not rely on this figure-local solver copy as an
-independent model definition.
+non-evidence smoke runs and future paper-evidence regeneration should use
+`paper/solver/canonical_cpu/`. This figure-local solver copy must remain a
+historical source artifact, not an independent model definition.

@@ -11,11 +11,11 @@ Previous stages:
 * Research Idea Brief (`G0`) completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * Literature / Novelty Mapping (`G1`) completed after user accepted the novelty framing and prior-art risk matrix; the frozen literature corpus was created for Model Specification.
 
-Substage: replaced Model A derivation from migrated Appendix A--B; ChatGPT scientific review pending.
+Substage: final canonical paper-solver path selected; formal evidence generation pending.
 
 Model status: candidate only. The active long derivation source at `docs/derivations/initial_model_derivation.tex` now mechanically copies the migrated Appendix A `Model Construction` and Appendix B `Nondimensionalization` material from `paper/appendix/appendix.tex`. The material has not yet received ChatGPT scientific review and no model is validated.
 
-Numerics status: no production PDE solver; no verified simulation. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only. The legacy CPU solver now has an audit note and opt-in diagnostics, but this does not validate its model or generated data. A candidate canonical CPU solver scaffold exists under `paper/solver/canonical_cpu/` for issue #13 bridge testing; it is not paper evidence and does not open production parameter scans.
+Numerics status: final canonical CPU solver path exists, but no verified simulation or paper evidence exists. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only. The legacy CPU solver now has an audit note and opt-in diagnostics, but this does not validate its model or generated data. The final canonical CPU solver path under `paper/solver/canonical_cpu/` uses the issue #15 defaults `source_scaling = reference_volume`, `chi_closure = effective_osmotic_chi`, `transport_closure = normalized_porosity_power`, `floor_scheme = canonical_consistent`, `boundary_scheme = cell_center_robin`, and `enthalpy_advection = false`. It is ready for the next formal evidence-generation task, but it is not itself claim evidence and does not open production parameter scans.
 
 Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Migration hygiene resolved the missing `pypdf` dependency and composite figure smoke tests now pass as repository assembly checks only; these checks do not validate the figure data or numerical results.
 
@@ -52,6 +52,7 @@ Current workflow policy:
 * GPT review of the merged migration is recorded in `docs/reports/exploration/GPT-REVIEW-paper-latest-migration.md`.
 * The legacy CPU solver model has been audited as migrated source material in `paper/solver/paper_latest_cpu/SOLVER_MODEL_AUDIT.md`, with opt-in diagnostics for clipping, positivity, surface fluxes, non-finite values, and full `Params` serialization.
 * Issue #13 created a candidate canonical CPU solver scaffold in `paper/solver/canonical_cpu/`, with explicit model branches for source scaling, chi closure, transport closure, floors, boundary scheme, and diagnostic-only heat advection status.
+* Issue #15 finalized the paper-solver default branch choices as reference-volume source scaling, effective-osmotic chi, normalized transport/accessibility closure, canonical-consistent floors, retained cell-center Robin boundary scheme, and no enthalpy advection. Legacy current-volume and strict-derivative branches remain only as non-canonical controls.
 * Short non-evidence smoke outputs were written under `results/solver_smoke/` for grid/time/source-scaling and simple control checks. These outputs are technical smoke material only, not claim evidence.
 * No model or claim has been promoted to `docs/validated/`.
 
@@ -107,29 +108,26 @@ evidence:
 5. Treat boundary exchange laws as cell-center Robin approximations until a boundary-condition audit accepts or replaces them.
 6. Keep imported figure caches and solver-generated draft outputs unvalidated until reproduced with convergence and control cases.
 
-### Candidate canonical CPU solver blockers
+### Final canonical CPU solver blockers
 
-The candidate canonical CPU solver scaffold improves auditability but is not a
-validated numerical implementation. Current blockers:
+The final canonical CPU solver path improves auditability but is not a
+validated numerical implementation. Current blockers before paper evidence:
 
-1. Current-volume versus reference-volume source scaling changes short-run smoke diagnostics and requires human/ChatGPT physical decision before evidence generation.
-2. The canonical path currently retains the legacy cell-center Robin boundary approximation; the sign convention is tested, but face-value accuracy has not been upgraded.
-3. `effective_osmotic_chi` versus `strict_chi_derivative` remains an explicit branch rather than a settled material closure.
-4. Transport/accessibility floors remain candidate regularizations and must be reported with any future run.
-5. Existing figure-local solver copies are frozen provenance, not active solver definitions.
-6. `results/solver_smoke/` outputs are non-evidence technical checks and do not establish oscillation, convergence, or front/barrier mechanism.
+1. The final canonical path retains the cell-center Robin boundary approximation; closed-domain inventory and sign tests pass, but face-value reconstruction remains a possible later accuracy upgrade.
+2. Transport/accessibility floors are now consistent in the canonical normalized closure, but they remain numerical/material regularizations and must be reported with any future run.
+3. Existing figure-local solver copies are frozen provenance, not active solver definitions.
+4. `results/solver_smoke/` outputs are non-evidence technical checks and do not establish oscillation, convergence, or front/barrier mechanism.
+5. Minimum front position, collapsed skin thickness, barrier strength, and phase-lag observables remain undefined for formal numerical validation.
 
 ## Active Work Plan
 
 Use concrete task names. Internal anchors may be added only for ordering.
 
 1. Request ChatGPT Scientific Review of Replaced Model A Derivation.
-2. Request ChatGPT Review of the Legacy and Candidate Canonical CPU Solver Audit.
-3. Decide Current-Volume vs Reference-Volume Source-Scaling Path.
-4. Decide Effective-Osmotic vs Strict-Derivative Chi Closure Path.
-5. Rebuild the Model Specification Blocker List from derivation and solver-review results.
-6. Define Minimum Front/Barrier Observables.
-7. Prepare formal convergence/control-case numerical verification only after Model Specification blockers are resolved.
+2. Request ChatGPT Review of the Legacy and Final Canonical CPU Solver Audit.
+3. Rebuild the Model Specification Blocker List from derivation and solver-review results.
+4. Define Minimum Front/Barrier Observables.
+5. Prepare formal convergence/control-case numerical verification from the final canonical solver path only after Model Specification blockers are resolved.
 
 Detailed task files are tracked under `docs/tasks/exploration/`.
 
@@ -194,6 +192,8 @@ Promotion gates:
 * `paper/solver/canonical_cpu/solver.py`
 * `docs/reports/exploration/MULTIAGENT-REVIEW-paper-solver.md`
 * `docs/reports/exploration/CODEX-REPORT-convert-legacy-solver-to-paper-grade.md`
+* `docs/reports/exploration/MULTIAGENT-REVIEW-final-paper-solver.md`
+* `docs/reports/exploration/CODEX-REPORT-finalize-paper-solver-reference-source-effective-chi.md`
 
 ## Update Protocol
 

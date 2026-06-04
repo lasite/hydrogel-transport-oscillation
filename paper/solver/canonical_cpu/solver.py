@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Candidate canonical CPU solver for the LCST hydrogel model.
+"""Final canonical CPU solver path for the LCST hydrogel model.
 
 This module refactors the migrated legacy CPU solver into an auditable
-candidate canonical path. It preserves the legacy v0 trajectory as a controlled
-branch while exposing unresolved physical choices as explicit model branches.
+canonical path. It preserves the legacy v0 trajectory as a controlled
+non-canonical branch while fixing the paper-solver defaults chosen in issue
+#15.
 
 No model or claim is validated by this module.
 """
@@ -39,7 +40,7 @@ BOUNDARY_SCHEME_CHOICES = {"cell_center_robin"}
 
 @dataclass
 class CanonicalParams:
-    """Parameter set for the candidate canonical CPU solver."""
+    """Parameter set for the final canonical CPU solver path."""
 
     N: int = 51
     t_end: float = 300.0
@@ -49,10 +50,10 @@ class CanonicalParams:
     atol: float = 1.0e-8
     max_step: float = 0.5
 
-    source_scaling: str = "current_volume"
+    source_scaling: str = "reference_volume"
     chi_closure: str = "effective_osmotic_chi"
-    transport_closure: str = "legacy_porosity_power"
-    floor_scheme: str = "legacy"
+    transport_closure: str = "normalized_porosity_power"
+    floor_scheme: str = "canonical_consistent"
     boundary_scheme: str = "cell_center_robin"
     enthalpy_advection: bool = False
 
@@ -161,13 +162,25 @@ def model_branch_labels(p: CanonicalParams) -> Dict[str, Any]:
     return {
         "source_scaling": p.source_scaling,
         "chi_closure": p.chi_closure,
+        "chi_parameter_interpretation": "effective_osmotic_interaction_parameter"
+        if p.chi_closure == "effective_osmotic_chi"
+        else "strict_free_energy_derivative_sensitivity",
         "transport_closure": p.transport_closure,
         "floor_scheme": p.floor_scheme,
         "boundary_scheme": p.boundary_scheme,
         "enthalpy_advection": bool(p.enthalpy_advection),
+        "Pe_T_status": "omitted_from_rhs_by_model_assumption",
         "transport_metric_closure": "reference_metric"
         if p.transport_closure != "legacy_porosity_power"
         else "legacy_unmetricized",
+        "canonical_paper_solver": bool(
+            p.source_scaling == "reference_volume"
+            and p.chi_closure == "effective_osmotic_chi"
+            and p.transport_closure == "normalized_porosity_power"
+            and p.floor_scheme == "canonical_consistent"
+            and p.boundary_scheme == "cell_center_robin"
+            and not p.enthalpy_advection
+        ),
         "validation_status": "candidate_not_validated",
     }
 
@@ -223,7 +236,7 @@ def params_to_dict(p: CanonicalParams, finalized: bool = True) -> Dict[str, Any]
     payload["model_branches"] = model_branch_labels(pp)
     payload["solver"] = {
         "name": "canonical_cpu",
-        "status": "candidate_not_validated",
+        "status": "final_paper_solver_evidence_generation_pending",
         "module": "paper.solver.canonical_cpu.solver",
     }
     payload["runtime"] = {
@@ -418,7 +431,13 @@ def mobility_ref(J, theta, p: CanonicalParams):
     if p.transport_closure == "constant_no_barrier":
         base = np.ones_like(phi)
     elif p.transport_closure == "normalized_porosity_power":
-        base = norm_porosity**p.m_mob + _canonical_floor(p, "mobility", p.mu_floor)
+        base = _v1_porosity_closure(
+            norm_porosity,
+            phi,
+            p.m_mob,
+            _canonical_floor(p, "mobility", p.mu_floor),
+            p,
+        )
     else:
         base = np.maximum(1.0 - phi, 1.0e-12) ** p.m_mob + _canonical_floor(
             p, "mobility", p.mu_floor
@@ -473,11 +492,15 @@ def finalize_params(p: CanonicalParams) -> CanonicalParams:
 
 
 def thermal_factor(theta, p: CanonicalParams):
-    denom = 1.0 + p.eps_T * np.maximum(theta, -1.0 / p.eps_T * 0.95)
-    exp_val = np.clip(p.Gamma_A * theta / denom, -p.arrh_exp_cap, p.arrh_exp_cap)
+    exp_val = arrhenius_exponent(theta, p)
     if p.use_hill:
         return p.hill_eps + np.maximum(np.exp(exp_val) - 1.0, 0.0)
     return np.exp(exp_val)
+
+
+def arrhenius_exponent(theta, p: CanonicalParams):
+    denom = 1.0 + p.eps_T * np.maximum(theta, -1.0 / p.eps_T * 0.95)
+    return np.clip(p.Gamma_A * theta / denom, -p.arrh_exp_cap, p.arrh_exp_cap)
 
 
 def reaction_rate(u, theta, J, p: CanonicalParams):
@@ -766,19 +789,32 @@ def solver_audit_diagnostics(data: Dict[str, Any], p: CanonicalParams) -> Dict[s
     source_nonfinite = 0
     flux_nonfinite = 0
     coeff_stats = {"accessibility": [], "D_ref": [], "M_ref": []}
+    field_stats = {"R": [], "S_R": [], "q": [], "nflux": [], "h": []}
     source_values = []
+    arrh_cap_hits = 0
+    arrh_total = 0
     for k in range(nt):
         aux = state_fluxes(J[:, k], W[:, k], theta[:, k], p, dx)
-        source = p.Da * aux["source_density"]
+        source_density = aux["source_density"]
+        source = p.Da * source_density
         source_values.append(source)
-        source_nonfinite += int(np.count_nonzero(~np.isfinite(source)))
+        source_nonfinite += int(np.count_nonzero(~np.isfinite(source_density)))
         for name in ("q", "nflux", "h"):
             flux_nonfinite += int(np.count_nonzero(~np.isfinite(aux[name])))
         for name in coeff_stats:
             coeff_stats[name].append(aux[name])
+        field_stats["R"].append(aux["R"])
+        field_stats["S_R"].append(source_density)
+        field_stats["q"].append(aux["q"])
+        field_stats["nflux"].append(aux["nflux"])
+        field_stats["h"].append(aux["h"])
         q_surface.append(aux["q"][-1])
         n_surface.append(aux["nflux"][-1])
         h_surface.append(aux["h"][-1])
+        denom = 1.0 + p.eps_T * np.maximum(theta[:, k], -1.0 / p.eps_T * 0.95)
+        raw_exp = p.Gamma_A * theta[:, k] / denom
+        arrh_cap_hits += int(np.count_nonzero(np.abs(raw_exp) >= p.arrh_exp_cap))
+        arrh_total += int(raw_exp.size)
 
     diagnostics = {
         "model_branches": model_branch_labels(p),
@@ -798,6 +834,10 @@ def solver_audit_diagnostics(data: Dict[str, Any], p: CanonicalParams) -> Dict[s
         "phi_hard_ceiling": bounds["phi_ceiling"],
         "phi_hard_ceiling_exceed_count": phi_clip_count,
         "phi_hard_ceiling_exceed_fraction": phi_clip_frac,
+        "arrh_exp_cap_hit_count": int(arrh_cap_hits),
+        "arrh_exp_cap_hit_fraction": float(arrh_cap_hits / arrh_total)
+        if arrh_total
+        else float("nan"),
         "nonfinite_J_count": int(np.count_nonzero(~np.isfinite(J))),
         "nonfinite_W_count": int(np.count_nonzero(~np.isfinite(W))),
         "nonfinite_u_count": int(np.count_nonzero(~np.isfinite(raw_u))),
@@ -811,6 +851,14 @@ def solver_audit_diagnostics(data: Dict[str, Any], p: CanonicalParams) -> Dict[s
         "accessibility": _array_summary(np.concatenate(coeff_stats["accessibility"]) if nt else []),
         "D_ref": _array_summary(np.concatenate(coeff_stats["D_ref"]) if nt else []),
         "M_ref": _array_summary(np.concatenate(coeff_stats["M_ref"]) if nt else []),
+        "A": _array_summary(np.concatenate(coeff_stats["accessibility"]) if nt else []),
+        "D": _array_summary(np.concatenate(coeff_stats["D_ref"]) if nt else []),
+        "M": _array_summary(np.concatenate(coeff_stats["M_ref"]) if nt else []),
+        "R": _array_summary(np.concatenate(field_stats["R"]) if nt else []),
+        "S_R": _array_summary(np.concatenate(field_stats["S_R"]) if nt else []),
+        "q": _array_summary(np.concatenate(field_stats["q"]) if nt else []),
+        "n": _array_summary(np.concatenate(field_stats["nflux"]) if nt else []),
+        "h": _array_summary(np.concatenate(field_stats["h"]) if nt else []),
         "params": params_to_dict(p, finalized=False),
     }
     return diagnostics

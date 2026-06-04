@@ -1,14 +1,39 @@
 {
   "audit_diagnostics": {
+    "A": {
+      "max": 1.0,
+      "mean": 1.0,
+      "min": 1.0
+    },
+    "D": {
+      "max": 2.0,
+      "mean": 2.0,
+      "min": 2.0
+    },
     "D_ref": {
       "max": 2.0,
       "mean": 2.0,
       "min": 2.0
     },
+    "M": {
+      "max": 1.0,
+      "mean": 1.0,
+      "min": 1.0
+    },
     "M_ref": {
       "max": 1.0,
       "mean": 1.0,
       "min": 1.0
+    },
+    "R": {
+      "max": 0.6944814858740325,
+      "mean": 0.087469068541968,
+      "min": 0.00518756581383599
+    },
+    "S_R": {
+      "max": 0.6944814858740325,
+      "mean": 0.087469068541968,
+      "min": 0.00518756581383599
     },
     "accessibility": {
       "max": 1.0,
@@ -24,24 +49,39 @@
       "phi_ceiling": 0.995,
       "u_floor": 1e-12
     },
+    "arrh_exp_cap_hit_count": 0,
+    "arrh_exp_cap_hit_fraction": 0.0,
+    "h": {
+      "max": 0.04663746935409636,
+      "mean": -0.0352849642445899,
+      "min": -0.16474884296094544
+    },
     "logJ_high_clip_count": 0,
     "logJ_high_clip_fraction": 0.0,
     "logJ_low_clip_count": 0,
     "logJ_low_clip_fraction": 0.0,
-    "max_phi_before_clip": 0.11701796991146048,
+    "max_phi_before_clip": 0.11670426800962193,
     "max_raw_logJ": 0.26618205164775166,
-    "min_W": 0.0035775275466146572,
-    "min_raw_logJ": 0.24830778210523882,
-    "min_raw_u": 0.0027420426777916246,
+    "min_W": 0.006309518007791396,
+    "min_raw_logJ": 0.250992182982169,
+    "min_raw_u": 0.0048378524168637554,
     "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
       "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": false,
       "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
       "enthalpy_advection": false,
       "floor_scheme": "canonical_consistent",
-      "source_scaling": "current_volume",
+      "source_scaling": "reference_volume",
       "transport_closure": "constant_no_barrier",
       "transport_metric_closure": "reference_metric",
       "validation_status": "candidate_not_validated"
+    },
+    "n": {
+      "max": 0.002556369822998147,
+      "mean": -0.07585114889760398,
+      "min": -0.689480826633789
     },
     "nonfinite_J_count": 0,
     "nonfinite_W_count": 0,
@@ -96,9 +136,9 @@
       "floor_scheme": "canonical_consistent",
       "git": {
         "branch": "codex/convert-legacy-solver-to-canonical",
-        "commit": "b1d9e6e80f262c7d9511eac0d94c7ad92ffedc7f",
+        "commit": "115313951ebfb48aae5875f02fbbe4cba3ed7bfd",
         "dirty": true,
-        "status_short": "M README.md\n M docs/project_state.md\n M paper/figures/fig01/README.md\n M paper/figures/fig02/README.md\n M paper/figures/fig03/README.md\n M paper/figures/fig09/README.md\n M paper/solver/paper_latest_cpu/README.md\n M scripts/check_repo_structure.py\n M tests/test_repo_structure.py\n?? docs/reports/exploration/CODEX-REPORT-convert-legacy-solver-to-paper-grade.md\n?? docs/reports/exploration/MULTIAGENT-REVIEW-paper-solver.md\n?? paper/solver/canonical_cpu/\n?? results/solver_smoke/\n?? tests/test_canonical_solver.py"
+        "status_short": "M README.md\n M docs/project_state.md\n M paper/figures/fig01/README.md\n M paper/figures/fig02/README.md\n M paper/figures/fig03/README.md\n M paper/figures/fig09/README.md\n M paper/solver/canonical_cpu/README.md\n M paper/solver/canonical_cpu/run_smoke_checks.py\n M paper/solver/canonical_cpu/solver.py\n M paper/solver/paper_latest_cpu/README.md\n M results/solver_smoke/chi_effective_osmotic_diagnostics.json\n M results/solver_smoke/chi_effective_osmotic_params.json\n M results/solver_smoke/chi_effective_osmotic_timeseries.npz\n M results/solver_smoke/chi_strict_derivative_diagnostics.json\n M results/solver_smoke/chi_strict_derivative_params.json\n M results/solver_smoke/chi_strict_derivative_timeseries.npz\n M results/solver_smoke/control_no_barrier_diagnostics.json\n M results/solver_smoke/control_no_barrier_params.json\n M results/solver_smoke/control_no_barrier_timeseries.npz\n M results/solver_smoke/control_no_lcst_diagnostics.json\n M results/solver_smoke/control_no_lcst_params.json\n M results/solver_smoke/control_no_lcst_timeseries.npz\n M results/solver_smoke/control_no_reaction_diagnostics.json\n M results/solver_smoke/control_no_reaction_params.json\n M results/solver_smoke/control_no_reaction_timeseries.npz\n M results/solver_smoke/grid_N15_diagnostics.json\n M results/solver_smoke/grid_N15_params.json\n M results/solver_smoke/grid_N15_timeseries.npz\n M results/solver_smoke/grid_N31_diagnostics.json\n M results/solver_smoke/grid_N31_params.json\n M results/solver_smoke/grid_N31_timeseries.npz\n M results/solver_smoke/grid_N63_diagnostics.json\n M results/solver_smoke/grid_N63_params.json\n M results/solver_smoke/grid_N63_timeseries.npz\n M results/solver_smoke/solver_smoke_summary.json\n M results/solver_smoke/source_current_volume_diagnostics.json\n M results/solver_smoke/source_current_volume_params.json\n M results/solver_smoke/source_current_volume_timeseries.npz\n M results/solver_smoke/source_reference_volume_diagnostics.json\n M results/solver_smoke/source_reference_volume_params.json\n M results/solver_smoke/source_reference_volume_timeseries.npz\n M results/solver_smoke/time_maxstep_0p05_diagnostics.json\n M results/solver_smoke/time_maxstep_0p05_params.json\n M results/solver_smoke/time_maxstep_0p05_timeseries.npz\n M results/solver_smoke/time_maxstep_0p10_diagnostics.json\n M results/solver_smoke/time_maxstep_0p10_params.json\n M results/solver_smoke/time_maxstep_0p10_timeseries.npz\n M tests/test_canonical_solver.py\n?? docs/reports/exploration/CODEX-REPORT-finalize-paper-solver-reference-source-effective-chi.md\n?? docs/reports/exploration/MULTIAGENT-REVIEW-final-paper-solver.md"
       },
       "hill_eps": 0.05,
       "m_act": 6.0,
@@ -108,11 +148,14 @@
       "max_step": 0.1,
       "method": "BDF",
       "model_branches": {
+        "Pe_T_status": "omitted_from_rhs_by_model_assumption",
         "boundary_scheme": "cell_center_robin",
+        "canonical_paper_solver": false,
         "chi_closure": "effective_osmotic_chi",
+        "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
         "enthalpy_advection": false,
         "floor_scheme": "canonical_consistent",
-        "source_scaling": "current_volume",
+        "source_scaling": "reference_volume",
         "transport_closure": "constant_no_barrier",
         "transport_metric_closure": "reference_metric",
         "validation_status": "candidate_not_validated"
@@ -133,14 +176,14 @@
       "solver": {
         "module": "paper.solver.canonical_cpu.solver",
         "name": "canonical_cpu",
-        "status": "candidate_not_validated"
+        "status": "final_paper_solver_evidence_generation_pending"
       },
       "source_file_sha256": {
-        "paper/solver/canonical_cpu/run_smoke_checks.py": "6b42543508e7c7afe6c219a97f35a20f5e41d319cc1e4a6ee1c1150806c79e4a",
-        "paper/solver/canonical_cpu/solver.py": "df4204ff764c308537df8d22d02d258c631680e8361321f5b813cbe2846b4db6",
-        "tests/test_canonical_solver.py": "2df1402387324c05624eb84bc1efe04597d5075cb3effb20b9a51d8cbd836a60"
+        "paper/solver/canonical_cpu/run_smoke_checks.py": "bfc662c18a413bd3bdf7771f8ad0ebbd7b8b6ec442411e295af95b79cce1f752",
+        "paper/solver/canonical_cpu/solver.py": "d5421938ce3e5c347b3857be57925cfd98c432a182c29479956edba407e8178b",
+        "tests/test_canonical_solver.py": "401f289c7c83aa6825a963bcddac0e1fe207c4a77f0cee543c2f7681c23da44b"
       },
-      "source_scaling": "current_volume",
+      "source_scaling": "reference_volume",
       "t_end": 0.6,
       "theta_c": 0.5,
       "theta_clip": 25.0,
@@ -153,25 +196,30 @@
     "phi_hard_ceiling": 0.995,
     "phi_hard_ceiling_exceed_count": 0,
     "phi_hard_ceiling_exceed_fraction": 0.0,
+    "q": {
+      "max": 0.0035016721230122366,
+      "mean": -0.00028996831784175876,
+      "min": -0.003976180020165768
+    },
     "raw_logJ_available": true,
     "source": {
-      "max": 3.4633199838002606,
-      "mean": 0.4081718798130971,
-      "min": 0.015468805187660889
+      "max": 2.77792594349613,
+      "mean": 0.349876274167872,
+      "min": 0.02075026325534396
     },
     "surface_h": {
-      "max": 0.055978685130451435,
-      "mean": 0.026541204049066146,
+      "max": 0.04663746935409636,
+      "mean": 0.021612209957784678,
       "min": 9.666666666666667e-06
     },
     "surface_nflux": {
-      "max": -0.46257033591415814,
-      "mean": -0.49846943549376344,
+      "max": -0.43858165093842477,
+      "mean": -0.47745465372538837,
       "min": -0.689480826633789
     },
     "surface_q": {
-      "max": 0.004134026830144674,
-      "mean": 0.0017315901534816812,
+      "max": 0.0035016721230122366,
+      "mean": 0.0013520914822893865,
       "min": -0.0009365476250229182
     },
     "u_floor_clip_count": 0,
@@ -179,48 +227,54 @@
   },
   "classification": {
     "J_amp": 0.0,
-    "J_mean_final": 1.2989542836747625,
+    "J_mean_final": 1.2991852303889118,
     "J_peaks": 0,
     "J_period": null,
     "is_nonuniform": 1,
     "is_oscillatory": 0,
     "label": "steady_warm_nonuniform",
-    "nfev": 188,
+    "nfev": 190,
     "thermal_state": "warm",
     "theta_amp": 0.0,
-    "theta_mean_final": 0.23329981162137978,
+    "theta_mean_final": 0.20012569768230465,
     "theta_peaks": 0,
     "theta_period": null,
-    "u_mean_final": 0.054553135622049435
+    "u_mean_final": 0.07256476382944295
   },
   "classification_status": "heuristic_not_evidence",
   "conservation_diagnostics": {
-    "heat_balance_residual": 0.0002432115552337859,
-    "heat_balance_residual_late": 6.693672495472278e-05,
-    "heat_inventory_final": 0.23329981162137978,
+    "heat_balance_residual": 0.00021222561856282807,
+    "heat_balance_residual_late": 5.989540957839744e-05,
+    "heat_inventory_final": 0.20012569768230465,
     "heat_inventory_initial": 5e-05,
     "max_enthalpy_advection_to_conduction_ratio": 0.0,
     "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
       "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": false,
       "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
       "enthalpy_advection": false,
       "floor_scheme": "canonical_consistent",
-      "source_scaling": "current_volume",
+      "source_scaling": "reference_volume",
       "transport_closure": "constant_no_barrier",
       "transport_metric_closure": "reference_metric",
       "validation_status": "candidate_not_validated"
     },
-    "reactant_balance_residual": 0.003362196887854921,
-    "reactant_balance_residual_late": 0.00022738491649227827,
-    "reactant_inventory_final": 0.07027436595111708,
+    "reactant_balance_residual": 0.002643235821342629,
+    "reactant_balance_residual_late": 0.000165473445145015,
+    "reactant_inventory_final": 0.09367887018830763,
     "reactant_inventory_initial": 0.0260125
   },
   "model_branches": {
+    "Pe_T_status": "omitted_from_rhs_by_model_assumption",
     "boundary_scheme": "cell_center_robin",
+    "canonical_paper_solver": false,
     "chi_closure": "effective_osmotic_chi",
+    "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
     "enthalpy_advection": false,
     "floor_scheme": "canonical_consistent",
-    "source_scaling": "current_volume",
+    "source_scaling": "reference_volume",
     "transport_closure": "constant_no_barrier",
     "transport_metric_closure": "reference_metric",
     "validation_status": "candidate_not_validated"
@@ -230,7 +284,7 @@
   "solver_status": {
     "jac_color_groups": 14,
     "message": "The solver successfully reached the end of the integration interval.",
-    "nfev": 188,
+    "nfev": 190,
     "njev": 1,
     "nlu": 20,
     "status": 0,
