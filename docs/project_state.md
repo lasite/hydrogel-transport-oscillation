@@ -11,11 +11,12 @@ Previous stages:
 * Research Idea Brief (`G0`) completed after user accepted the project brief, central hypothesis, candidate claims, and uncertainty list.
 * Literature / Novelty Mapping (`G1`) completed after user accepted the novelty framing and prior-art risk matrix; the frozen literature corpus was created for Model Specification.
 
-Substage: first formal convergence/control evidence attempt completed; evidence not ready.
+Substage: root-cause diagnosis after the failed convergence/control evidence
+attempt completed; evidence not ready.
 
 Model status: candidate only. The active long derivation source at `docs/derivations/initial_model_derivation.tex` now mechanically copies the migrated Appendix A `Model Construction` and Appendix B `Nondimensionalization` material from `paper/appendix/appendix.tex`. The material has not yet received ChatGPT scientific review and no model is validated.
 
-Numerics status: final canonical CPU solver path exists, and the first formal convergence/control evidence attempt has been run under `results/evidence_convergence_control/`. The evidence attempt did not find a clipping-free oscillatory attractor with at least five complete post-transient cycles in the bounded `Da x Bi_T` search, so readiness is `not evidence ready`. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only. The final canonical CPU solver path under `paper/solver/canonical_cpu/` uses the issue #15 defaults `source_scaling = reference_volume`, `chi_closure = effective_osmotic_chi`, `transport_closure = normalized_porosity_power`, `floor_scheme = canonical_consistent`, `boundary_scheme = cell_center_robin`, and `enthalpy_advection = false`. The issue #16 outputs are not manuscript-ready evidence and do not open production parameter scans or figure regeneration.
+Numerics status: final canonical CPU solver path exists, and the first formal convergence/control evidence attempt has been run under `results/evidence_convergence_control/`. The evidence attempt did not find a clipping-free oscillatory attractor with at least five complete post-transient cycles in the bounded `Da x Bi_T` search, so readiness is `not evidence ready`. Issue #18 then ran bounded root-cause diagnostics under `results/root_cause_missing_oscillations/`; the conclusion label is `root cause partially identified`. The dominant diagnosis is that geometric collapse can appear without a sufficiently strong functional `A,D,M` barrier at the clipping-free reference, while stronger forcing tends to enter clipping/projection. The migrated CPU script under `paper/solver/paper_latest_cpu/` is preserved as source/provenance material only. The final canonical CPU solver path under `paper/solver/canonical_cpu/` uses the issue #15 defaults `source_scaling = reference_volume`, `chi_closure = effective_osmotic_chi`, `transport_closure = normalized_porosity_power`, `floor_scheme = canonical_consistent`, `boundary_scheme = cell_center_robin`, and `enthalpy_advection = false`. The issue #16 and issue #18 outputs are not manuscript-ready evidence and do not open production parameter scans or figure regeneration.
 
 Figure status: selected generated figures, data, and plotting scripts have been imported as exploratory source assets. Migration hygiene resolved the missing `pypdf` dependency and composite figure smoke tests now pass as repository assembly checks only; these checks do not validate the figure data or numerical results.
 
@@ -55,6 +56,7 @@ Current workflow policy:
 * Issue #15 finalized the paper-solver default branch choices as reference-volume source scaling, effective-osmotic chi, normalized transport/accessibility closure, canonical-consistent floors, retained cell-center Robin boundary scheme, and no enthalpy advection. Legacy current-volume and strict-derivative branches remain only as non-canonical controls.
 * Short non-evidence smoke outputs were written under `results/solver_smoke/` for grid/time/source-scaling and simple control checks. These outputs are technical smoke material only, not claim evidence.
 * Issue #16 generated the first convergence/control evidence attempt under `results/evidence_convergence_control/`. The bounded search produced no acceptable oscillatory working point; the selected clipping-free reference was non-oscillatory; required separate no-accessibility and no-diffusivity/permeability controls remain unavailable in the final solver branch set.
+* Issue #18 generated bounded root-cause diagnostics under `results/root_cause_missing_oscillations/`. Diagnostic-only branches separate accessibility, diffusivity, mobility, transport, and `J^beta R` source scaling effects without changing canonical defaults. The root cause was partially identified as weak or late functional barrier formation in the clean reference plus clipping-contaminated high-amplitude regimes.
 * No model or claim has been promoted to `docs/validated/`.
 
 ## Superseded or Historical Work
@@ -117,10 +119,11 @@ validated numerical implementation. Current blockers before paper evidence:
 1. The issue #16 bounded `Da x Bi_T` search did not find a clipping-free oscillatory attractor with at least five complete post-transient cycles.
 2. The canonical default point is non-oscillatory and reports clipping/floor interventions, so it cannot be used as paper evidence.
 3. The selected clipping-free reference point is non-oscillatory across `N = 51, 101, 201` and time/tolerance checks.
-4. The final solver does not yet expose separate controls for only disabling accessibility suppression or only disabling diffusivity/mobility suppression.
-5. The final canonical path retains the cell-center Robin boundary approximation; closed-domain inventory and sign tests pass, but face-value reconstruction remains a possible later accuracy upgrade.
-6. Existing figure-local solver copies are frozen provenance, not active solver definitions.
-7. `results/solver_smoke/` outputs are non-evidence technical checks and do not establish oscillation, convergence, or front/barrier mechanism.
+4. Issue #18 diagnostic branches show that geometric collapse can overstate functional barrier formation: at the clipping-free reference, the geometric skin reaches the full domain while the functional `A,D,M` skin remains zero under the diagnostic threshold.
+5. Stronger forcing or supply can create high-amplitude excursions, but those cases activate clipping/projection and cannot be mechanism evidence.
+6. The final canonical path retains the cell-center Robin boundary approximation; closed-domain inventory and sign tests pass, but face-value reconstruction remains a possible later accuracy upgrade.
+7. Existing figure-local solver copies are frozen provenance, not active solver definitions.
+8. `results/solver_smoke/` outputs are non-evidence technical checks and do not establish oscillation, convergence, or front/barrier mechanism.
 
 ## Active Work Plan
 
@@ -128,8 +131,8 @@ Use concrete task names. Internal anchors may be added only for ordering.
 
 1. Request ChatGPT Scientific Review of Replaced Model A Derivation.
 2. Request ChatGPT Review of the Legacy and Final Canonical CPU Solver Audit.
-3. Request human/ChatGPT decision on the failed issue #16 evidence attempt.
-4. Decide whether to revise the model, expose more mechanism-isolating controls, or broaden the physically justified local search.
+3. Request human/ChatGPT decision on the issue #18 root-cause diagnosis.
+4. Decide whether to revise the functional barrier closure, define a sharper barrier observable, or reduce the model to a smaller diagnostic system before any further search.
 5. Rebuild the Model Specification Blocker List from derivation and solver-review results.
 6. Refine front/barrier observables only after a plausible oscillatory working point exists.
 
@@ -201,6 +204,9 @@ Promotion gates:
 * `results/evidence_convergence_control/suite_summary.json`
 * `docs/reports/exploration/MULTIAGENT-REVIEW-convergence-control-evidence.md`
 * `docs/reports/exploration/CODEX-REPORT-formal-convergence-control-evidence.md`
+* `results/root_cause_missing_oscillations/suite_summary.json`
+* `docs/reports/exploration/MULTIAGENT-REVIEW-root-cause-missing-oscillations.md`
+* `docs/reports/exploration/CODEX-REPORT-root-cause-missing-oscillations.md`
 
 ## Update Protocol
 

@@ -1,0 +1,499 @@
+{
+  "audit": {
+    "A": {
+      "max": 1.0,
+      "mean": 0.7876052440675791,
+      "min": 0.7308888061059738
+    },
+    "D": {
+      "max": 2.0,
+      "mean": 1.8450215440866804,
+      "min": 1.801550965758197
+    },
+    "D_ref": {
+      "max": 2.0,
+      "mean": 1.8450215440866804,
+      "min": 1.801550965758197
+    },
+    "M": {
+      "max": 1.0,
+      "mean": 0.9603501809593414,
+      "min": 0.9490917888637449
+    },
+    "M_ref": {
+      "max": 1.0,
+      "mean": 0.9603501809593414,
+      "min": 0.9490917888637449
+    },
+    "R": {
+      "max": 7.33085595434726,
+      "mean": 0.5594194437724357,
+      "min": 3.6634355297520174e-07
+    },
+    "S_R": {
+      "max": 7.374971462030277,
+      "mean": 0.5591083917720585,
+      "min": 3.7973497887689555e-07
+    },
+    "accessibility": {
+      "max": 1.0,
+      "mean": 0.7876052440675791,
+      "min": 0.7308888061059738
+    },
+    "active_numerical_bounds": {
+      "J_max": 6.0,
+      "J_min": 0.153,
+      "arrh_exp_cap": 60.0,
+      "logJ_max": 1.791759469228055,
+      "logJ_min": -1.8773173575897015,
+      "phi_ceiling": 0.995,
+      "u_floor": 1e-12
+    },
+    "arrh_exp_cap_hit_count": 0,
+    "arrh_exp_cap_hit_fraction": 0.0,
+    "h": {
+      "max": 0.5755241627908934,
+      "mean": 0.03393652741074409,
+      "min": -0.09654692494616697
+    },
+    "logJ_high_clip_count": 0,
+    "logJ_high_clip_fraction": 0.0,
+    "logJ_low_clip_count": 0,
+    "logJ_low_clip_fraction": 0.0,
+    "max_phi_before_clip": 0.1604233060280592,
+    "max_raw_logJ": 0.26735774666644896,
+    "min_W": 7.807270997701656e-09,
+    "min_raw_logJ": -0.06718069020802221,
+    "min_raw_u": 7.553156018988836e-09,
+    "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+      "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": false,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+      "enthalpy_advection": false,
+      "floor_scheme": "canonical_consistent",
+      "source_J_exponent": 1.0,
+      "source_scaling": "diagnostic_J_beta",
+      "transport_closure": "normalized_porosity_power",
+      "transport_metric_closure": "reference_metric",
+      "validation_status": "candidate_not_validated"
+    },
+    "n": {
+      "max": 0.0025691917051754655,
+      "mean": -0.04621596359135039,
+      "min": -0.6894955077750986
+    },
+    "nonfinite_J_count": 0,
+    "nonfinite_W_count": 0,
+    "nonfinite_flux_count": 0,
+    "nonfinite_source_count": 0,
+    "nonfinite_theta_count": 0,
+    "nonfinite_u_count": 0,
+    "params": {
+      "A_min": 0.0001,
+      "B_Tvol": 0.0,
+      "B_vol": 0.0,
+      "Bi_J_vol": 0.0,
+      "Bi_T": 0.2,
+      "Bi_c": 0.7,
+      "Bi_c_vol": 0.0,
+      "Bi_mu": 1.0,
+      "C0": 1.0,
+      "D0": 2.0,
+      "D_min": 0.0001,
+      "Da": 1.0,
+      "Gamma_A": 1.5,
+      "J_init": 1.3,
+      "J_max": 6.0,
+      "J_min": 0.153,
+      "K0": 1.0,
+      "M0": 1.0,
+      "M_min": 0.0001,
+      "N": 31,
+      "Omega_e": 0.12,
+      "Pe_T": 0.0,
+      "S_chi": 1.0,
+      "Theta_infty": 33.3333333333,
+      "a_floor": 0.0,
+      "alpha": 0.2,
+      "arrh_exp_cap": 60.0,
+      "atol": 1e-08,
+      "auto_set_m_b": true,
+      "beta_free_volume": 8.0,
+      "boundary_scheme": "cell_center_robin",
+      "chi1": 1.1,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_inf": 0.6,
+      "closure_form": "power",
+      "d_floor": 0.0,
+      "delta": 0.08,
+      "ell": 0.01,
+      "enthalpy_advection": false,
+      "eps_J": 0.005,
+      "eps_T": 0.03,
+      "eps_theta": 0.0001,
+      "eps_u": 0.005,
+      "floor_scheme": "canonical_consistent",
+      "git": {
+        "branch": "codex/root-cause-missing-oscillations",
+        "commit": "489c3875fb50c38ec87efcefd222a839d180ff71",
+        "dirty": true,
+        "status_short": "M docs/project_state.md\n M paper/solver/canonical_cpu/solver.py\n M tests/test_canonical_solver.py\n?? docs/reports/exploration/CODEX-REPORT-root-cause-missing-oscillations.md\n?? paper/solver/canonical_cpu/root_cause.py\n?? paper/solver/canonical_cpu/run_root_cause_checks.py\n?? results/root_cause_missing_oscillations/\n?? tests/test_root_cause_diagnostics.py"
+      },
+      "hill_eps": 0.05,
+      "m_act": 6.0,
+      "m_b": 0.06615257094362573,
+      "m_diff": 2.0,
+      "m_mob": 1.0,
+      "max_step": 0.2,
+      "method": "BDF",
+      "model_branches": {
+        "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+        "boundary_scheme": "cell_center_robin",
+        "canonical_paper_solver": false,
+        "chi_closure": "effective_osmotic_chi",
+        "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+        "enthalpy_advection": false,
+        "floor_scheme": "canonical_consistent",
+        "source_J_exponent": 1.0,
+        "source_scaling": "diagnostic_J_beta",
+        "transport_closure": "normalized_porosity_power",
+        "transport_metric_closure": "reference_metric",
+        "validation_status": "candidate_not_validated"
+      },
+      "mu_floor": 0.0,
+      "n_hill": 4.0,
+      "n_save": 601,
+      "phi_ceiling": 0.995,
+      "phi_floor": 1e-10,
+      "phi_p0": 0.15,
+      "reaction_order": 1.0,
+      "rtol": 1e-06,
+      "runtime": {
+        "numpy": "2.4.6",
+        "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+        "python": "3.12.3"
+      },
+      "solver": {
+        "module": "paper.solver.canonical_cpu.solver",
+        "name": "canonical_cpu",
+        "status": "final_paper_solver_evidence_generation_pending"
+      },
+      "source_J_exponent": 1.0,
+      "source_file_sha256": {
+        "paper/solver/canonical_cpu/run_smoke_checks.py": "bfc662c18a413bd3bdf7771f8ad0ebbd7b8b6ec442411e295af95b79cce1f752",
+        "paper/solver/canonical_cpu/solver.py": "8ef9fcd26c63ac8bba07a9cbffb6f63dfaa64fe94e134ddfffcae9d4dc09aae0",
+        "tests/test_canonical_solver.py": "345b4d6baf5c1730abdbc9e855f4d0b988856cc13a5ab372be17e919a148d0ea"
+      },
+      "source_scaling": "diagnostic_J_beta",
+      "t_end": 120.0,
+      "theta_c": 0.5,
+      "theta_clip": 25.0,
+      "theta_init": 0.0,
+      "transport_closure": "normalized_porosity_power",
+      "u_floor": 1e-12,
+      "u_init": 0.02,
+      "use_hill": false
+    },
+    "phi_hard_ceiling": 0.995,
+    "phi_hard_ceiling_exceed_count": 0,
+    "phi_hard_ceiling_exceed_fraction": 0.0,
+    "q": {
+      "max": 0.01169023615614398,
+      "mean": 0.001525724163764582,
+      "min": -0.001135704447394359
+    },
+    "raw_logJ_available": true,
+    "source": {
+      "max": 7.374971462030277,
+      "mean": 0.5591083917720585,
+      "min": 3.7973497887689555e-07
+    },
+    "surface_h": {
+      "max": 0.5755241627908934,
+      "mean": 0.5343831451966615,
+      "min": 1.967741935483871e-05
+    },
+    "surface_nflux": {
+      "max": -0.3177506378472702,
+      "mean": -0.5596999184439441,
+      "min": -0.6894955077750986
+    },
+    "surface_q": {
+      "max": 0.01169023615614398,
+      "mean": 0.003010336310865197,
+      "min": -0.0009405127121299428
+    },
+    "u_floor_clip_count": 0,
+    "u_floor_clip_fraction": 0.0
+  },
+  "case_id": "diagnostic_source_beta_1",
+  "classification": {
+    "J_amp": 0.001873731843881954,
+    "J_mean_final": 0.9380471193992705,
+    "J_peaks": 0,
+    "J_period": null,
+    "is_nonuniform": 1,
+    "is_oscillatory": 0,
+    "label": "steady_hot_nonuniform",
+    "nfev": 1621,
+    "thermal_state": "hot",
+    "theta_amp": 0.002942031076662577,
+    "theta_mean_final": 2.9713128633105526,
+    "theta_peaks": 0,
+    "theta_period": null,
+    "u_mean_final": 0.014595410949515782
+  },
+  "conservation": {
+    "heat_balance_residual": 1.3755649091545888e-05,
+    "heat_balance_residual_late": 1.402548289959918e-10,
+    "heat_inventory_final": 2.9713128633105526,
+    "heat_inventory_initial": 4.9999999999999996e-05,
+    "max_enthalpy_advection_to_conduction_ratio": 0.0,
+    "model_branches": {
+      "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+      "boundary_scheme": "cell_center_robin",
+      "canonical_paper_solver": false,
+      "chi_closure": "effective_osmotic_chi",
+      "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+      "enthalpy_advection": false,
+      "floor_scheme": "canonical_consistent",
+      "source_J_exponent": 1.0,
+      "source_scaling": "diagnostic_J_beta",
+      "transport_closure": "normalized_porosity_power",
+      "transport_metric_closure": "reference_metric",
+      "validation_status": "candidate_not_validated"
+    },
+    "reactant_balance_residual": 0.00147245879108593,
+    "reactant_balance_residual_late": 7.785338561711788e-10,
+    "reactant_inventory_final": 0.013947697481241948,
+    "reactant_inventory_initial": 0.026012500000000008
+  },
+  "group": "source_scaling",
+  "mechanism_summary": {
+    "A_shutdown_tail_over_early_peak": 0.7331223415498951,
+    "D_shutdown_tail_over_early_peak": 0.9016920024069134,
+    "J_amplitude": 0.003345049559272284,
+    "J_complete_cycles": 0,
+    "M_shutdown_tail_over_early_peak": 0.9495744913691913,
+    "barrier_change_time_estimate": 47.77173747634128,
+    "classification_label": "steady_hot_nonuniform",
+    "clipping_total": 0,
+    "evidence_observable_summary": {
+      "J_amplitude": 0.003345049559272284,
+      "J_complete_cycles": 0,
+      "J_cycle_cv": null,
+      "J_period": null,
+      "classification_label": "steady_hot_nonuniform",
+      "clipping_total": 0,
+      "heat_balance_residual": 1.3755649091545888e-05,
+      "max_barrier_suppression_A": 0.26911119389402616,
+      "max_collapsed_skin_thickness": 0.9999999999999991,
+      "max_reactant_penetration_depth": 0.032258064516129004,
+      "mean_accessibility": 0.7876052440675793,
+      "mean_collapsed_skin_thickness": 0.8791798615211202,
+      "mean_diffusivity": 1.8450215440866804,
+      "mean_heat_source_localization": 11.697968309068308,
+      "mean_mobility": 0.9603501809593413,
+      "min_accessibility": 0.7308888061059738,
+      "min_diffusivity": 1.801550965758197,
+      "min_front_position": 8.881784197001252e-16,
+      "min_mobility": 0.9490917888637449,
+      "oscillatory": false,
+      "phase_lag_source_to_reactant_depletion": {
+        "correlation": 0.9999928017257912,
+        "lag_time": 0.0
+      },
+      "phase_lag_source_to_theta": {
+        "correlation": 0.9986931889856896,
+        "lag_time": 0.0
+      },
+      "phase_lag_theta_to_collapse": {
+        "correlation": -0.9937512889258541,
+        "lag_time": 0.0
+      },
+      "reactant_balance_residual": 0.00147245879108593,
+      "surface_h": {
+        "max": 0.5755241627908934,
+        "mean": 0.5343831451966615,
+        "min": 1.967741935483871e-05
+      },
+      "surface_n": {
+        "max": -0.3177506378472702,
+        "mean": -0.5596999184439441,
+        "min": -0.6894955077750986
+      },
+      "surface_q": {
+        "max": 0.01169023615614398,
+        "mean": 0.003010336310865197,
+        "min": -0.0009405127121299428
+      },
+      "theta_amplitude": 0.006545161704703872,
+      "theta_complete_cycles": 0,
+      "theta_cycle_cv": null,
+      "theta_period": null
+    },
+    "geometry_overstates_functional_barrier": true,
+    "heat_balance_residual": 1.3755649091545888e-05,
+    "heat_inventory_tail_mean_abs": 2.972942288854165,
+    "heat_loss_tail_mean": 0.5695752923013044,
+    "heating_time_tail_estimate": 5.220831143933048,
+    "max_A_functional_skin_thickness": 0.0,
+    "max_D_functional_skin_thickness": 0.0,
+    "max_M_functional_skin_thickness": 0.0,
+    "max_functional_skin_thickness": 0.0,
+    "max_geometric_skin_thickness": 1.0,
+    "min_A": 0.7308888061059738,
+    "min_D_over_D0": 0.9007754828790985,
+    "min_M_over_M0": 0.9490917888637449,
+    "nonfinite_total": 0,
+    "ordered_phase_events": [
+      {
+        "event": "max_functional_skin",
+        "t": 0.0
+      },
+      {
+        "event": "max_geometric_skin",
+        "t": 16.400000000000002
+      },
+      {
+        "event": "max_source",
+        "t": 28.6
+      },
+      {
+        "event": "min_reactant_inventory",
+        "t": 35.2
+      },
+      {
+        "event": "max_temperature",
+        "t": 43.6
+      },
+      {
+        "event": "min_swelling_J",
+        "t": 120.0
+      },
+      {
+        "event": "min_A",
+        "t": 120.0
+      },
+      {
+        "event": "min_D_over_D0",
+        "t": 120.0
+      },
+      {
+        "event": "min_M_over_M0",
+        "t": 120.0
+      }
+    ],
+    "oscillatory": false,
+    "phase_events": {
+      "max_functional_skin": 0.0,
+      "max_geometric_skin": 16.400000000000002,
+      "max_source": 28.6,
+      "max_temperature": 43.6,
+      "min_A": 120.0,
+      "min_D_over_D0": 120.0,
+      "min_M_over_M0": 120.0,
+      "min_reactant_inventory": 35.2,
+      "min_swelling_J": 120.0
+    },
+    "reactant_balance_residual": 0.00147245879108593,
+    "reactant_consumption_time_tail_estimate": 0.024442993366904975,
+    "reactant_inventory_tail_mean": 0.013918781635199641,
+    "reactant_replenishment_time_tail_estimate": 0.024442882875482012,
+    "reactant_supply_source_balance_tail": 1.00000452039244,
+    "reactant_supply_tail_mean": 0.5694410805020544,
+    "source_heat_loss_balance_tail": 0.9997598458243918,
+    "source_shutdown_tail_over_early_peak": 0.9850101840981254,
+    "source_shutdown_tail_over_global_peak": 0.9829491856211068,
+    "source_tail_mean": 0.569438506416535,
+    "surface_flux_stats": {
+      "h": {
+        "max": 0.5755241627908934,
+        "mean": 0.5343831451966615,
+        "min": 1.967741935483871e-05
+      },
+      "inward_reactant_supply": {
+        "max": 0.6894955077750986,
+        "mean": 0.5596999184439441,
+        "min": 0.3177506378472702
+      },
+      "n": {
+        "max": -0.3177506378472702,
+        "mean": -0.5596999184439441,
+        "min": -0.6894955077750986
+      },
+      "q": {
+        "max": 0.01169023615614398,
+        "mean": 0.003010336310865197,
+        "min": -0.0009405127121299428
+      }
+    },
+    "swelling_change_time_estimate": 47.748533689075245,
+    "thermal_loss_time_tail_estimate": 5.2195773395336875,
+    "theta_amplitude": 0.006545161704703872,
+    "theta_complete_cycles": 0
+  },
+  "model_branches": {
+    "Pe_T_status": "omitted_from_rhs_by_model_assumption",
+    "boundary_scheme": "cell_center_robin",
+    "canonical_paper_solver": false,
+    "chi_closure": "effective_osmotic_chi",
+    "chi_parameter_interpretation": "effective_osmotic_interaction_parameter",
+    "enthalpy_advection": false,
+    "floor_scheme": "canonical_consistent",
+    "source_J_exponent": 1.0,
+    "source_scaling": "diagnostic_J_beta",
+    "transport_closure": "normalized_porosity_power",
+    "transport_metric_closure": "reference_metric",
+    "validation_status": "candidate_not_validated"
+  },
+  "paper_evidence_status": "diagnostic_only_not_claim_evidence",
+  "params": {
+    "A_min": 0.0001,
+    "Bi_T": 0.2,
+    "Bi_c": 0.7,
+    "D_min": 0.0001,
+    "Da": 1.0,
+    "Gamma_A": 1.5,
+    "M_min": 0.0001,
+    "N": 31,
+    "S_chi": 1.0,
+    "m_act": 6.0,
+    "m_diff": 2.0,
+    "m_mob": 1.0,
+    "max_step": 0.2,
+    "n_save": 601,
+    "source_J_exponent": 1.0,
+    "source_scaling": "diagnostic_J_beta",
+    "t_end": 120.0,
+    "transport_closure": "normalized_porosity_power"
+  },
+  "purpose": "Diagnostic S_R = J^1 R source scaling.",
+  "suite_metadata": {
+    "command": "python -m paper.solver.canonical_cpu.run_root_cause_checks",
+    "git": {
+      "branch": "codex/root-cause-missing-oscillations",
+      "commit": "489c3875fb50c38ec87efcefd222a839d180ff71",
+      "dirty": true,
+      "status_short": "M docs/project_state.md\n M paper/solver/canonical_cpu/solver.py\n M tests/test_canonical_solver.py\n?? docs/reports/exploration/CODEX-REPORT-root-cause-missing-oscillations.md\n?? paper/solver/canonical_cpu/root_cause.py\n?? paper/solver/canonical_cpu/run_root_cause_checks.py\n?? results/root_cause_missing_oscillations/\n?? tests/test_root_cause_diagnostics.py"
+    },
+    "outdir": "results/root_cause_missing_oscillations",
+    "runtime": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1"
+    },
+    "source_file_sha256": {
+      "paper/solver/canonical_cpu/evidence.py": "8d9c03c84ec3b9ff1144e81d9e9ef362e5d020c96802bbce069fadf0221b195f",
+      "paper/solver/canonical_cpu/root_cause.py": "25f4eaccd45c3252c4a5197b4325a101adf0951ab33c686cd3ddb9f38bb7a39d",
+      "paper/solver/canonical_cpu/run_root_cause_checks.py": "1b6fc4de0fb1fc02bf84b4d48e52f7bbe8871685a9500fdf30f82a071d3951f0",
+      "paper/solver/canonical_cpu/solver.py": "8ef9fcd26c63ac8bba07a9cbffb6f63dfaa64fe94e134ddfffcae9d4dc09aae0",
+      "tests/test_canonical_solver.py": "345b4d6baf5c1730abdbc9e855f4d0b988856cc13a5ab372be17e919a148d0ea",
+      "tests/test_evidence_observables.py": "e9e0789900337be2221747808a0a13b02b455d6f3799c30abe567846b468e9e0",
+      "tests/test_root_cause_diagnostics.py": "6c1bec2ef82582cc983a94c51cb8dc7c2616ba9a0a0d541dcfe75cc8cabf0372"
+    },
+    "status": "diagnostic_only_not_claim_evidence"
+  },
+  "validation_status": "candidate_not_validated"
+}

@@ -24,7 +24,11 @@ from scipy.signal import find_peaks
 from scipy.sparse import csc_matrix, lil_matrix
 
 
-SOURCE_SCALING_CHOICES = {"current_volume", "reference_volume"}
+SOURCE_SCALING_CHOICES = {
+    "current_volume",
+    "reference_volume",
+    "diagnostic_J_beta",
+}
 CHI_CLOSURE_CHOICES = {
     "effective_osmotic_chi",
     "strict_chi_derivative",
@@ -33,6 +37,10 @@ TRANSPORT_CLOSURE_CHOICES = {
     "legacy_porosity_power",
     "normalized_porosity_power",
     "constant_no_barrier",
+    "accessibility_constant",
+    "transport_constant",
+    "diffusivity_constant",
+    "mobility_constant",
 }
 FLOOR_SCHEME_CHOICES = {"legacy", "canonical_consistent"}
 BOUNDARY_SCHEME_CHOICES = {"cell_center_robin"}
@@ -51,6 +59,7 @@ class CanonicalParams:
     max_step: float = 0.5
 
     source_scaling: str = "reference_volume"
+    source_J_exponent: float = 0.0
     chi_closure: str = "effective_osmotic_chi"
     transport_closure: str = "normalized_porosity_power"
     floor_scheme: str = "canonical_consistent"
@@ -141,6 +150,8 @@ def validate_params(p: CanonicalParams) -> None:
         raise ValueError("Require 0 < J_min < J_max.")
     if not (0.0 < p.phi_ceiling < 1.0):
         raise ValueError("Require 0 < phi_ceiling < 1.")
+    if not np.isfinite(p.source_J_exponent):
+        raise ValueError("source_J_exponent must be finite.")
 
 
 def active_numerical_bounds(p: CanonicalParams) -> Dict[str, float]:
@@ -161,6 +172,7 @@ def active_numerical_bounds(p: CanonicalParams) -> Dict[str, float]:
 def model_branch_labels(p: CanonicalParams) -> Dict[str, Any]:
     return {
         "source_scaling": p.source_scaling,
+        "source_J_exponent": float(p.source_J_exponent),
         "chi_closure": p.chi_closure,
         "chi_parameter_interpretation": "effective_osmotic_interaction_parameter"
         if p.chi_closure == "effective_osmotic_chi"
@@ -411,9 +423,14 @@ def _canonical_floor(p: CanonicalParams, name: str, legacy_floor: float) -> floa
 
 def accessibility_factor(J, p: CanonicalParams):
     phi, _, norm_porosity = porosity_fields(J, p)
-    if p.transport_closure == "constant_no_barrier":
+    if p.transport_closure in {"constant_no_barrier", "accessibility_constant"}:
         return np.ones_like(phi)
-    if p.transport_closure == "normalized_porosity_power":
+    if p.transport_closure in {
+        "normalized_porosity_power",
+        "transport_constant",
+        "diffusivity_constant",
+        "mobility_constant",
+    }:
         return _v1_porosity_closure(
             norm_porosity,
             phi,
@@ -428,9 +445,13 @@ def accessibility_factor(J, p: CanonicalParams):
 
 def mobility_ref(J, theta, p: CanonicalParams):
     phi, _, norm_porosity = porosity_fields(J, p)
-    if p.transport_closure == "constant_no_barrier":
+    if p.transport_closure in {"constant_no_barrier", "transport_constant", "mobility_constant"}:
         base = np.ones_like(phi)
-    elif p.transport_closure == "normalized_porosity_power":
+    elif p.transport_closure in {
+        "normalized_porosity_power",
+        "accessibility_constant",
+        "diffusivity_constant",
+    }:
         base = _v1_porosity_closure(
             norm_porosity,
             phi,
@@ -447,9 +468,13 @@ def mobility_ref(J, theta, p: CanonicalParams):
 
 def diffusivity_ref(J, theta, p: CanonicalParams):
     phi, _, norm_porosity = porosity_fields(J, p)
-    if p.transport_closure == "constant_no_barrier":
+    if p.transport_closure in {"constant_no_barrier", "transport_constant", "diffusivity_constant"}:
         base = np.ones_like(phi)
-    elif p.transport_closure == "normalized_porosity_power":
+    elif p.transport_closure in {
+        "normalized_porosity_power",
+        "accessibility_constant",
+        "mobility_constant",
+    }:
         base = _v1_porosity_closure(
             norm_porosity,
             phi,
@@ -513,6 +538,8 @@ def reaction_source_density(J, R, p: CanonicalParams):
         return J * R
     if p.source_scaling == "reference_volume":
         return R
+    if p.source_scaling == "diagnostic_J_beta":
+        return np.maximum(J, 0.0) ** p.source_J_exponent * R
     raise ValueError(f"unknown source_scaling={p.source_scaling!r}")
 
 

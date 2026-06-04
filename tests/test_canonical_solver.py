@@ -238,6 +238,68 @@ def test_source_scaling_branch_changes_source_density_only_not_fluxes():
     np.testing.assert_allclose(source_current, J * source_reference)
 
 
+def test_diagnostic_accessibility_constant_branch_only_removes_reaction_accessibility_barrier():
+    p = finalize_params(
+        CanonicalParams(
+            N=5,
+            transport_closure="accessibility_constant",
+            J_init=1.3,
+            m_act=8.0,
+            m_diff=3.0,
+            m_mob=2.0,
+        )
+    )
+    y = _uniform_state(p, J=0.45, u=0.8, theta=0.1)
+    J = np.exp(y[: p.N])
+    W = y[p.N : 2 * p.N]
+    theta = y[2 * p.N :]
+    aux = state_fluxes(J, W, theta, p, dx=1.0 / p.N)
+
+    np.testing.assert_allclose(aux["accessibility"], 1.0)
+    assert float(np.max(aux["D_ref"])) < p.D0
+    assert float(np.max(aux["M_ref"])) < p.M0
+
+
+def test_diagnostic_transport_constant_branch_only_removes_diffusivity_and_mobility_barriers():
+    p = finalize_params(
+        CanonicalParams(
+            N=5,
+            transport_closure="transport_constant",
+            J_init=1.3,
+            m_act=8.0,
+            m_diff=3.0,
+            m_mob=2.0,
+        )
+    )
+    y = _uniform_state(p, J=0.45, u=0.8, theta=0.1)
+    J = np.exp(y[: p.N])
+    W = y[p.N : 2 * p.N]
+    theta = y[2 * p.N :]
+    aux = state_fluxes(J, W, theta, p, dx=1.0 / p.N)
+
+    assert float(np.max(aux["accessibility"])) < 1.0
+    np.testing.assert_allclose(aux["D_ref"], p.D0)
+    np.testing.assert_allclose(aux["M_ref"], p.M0)
+
+
+def test_diagnostic_J_beta_source_scaling_interpolates_reference_and_current_volume_sources():
+    p = finalize_params(
+        CanonicalParams(
+            N=6,
+            source_scaling="diagnostic_J_beta",
+            source_J_exponent=0.5,
+        )
+    )
+    _, y = initial_state(p)
+    J = np.exp(y[: p.N])
+    W = y[p.N : 2 * p.N]
+    theta = y[2 * p.N :]
+    aux = state_fluxes(J, W, theta, p, dx=1.0 / p.N)
+    source = reaction_source_density(J, aux["R"], p)
+
+    np.testing.assert_allclose(source, np.sqrt(J) * aux["R"])
+
+
 def test_normalized_porosity_power_uses_consistent_minimum_floors_for_A_D_M():
     p = finalize_params(
         CanonicalParams(
