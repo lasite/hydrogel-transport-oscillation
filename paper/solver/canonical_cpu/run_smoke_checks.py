@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run non-evidence smoke checks for the final canonical CPU solver path."""
+"""Run non-evidence smoke checks for the superseded candidate canonical solver."""
 
 from __future__ import annotations
 
@@ -198,7 +198,7 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
         "status": "completed",
         "evidence_status": "not_paper_evidence",
         "validation_status": "candidate_not_validated",
-        "readiness_level": "final paper solver; evidence generation pending",
+        "readiness_level": "superseded candidate canonical solver; not official paper route",
         "suite_metadata": _suite_metadata(outdir),
         "stale_outputs_removed": stale_outputs_removed,
         "final_default_model_branches": {
@@ -216,6 +216,7 @@ def run_smoke_suite(outdir: Path) -> Dict[str, Any]:
         "warnings": warnings,
         "notes": [
             "These are short smoke checks only, not convergence evidence.",
+            "Issue #20 routes official paper-reproduction smoke checks through paper.solver.official_paper_solver and scan_optimized.py.",
             "The cell-center Robin boundary scheme is retained as the final finite-volume boundary approximation for now because inventory and sign checks pass; face-value reconstruction remains a future accuracy upgrade.",
             "No model or claim was promoted to validated status.",
         ],

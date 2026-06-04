@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Final canonical CPU solver path for the LCST hydrogel model.
+"""Superseded issue #15 candidate canonical CPU solver path.
 
 This module refactors the migrated legacy CPU solver into an auditable
-canonical path. It preserves the legacy v0 trajectory as a controlled
-non-canonical branch while fixing the paper-solver defaults chosen in issue
-#15.
+candidate path. It preserves the legacy v0 trajectory as a controlled
+non-canonical branch while retaining the paper-solver defaults chosen in issue
+#15. Issue #20 routes official paper-reproduction smoke checks through
+``paper.solver.official_paper_solver`` and the migrated ``scan_optimized.py``.
 
 No model or claim is validated by this module.
 """
@@ -40,7 +41,7 @@ BOUNDARY_SCHEME_CHOICES = {"cell_center_robin"}
 
 @dataclass
 class CanonicalParams:
-    """Parameter set for the final canonical CPU solver path."""
+    """Parameter set for the superseded issue #15 candidate canonical path."""
 
     N: int = 51
     t_end: float = 300.0
