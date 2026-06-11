@@ -2,44 +2,45 @@
 
 ## Project role
 
-You are assisting with an early-stage theoretical soft-matter physics research project on hydrogel self-oscillation driven by coupled reaction, heat release, LCST poroelastic collapse, and transport degradation.
+You are assisting with a theoretical soft-matter physics research project on hydrogel self-oscillation driven by coupled reaction, heat release, LCST poroelastic collapse, and transport degradation.
 
 The repository is the source of truth. Prior chat history is not the source of truth.
 
-This repository supports interaction with a physics expert. Optimize for physical correctness, auditability, and falsifiability. Do not turn routine physical reasoning into programmer-centric ceremony.
+This repository supports interaction with a physics expert. Optimize for physical correctness, auditability, falsifiability, and evidence-bounded manuscript production. Do not turn routine physical reasoning into programmer-centric ceremony.
 
 ## Current stage
 
-Active stage: Model Specification
+Active stage: Paper Results Production
 
-Internal anchor: `G2`
+Internal anchor: `G6_figures`
 
-Research Idea Brief and Literature / Novelty Mapping have been accepted by the user. The model remains candidate-only and unvalidated.
+Research Idea Brief and Literature / Novelty Mapping have been accepted by the user. The user has authorized continued use of the imported `paper/figures/` result assets for paper-results production. The model remains candidate-only and unvalidated unless a later validation gate explicitly records evidence.
 
-During Model Specification, prioritize model specification, variable definitions, units, material functions, boundary-condition signs, limiting cases, and minimum observables. Do not write a production PDE solver unless the user explicitly opens a later numerical-verification stage.
+During Paper Results Production, prioritize figure-source mapping, caption-bounded claims, missing explanatory images, observable definitions, provenance, and manuscript figure assembly. Do not write a new production PDE solver unless the user explicitly opens a scoped numerical-verification or solver-reproduction task.
 
 Do not assume:
 
 * the model is finalized;
 * the mechanism is proven;
 * the equations are dimensionally consistent;
-* the observed oscillation is already verified;
+* the observed oscillation is already verified in this repository;
 * linear stability analysis is sufficient;
-* the PDE attractor structure is known.
+* the PDE attractor structure is known;
+* reused `paper/figures/` assets are newly reproduced evidence.
 
 ## Operating principles
 
 * Formality only at state transitions.
 * Physics-first everywhere else.
-* Concrete task names first; internal anchors such as `G2` are secondary labels.
-* A task name should state the actual issue, for example `Resolve Reactant Boundary Flux Convention`, `Reaudit Composition-Dependent Mixing Potential`, or `Define Front and Barrier Observables`.
+* Concrete task names first; internal anchors such as `G6_figures` are secondary labels.
+* A task name should state the actual issue, for example `Map Existing Paper Figures to Claims`, `Draft Evidence-Bounded Figure Captions`, `Add Front-Observable Definition Graphic`, or `Prepare Control Comparison Supplement`.
 * Use structure to prevent false promotion of claims, not to replace physical reasoning.
 
 ## Work modes
 
 ### Physics note
 
-Use a physics note for non-state-changing theoretical review, derivation sketches, physical intuition, critique, or option comparison.
+Use a physics note for non-state-changing theoretical review, derivation sketches, physical intuition, critique, option comparison, figure interpretation, or caption-boundary reasoning.
 
 A physics note may be written in chat or placed under `docs/notes/`. It should normally contain: question, physics intuition, candidate derivation or equations, assumptions, limiting or failure cases, and next action.
 
@@ -83,12 +84,18 @@ Before any work, read:
 * the assigned task file or note request;
 * files explicitly listed as inputs or allowed-to-modify files.
 
+For paper-results production and figure work, also read:
+
+* `docs/manuscript/figure_blueprint.md`;
+* `docs/manuscript/paper_results_figure_plan.md`;
+* `paper/paper_latest_migration_manifest.tsv` when provenance or source mapping is involved.
+
 If the task changes or reviews model equations, also read:
 
 * `docs/model_candidates/model_A_initial_lcst_transport_barrier.md`;
 * `docs/derivations/initial_model_derivation.tex`.
 
-If the task changes novelty framing, manuscript claims, or evidence requirements, also read:
+If the task changes novelty framing, manuscript claims, captions, or evidence requirements, also read:
 
 * `docs/04_literature_map.md`;
 * `docs/05_novelty_framing.md`;
@@ -109,7 +116,7 @@ If the task changes novelty framing, manuscript claims, or evidence requirements
 
 Do not silently promote newly proposed equations into the model.
 
-Proposed equations, closures, material functions, nondimensionalizations, or boundary conventions may be suggested only when marked as candidate, proposed, or TODO, with assumptions and required checks stated explicitly.
+Proposed equations, closures, material functions, nondimensionalizations, boundary conventions, observable definitions, or figure interpretations may be suggested only when marked as candidate, proposed, or TODO, with assumptions and required checks stated explicitly.
 
 Do not move any model, derivation, result, or claim into `docs/validated/` unless the relevant gate requires it and evidence is recorded.
 
@@ -127,27 +134,28 @@ When reviewing or implementing a model, check:
 * whether a spatial barrier can form;
 * whether the proposed oscillation requires spatial PDE dynamics rather than homogeneous ODE dynamics.
 
-Model Specification constraints from the Literature / Novelty Mapping stage:
+Paper-results production constraints:
 
-* Verify that the chemical subsystem is non-oscillatory by itself or mark this unresolved.
-* Distinguish reaction accessibility, diffusivity, permeability, and poroelastic collapse.
-* Define front/barrier observables before numerical validation.
-* Treat SNIC scaling, hysteresis, penetration-depth, and basin-size claims as unvalidated until reproduced in this repository.
+* Reused `paper/figures/` assets may be used for manuscript production by user decision.
+* Reused assets must be source-mapped and caption-bounded.
+* Treat SNIC scaling, hysteresis, penetration-depth, basin-size, and phase-lag claims as unvalidated unless reproduced or explicitly framed as candidate/source-draft results.
+* Distinguish reaction accessibility, diffusivity, permeability, and poroelastic collapse in captions and text.
+* Define front/barrier observables before using them as central evidence.
 
 ## Coding rules
 
 At this stage:
 
-* Do not write a production PDE solver.
-* Do not create large simulations.
-* Do not create large datasets.
-* Only create minimal scaffolding, sanity-check scripts, symbolic checks, or toy exploratory scripts when explicitly requested by the task.
+* Do not write a new production PDE solver unless explicitly scoped.
+* Do not create large simulations unless a task specifically authorizes result reproduction or verification.
+* Do not create large datasets without a provenance and storage decision.
+* Figure assembly, schematic creation, caption drafting, source mapping, and lightweight diagnostic extraction are allowed when scoped by the production task.
 
 If code is added later:
 
 * Keep code modular.
 * Put reusable code under `src/`.
-* Put runnable scripts under `scripts/`.
+* Put runnable scripts under `scripts/` or figure-local `paper/figures/*/scripts/` when appropriate.
 * Put tests under `tests/`.
 * Put parameters under `configs/`.
 
@@ -165,7 +173,15 @@ For derivation compilation, run:
 make derivations
 ```
 
-If `latexmk` is unavailable, `make derivations` should report a warning and continue during the exploratory stage.
+If `latexmk` is unavailable, `make derivations` should report a warning and continue during exploratory or production-planning work.
+
+For reduced figure-route smoke checks, run:
+
+```bash
+make figure-smoke
+```
+
+`make figure-smoke` remains a wiring check only; it does not validate numerical results.
 
 ## Reporting rules
 
