@@ -6,20 +6,19 @@ A single exothermic Arrhenius reaction, although non-oscillatory in a well-mixed
 
 ## Current stage
 
-Status: early exploratory repository
+Status: paper-results production repository with candidate-only scientific status
 
-Active stage: Model Specification
+Active stage: Paper Results Production
 
-Internal anchor: `G2`
+Internal anchor: `G6_figures`
 
 Research Idea Brief and Literature / Novelty Mapping have been accepted by the user.
 
-No model has been validated yet.
+No model or claim has been promoted to validated status.
 
-Model Specification is active. The official paper-reproduction smoke route now
-uses the migrated `scan_optimized.py` through `paper.solver.official_paper_solver`.
-These are reduced workflow checks only; formal numerical evidence generation,
-figure validation, and manuscript drafting remain blocked until later gates.
+The user has authorized entering paper-results production and continuing to use the imported `paper/figures/` result assets as the initial manuscript figure source set. This production decision does not by itself validate the model, solver, numerical attractor, or mechanism claims.
+
+The official paper-reproduction smoke route uses the migrated `scan_optimized.py` through `paper.solver.official_paper_solver`. These are reduced workflow checks only; final captions and manuscript claims must remain evidence-bounded unless later validation evidence is recorded.
 
 Long derivations belong in `.tex`, not Markdown.
 
@@ -35,7 +34,7 @@ Design principles:
 
 * Formality only at state transitions.
 * Physics-first everywhere else.
-* Concrete task names first; internal stage anchors such as `G2` are secondary labels for ordering and traceability.
+* Concrete task names first; internal stage anchors such as `G6_figures` are secondary labels for ordering and traceability.
 
 Use full TASK files and CODEX reports when a change affects project state, gate status, validation status, executable behavior, numerical evidence, claim evidence, figures, or manuscript text.
 
@@ -46,6 +45,8 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `docs/`: idea log, project brief, hypotheses, open questions, literature/novelty mapping, tasks, reports, decisions, and manuscript planning.
 * `docs/project_state.md`: centralized project-control snapshot for current stage, blockers, gates, and next tasks.
 * `docs/stages/`: human-readable stage gates with internal anchors.
+* `docs/manuscript/figure_blueprint.md`: active figure blueprint for paper-results production.
+* `docs/manuscript/paper_results_figure_plan.md`: source mapping and missing-image plan for the production figure set.
 * `docs/notes/`: lightweight physics-first notes that do not change project state.
 * `docs/claims/`: candidate claim and evidence registers before validation.
 * `docs/model_candidates/`: candidate models before validation.
@@ -56,14 +57,14 @@ Use lightweight physics notes for non-state-changing theory review, derivation s
 * `configs/`: placeholder configuration files.
 * `data/`: raw and processed data placeholders.
 * `results/`: reproducible output placeholders.
-* `paper/`: manuscript placeholders and migrated paper-source audit material.
-* `paper/solver/official_paper_solver.py`: official paper-reproduction solver
-  entry point routed to the migrated `scan_optimized.py`; smoke only, not
-  validated claim evidence.
-* `paper/solver/run_figure_smoke_checks.py`: reduced Fig. 1/2/3/9 workflow
-  smoke checks using the official solver route.
-* `paper/solver/canonical_cpu/`: superseded candidate canonical CPU solver path
-  retained for audit, regression tests, and historical diagnostics.
+* `paper/`: manuscript placeholders, migrated paper-source audit material, and production result figures.
+* `paper/figures/fig01/`: homogeneous stability and parameter-map figure assets.
+* `paper/figures/fig02/`: PDE regime-map figure assets.
+* `paper/figures/fig03/`: representative spatial/front-diagnostic figure assets.
+* `paper/figures/fig09/`: source-draft Fig. 7 spinodal demonstration assets retained as Fig. 9 / supplementary material.
+* `paper/solver/official_paper_solver.py`: official paper-reproduction solver entry point routed to the migrated `scan_optimized.py`; smoke only, not validated claim evidence.
+* `paper/solver/run_figure_smoke_checks.py`: reduced Fig. 1/2/3/9 workflow smoke checks using the official solver route.
+* `paper/solver/canonical_cpu/`: superseded candidate canonical CPU solver path retained for audit, regression tests, and historical diagnostics.
 
 ## Minimal checks
 
@@ -77,11 +78,9 @@ make figure-smoke
 
 From a fresh checkout, run `make install` before `make quickcheck` unless dependencies are already available in the active Python environment.
 
-`make derivations` may report a warning if `latexmk` is unavailable. During the exploratory scaffold stage, that warning should not block repository structure checks.
+`make derivations` may report a warning if `latexmk` is unavailable. During the exploratory or production-planning stage, that warning should not block repository structure checks.
 
-`make figure-smoke` runs reduced Fig. 1/2/3/9 workflow checks through
-`scan_optimized.py`. It does not perform full figure reproduction and does not
-validate the numerical model.
+`make figure-smoke` runs reduced Fig. 1/2/3/9 workflow checks through `scan_optimized.py`. It does not perform full figure reproduction and does not validate the numerical model.
 
 ## Workflow
 
@@ -91,6 +90,6 @@ validate the numerical model.
 4. Codex modifies files or runs commands only within the assigned task scope.
 5. Run the task's required verification commands.
 6. Produce a CODEX report under `docs/reports/` only when Codex changed repository content, ran verification, or prepared a state transition.
-7. During Model Specification, prioritize model definitions, variable definitions, limiting cases, boundary-condition signs, material-function assumptions, and front/barrier observables.
-8. Do not write production solver code until the Model Specification gate passes; candidate solver scaffolds must remain explicitly non-evidence.
+7. During Paper Results Production, prioritize source mapping, figure captions, claim boundaries, missing explanatory images, and provenance.
+8. Do not write new production solver code unless a later task explicitly scopes it.
 9. Do not promote any claim or model into `docs/validated/` before the required gates pass.
