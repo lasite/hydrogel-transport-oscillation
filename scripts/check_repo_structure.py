@@ -22,6 +22,7 @@ REQUIRED_FILES = [
     "docs/dead_ends.md",
     "docs/stages/stage_index.md",
     "docs/stages/02_model/gate.md",
+    "docs/stages/06_figures/gate.md",
     "docs/notes/README.md",
     "docs/notes/PHYSICS-NOTE-TEMPLATE.md",
     "docs/claims/README.md",
@@ -39,15 +40,18 @@ REQUIRED_FILES = [
     "docs/tasks/exploration/EXP-002-sanity-check-candidate-model.md",
     "docs/tasks/verification/README.md",
     "docs/tasks/production/README.md",
+    "docs/tasks/production/TASK-enter-paper-results-production.md",
     "docs/reports/README.md",
     "docs/reports/CODEX-REPORT-TEMPLATE.md",
     "docs/reports/exploration/README.md",
     "docs/reports/verification/README.md",
     "docs/reports/production/README.md",
+    "docs/reports/production/CODEX-REPORT-enter-paper-results-production.md",
     "docs/decisions/README.md",
     "docs/decisions/ADR-000-template.md",
     "docs/decisions/ADR-001-physics-first-workflow.md",
     "docs/manuscript/figure_blueprint.md",
+    "docs/manuscript/paper_results_figure_plan.md",
     "docs/manuscript/manuscript_blueprint.md",
     "docs/manuscript/revision_checklist.md",
     "src/hydrogel_oscillation/__init__.py",
@@ -82,25 +86,47 @@ def check_content_invariants() -> list[str]:
     errors: list[str] = []
 
     project_state = read_text("docs/project_state.md")
-    if "Stage: Model Specification" not in project_state:
-        errors.append("docs/project_state.md must record the active stage as Model Specification.")
-    if "Internal anchor: `G2`" not in project_state:
-        errors.append("docs/project_state.md must retain G2 as an internal anchor.")
+    if "Stage: Paper Results Production" not in project_state:
+        errors.append("docs/project_state.md must record the active stage as Paper Results Production.")
+    if "Internal anchor: `G6_figures`" not in project_state:
+        errors.append("docs/project_state.md must retain G6_figures as an internal anchor.")
     if "No model or claim has been promoted to `docs/validated/`" not in project_state:
         errors.append("docs/project_state.md must record that no model or claim is validated.")
+    if "paper/figures/" not in project_state:
+        errors.append("docs/project_state.md must record paper/figures as the active result source set.")
 
     for path in ["README.md", "AGENTS.md"]:
         text = read_text(path)
+        if "Paper Results Production" not in text:
+            errors.append(f"{path} must record Paper Results Production as the active stage.")
         if "Formality only at state transitions" not in text:
             errors.append(f"{path} must include the workflow principle: Formality only at state transitions.")
         if "Physics-first" not in text:
             errors.append(f"{path} must include the workflow principle: Physics-first.")
         if "Concrete task names" not in text and "concrete task names" not in text:
             errors.append(f"{path} must require concrete task names.")
+        if "validated" not in text:
+            errors.append(f"{path} must retain validation-boundary language.")
 
     stage_index = read_text("docs/stages/stage_index.md")
     if "Human-readable stage" not in stage_index or "Internal anchor" not in stage_index:
         errors.append("docs/stages/stage_index.md must separate human-readable stage names from internal anchors.")
+    if "Paper Results Production / Figure Evidence Package" not in stage_index:
+        errors.append("docs/stages/stage_index.md must include the active Paper Results Production row.")
+
+    figure_gate = read_text("docs/stages/06_figures/gate.md")
+    if "active" not in figure_gate:
+        errors.append("docs/stages/06_figures/gate.md must mark the figure gate active for production.")
+    if "source mapping" not in figure_gate and "source-mapped" not in figure_gate:
+        errors.append("docs/stages/06_figures/gate.md must require source mapping.")
+
+    figure_blueprint = read_text("docs/manuscript/figure_blueprint.md")
+    if "Required New Figure A: Mechanism schematic" not in figure_blueprint:
+        errors.append("docs/manuscript/figure_blueprint.md must list the mechanism schematic as a required new figure.")
+
+    figure_plan = read_text("docs/manuscript/paper_results_figure_plan.md")
+    if "paper/figures/fig01/" not in figure_plan or "paper/figures/fig03/" not in figure_plan:
+        errors.append("docs/manuscript/paper_results_figure_plan.md must map existing paper figure assets.")
 
     task_template = read_text("docs/tasks/TASK-TEMPLATE.md")
     if "Concrete task name" not in task_template:
@@ -119,6 +145,10 @@ def check_content_invariants() -> list[str]:
     candidate_claims = read_text("docs/claims/candidate_claim_evidence.md")
     if "Status: candidate; not validated" not in candidate_claims:
         errors.append("docs/claims/candidate_claim_evidence.md must mark claims as candidate and unvalidated.")
+
+    report = read_text("docs/reports/production/CODEX-REPORT-enter-paper-results-production.md")
+    if "No model or claim was promoted to validated status." not in report:
+        errors.append("The production transition report must retain the required validation statement.")
 
     return errors
 
